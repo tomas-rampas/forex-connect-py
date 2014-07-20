@@ -8,6 +8,7 @@
 *.so
 *.dylib
 *.dll
+*.pyd
 
 # Compiled Static libraries
 *.lai
@@ -29,14 +30,16 @@
 *.ipch
 
 #additionals
-includes/boost/**
+includes/boost/**/
+includes/boost/**/*.h
 includes/boost/**/*.hpp
 includes/boost/**/*.ipp
 
 #sln folders
 /**/Debug
 /**/Release
-/**/x64
+ForexConnectClient/**/x64
+/**/ipch
 
 #files
 src/ForexConnectClient/forex.connect/ReadMe.txt
