@@ -19,3 +19,24 @@
 *.exe
 *.out
 *.app
+
+#sln files
+*.filters
+*.sdf
+*.opensdf
+*.suo
+*.user
+*.ipch
+
+#additionals
+includes/boost/**
+includes/boost/**/*.hpp
+includes/boost/**/*.ipp
+
+#sln folders
+/**/Debug
+/**/Release
+/**/x64
+
+#files
+src/ForexConnectClient/forex.connect/ReadMe.txt
