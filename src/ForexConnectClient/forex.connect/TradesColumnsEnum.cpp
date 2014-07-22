@@ -2,14 +2,12 @@
 #include <Enums\TradesColumnsEnum.h>
 
 
-BOOST_PYTHON_MODULE(forexconnect)
+void export_TradesColumnsEnum()
 {
 	using namespace boost::python;
 
 	object obj_TradeColumnsEnum =
-		class_<TradeColumnsEnum>
-		("TradeColumnsEnum", "TradeColumnsEnum", init<>())
-		;
+		class_<TradeColumnsEnum> ("TradeColumnsEnum", "Trade columns enumeration", init<>());
 
 	{
 		scope in_TradeColumnsEnum(obj_TradeColumnsEnum);
@@ -38,9 +36,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	}
 
 	object obj_TradeTableColumnsEnum =
-		class_<TradeTableColumnsEnum>
-		("TradeTableColumnsEnum", "TradeTableColumnsEnum", init<>())
-		;
+		class_<TradeTableColumnsEnum>("TradeTableColumnsEnum", "TradeTableColumnsEnum", init<>());
 
 	{
 		scope in_TradeTableColumnsEnum(obj_TradeTableColumnsEnum);

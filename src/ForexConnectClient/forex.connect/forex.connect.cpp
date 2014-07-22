@@ -4,6 +4,13 @@
 #include "stdafx.h"
 #include "forex.connect.h"
 
+void export_AccountsColumnsEnum();
+
+BOOST_PYTHON_MODULE(forexconnect)
+{
+	void export_AccountsColumnsEnum();
+	void export_TradesColumnsEnum();
+}
 
 
 
