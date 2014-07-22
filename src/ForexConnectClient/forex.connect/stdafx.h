@@ -17,3 +17,6 @@
 #include <boost/python.hpp>
 
 #include <ForexConnect.h>
+
+void export_AccountsColumnsEnum();
+void export_TradesColumnsEnum();

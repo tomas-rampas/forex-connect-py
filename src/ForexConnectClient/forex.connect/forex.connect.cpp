@@ -4,15 +4,6 @@
 #include "stdafx.h"
 #include "forex.connect.h"
 
-void export_AccountsColumnsEnum();
-
-BOOST_PYTHON_MODULE(forexconnect)
-{
-	void export_AccountsColumnsEnum();
-	void export_TradesColumnsEnum();
-}
-
-
 
 //// This is an example of an exported variable
 //FOREXCONNECT_API int nforexconnect=0;

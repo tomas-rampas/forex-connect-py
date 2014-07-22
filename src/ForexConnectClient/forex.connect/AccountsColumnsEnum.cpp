@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include <Enums\AccountsColumnsEnum.h>
 
-void export_AccountsColumnsEnum(){
-	using namespace boost::python;
+using namespace boost::python;
 
+void export_AccountsColumnsEnum(){
 	object obj_AccountColumnsEnum
-		= class_<AccountColumnsEnum>("AccountColumnsEnum", "Account columns enumeratrion", init<>());
+		= class_<AccountColumnsEnum>("AccountColumnsEnum");// , "Account columns enumeration", init<AccountColumnsEnum>());
 	{
 		scope in_AccountColumnsEnum(obj_AccountColumnsEnum);
 		enum_<AccountColumnsEnum::Columns>("Columns")
@@ -25,8 +25,9 @@ void export_AccountsColumnsEnum(){
 			.value("MaintenanceFlag", AccountColumnsEnum::MaintenanceFlag)
 			.value("ManagerAccountID", AccountColumnsEnum::ManagerAccountID)
 			.value("LeverageProfileID", AccountColumnsEnum::LeverageProfileID)
+			.export_values()
 			;
-	}
+	};
 
 	object obj_AccountTableColumnsEnum
 		= class_<AccountTableColumnsEnum>("AccountTableColumnsEnum", "Account table columns enumeratrion", init<>());
@@ -53,6 +54,7 @@ void export_AccountsColumnsEnum(){
 			.value("DayPL", AccountTableColumnsEnum::DayPL)
 			.value("UsableMargin", AccountTableColumnsEnum::UsableMargin)
 			.value("GrossPL", AccountTableColumnsEnum::GrossPL)
+			.export_values()
 			;
 	}
-};
+}
