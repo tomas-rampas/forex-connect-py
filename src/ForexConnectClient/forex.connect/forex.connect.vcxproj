@@ -163,6 +163,8 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
     <ClCompile Include="ClosedTradesColumnsEnum.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="AccountsColumnsEnum.cpp" />
+    <ClCompile Include="IAddRef.cpp" />
+    <ClCompile Include="IO2GColumn.cpp" />
     <ClCompile Include="MessagesColumnsEnum.cpp" />
     <ClCompile Include="OffersColumnsEnum.cpp" />
     <ClCompile Include="OrdersColumnsEnum.cpp" />

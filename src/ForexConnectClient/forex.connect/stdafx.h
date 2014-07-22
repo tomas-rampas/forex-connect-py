@@ -26,3 +26,4 @@ void export_MessagesColumnsEnum();
 void export_OffersColumnsEnum();
 void export_OrdersColumnsEnum();
 void export_SummariesColumnsEnum();
+void export_IAddRefClass();
