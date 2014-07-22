@@ -32,6 +32,7 @@ void export_TradesColumnsEnum()
 			.value("UsedMargin", TradeColumnsEnum::UsedMargin)
 			.value("ValueDate", TradeColumnsEnum::ValueDate)
 			.value("Parties", TradeColumnsEnum::Parties)
+			.export_values()
 			;
 	}
 
@@ -66,6 +67,7 @@ void export_TradesColumnsEnum()
 			.value("Close", TradeTableColumnsEnum::Close)
 			.value("Stop", TradeTableColumnsEnum::Stop)
 			.value("Limit", TradeTableColumnsEnum::Limit)
+			.export_values()
 			;
 	}
 };
