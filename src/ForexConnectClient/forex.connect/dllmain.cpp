@@ -10,6 +10,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_OffersColumnsEnum();
 	export_OrdersColumnsEnum();
 	export_SummariesColumnsEnum();
+	export_O2GEnum();
 	export_IAddRefClass();
 	export_IO2GTableColumn();
 };
