@@ -71,8 +71,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\!projects\!github\pyfxconnect\includes\boost;D:\!projects\!github\pyfxconnect\includes\forexconnect;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\!projects\!github\pyfxconnect\libs\x64\forexconnect;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\!dev\Python276\include;D:\!projects\!github\pyfxconnect\includes\;D:\!projects\!github\pyfxconnect\includes\forexconnect;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\!dev\Python276\libs;D:\!projects\!github\pyfxconnect\libs\x64\boost;D:\!projects\!github\pyfxconnect\libs\x64\forexconnect;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -159,6 +159,7 @@ copy /Y "$(TargetDir)$(ProjectName).dll" "..\..\..\bin\$(ProjectName).pyd"</Comm
     <ClInclude Include="SessionStatusListener.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TradeColumnsEnum.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Connection.cpp" />

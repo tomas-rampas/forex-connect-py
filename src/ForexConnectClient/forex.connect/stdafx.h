@@ -11,6 +11,9 @@
 // Windows Header Files:
 #include <windows.h>
 
+#define BOOST_ALL_DYN_LINK
+#define BOOST_LIB_DIAGNOSTIC
+#define BOOST_PYTHON_STATIC_LIB
+#include <boost/python.hpp>
+
 #include <ForexConnect.h>
-
-
