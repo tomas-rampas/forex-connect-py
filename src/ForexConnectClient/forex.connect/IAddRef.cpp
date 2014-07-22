@@ -17,4 +17,5 @@ void export_IAddRefClass()
 		.def("addRef", pure_virtual(&IAddRef::addRef))
 		.def("release", pure_virtual(&IAddRef::release))
 		;
+	typedef double DATE;
 }

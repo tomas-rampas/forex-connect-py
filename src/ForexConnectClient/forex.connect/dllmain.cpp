@@ -12,6 +12,8 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_SummariesColumnsEnum();
 	export_O2GEnum();
 	export_IAddRefClass();
+	export_IO2GLastOrderUpdateResponseReader();
+	export_IO2GMarketDataResponseReader();
 	export_IO2GTableColumn();
 };
 

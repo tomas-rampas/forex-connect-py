@@ -21,8 +21,8 @@ public:
 void export_IO2GTableColumn()
 {
 	object obj_IO2GTableColumn = class_<IO2GTableColumnWrap, boost::noncopyable>("IO2GTableColumn", no_init)
-		.def("getID", &IO2GTableColumn::getID)
-		.def("getType", &IO2GTableColumn::getType)
+		.def("getID", pure_virtual(&IO2GTableColumn::getID))
+		.def("getType", pure_virtual(&IO2GTableColumn::getType))
 		;
 	{
 		scope in_IO2GTableColumn(obj_IO2GTableColumn);
@@ -38,10 +38,10 @@ void export_IO2GTableColumn()
 	}
 
 	class_<IO2GTableColumnCollectionWrap, boost::noncopyable>("IO2GTableColumnCollection", no_init)
-		.def("__len__", &IO2GTableColumnCollection::size)
-		.def("__getitem__", &IO2GTableColumnCollection::get, return_value_policy<reference_existing_object>())
-		.def("size", &IO2GTableColumnCollection::size)
-		.def("get", &IO2GTableColumnCollection::get, return_value_policy<reference_existing_object>())
-		.def("find", &IO2GTableColumnCollection::find, return_value_policy<reference_existing_object>())
+		//.def("__len__", &IO2GTableColumnCollection::size)
+		//.def("__getitem__", &IO2GTableColumnCollection::get, return_value_policy<reference_existing_object>())
+		.def("size", pure_virtual( &IO2GTableColumnCollection::size))
+		.def("get", pure_virtual(&IO2GTableColumnCollection::get), return_value_policy<reference_existing_object>())
+		.def("find", pure_virtual(&IO2GTableColumnCollection::find), return_value_policy<reference_existing_object>())
 		;
 }
