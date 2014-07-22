@@ -18,8 +18,11 @@
 
 #include <ForexConnect.h>
 
+// Declaration
 void export_AccountsColumnsEnum();
 void export_TradesColumnsEnum();
 void export_ClosedTradesColumnsEnum();
 void export_MessagesColumnsEnum();
 void export_OffersColumnsEnum();
+void export_OrdersColumnsEnum();
+void export_SummariesColumnsEnum();
