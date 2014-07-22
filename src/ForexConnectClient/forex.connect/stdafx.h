@@ -22,3 +22,4 @@ void export_AccountsColumnsEnum();
 void export_TradesColumnsEnum();
 void export_ClosedTradesColumnsEnum();
 void export_MessagesColumnsEnum();
+void export_OffersColumnsEnum();

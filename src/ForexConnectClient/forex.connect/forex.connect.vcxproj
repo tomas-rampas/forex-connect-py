@@ -164,6 +164,7 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="AccountsColumnsEnum.cpp" />
     <ClCompile Include="MessagesColumnsEnum.cpp" />
+    <ClCompile Include="OffersColumnsEnum.cpp" />
     <ClCompile Include="TradesColumnsEnum.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>

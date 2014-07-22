@@ -7,6 +7,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_TradesColumnsEnum();
 	export_ClosedTradesColumnsEnum();
 	export_MessagesColumnsEnum();
+	export_OffersColumnsEnum();
 };
 
 
