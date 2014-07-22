@@ -27,3 +27,4 @@ void export_OffersColumnsEnum();
 void export_OrdersColumnsEnum();
 void export_SummariesColumnsEnum();
 void export_IAddRefClass();
+void export_IO2GTableColumn();

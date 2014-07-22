@@ -13,7 +13,7 @@ public:
 
 void export_IAddRefClass()
 {
-	class_<IAddRefWrap, boost::noncopyable>("IAddRef")
+	class_<IAddRefWrap, boost::noncopyable>("IAddRef", no_init)
 		.def("addRef", pure_virtual(&IAddRef::addRef))
 		.def("release", pure_virtual(&IAddRef::release))
 		;

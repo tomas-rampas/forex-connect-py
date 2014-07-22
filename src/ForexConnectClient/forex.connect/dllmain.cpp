@@ -11,6 +11,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_OrdersColumnsEnum();
 	export_SummariesColumnsEnum();
 	export_IAddRefClass();
+	export_IO2GTableColumn();
 };
 
 
