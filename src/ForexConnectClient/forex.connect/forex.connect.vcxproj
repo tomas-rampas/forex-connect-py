@@ -160,6 +160,7 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ClosedTradesColumnsEnum.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="AccountsColumnsEnum.cpp" />
     <ClCompile Include="TradesColumnsEnum.cpp" />

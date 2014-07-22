@@ -42,4 +42,4 @@ ForexConnectClient/**/x64
 /**/ipch
 
 #files
-src/ForexConnectClient/forex.connect/ReadMe.txt
+src/ForexConnectClient/**/ReadMe.txt

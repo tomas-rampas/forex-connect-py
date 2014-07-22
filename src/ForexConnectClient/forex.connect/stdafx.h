@@ -20,3 +20,4 @@
 
 void export_AccountsColumnsEnum();
 void export_TradesColumnsEnum();
+void export_ClosedTradesColumnsEnum();

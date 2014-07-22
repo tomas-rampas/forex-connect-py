@@ -5,7 +5,7 @@ using namespace boost::python;
 
 void export_AccountsColumnsEnum(){
 	object obj_AccountColumnsEnum
-		= class_<AccountColumnsEnum>("AccountColumnsEnum");// , "Account columns enumeration", init<AccountColumnsEnum>());
+		= class_<AccountColumnsEnum>("AccountColumnsEnum", "Account columns enumeration", init<>());
 	{
 		scope in_AccountColumnsEnum(obj_AccountColumnsEnum);
 		enum_<AccountColumnsEnum::Columns>("Columns")
