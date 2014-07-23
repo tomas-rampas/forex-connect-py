@@ -34,4 +34,5 @@ void export_IO2GMarketDataSnapshotResponseReader();
 void export_IO2GOrderResponseReader();
 void export_IO2GSystemPropertiesReader();
 void export_IO2GTablesUpdatesReader();
+void export_IO2GTimeConverter();
 void export_IO2GTableColumn();

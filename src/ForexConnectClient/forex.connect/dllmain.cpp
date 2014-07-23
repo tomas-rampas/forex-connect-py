@@ -18,6 +18,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_IO2GOrderResponseReader();
 	export_IO2GSystemPropertiesReader();
 	export_IO2GTablesUpdatesReader();
+	export_IO2GTimeConverter();
 	export_IO2GTableColumn();
 };
 
