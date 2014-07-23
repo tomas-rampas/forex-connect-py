@@ -18,8 +18,19 @@ public:
 	IO2GMessageRow* getMessageRow(int){ return this->get_override("getMessageRow")(); }
 };
 
+//TODO missing Rows definitons
 void export_IO2GTablesUpdatesReader()
 {
 	class_<IO2GTablesUpdatesReaderWrap, boost::noncopyable>("IO2GTablesUpdatesReader", no_init)
+		.def("getServerTime", pure_virtual(&IO2GTablesUpdatesReader::getServerTime))
+		.def("size", pure_virtual(&IO2GTablesUpdatesReader::size))
+		.def("getUpdateType", pure_virtual(&IO2GTablesUpdatesReader::getUpdateType))
+		.def("getUpdateTable", pure_virtual(&IO2GTablesUpdatesReader::getUpdateTable))
+		.def("getOfferRow", pure_virtual(&IO2GTablesUpdatesReader::getOfferRow), return_value_policy<reference_existing_object>())
+		.def("getAccountRow", pure_virtual(&IO2GTablesUpdatesReader::getAccountRow), return_value_policy<reference_existing_object>())
+		.def("getOrderRow", pure_virtual(&IO2GTablesUpdatesReader::getOrderRow), return_value_policy<reference_existing_object>())
+		.def("getTradeRow", pure_virtual(&IO2GTablesUpdatesReader::getTradeRow), return_value_policy<reference_existing_object>())
+		.def("getClosedTradeRow", pure_virtual(&IO2GTablesUpdatesReader::getClosedTradeRow), return_value_policy<reference_existing_object>())
+		.def("getMessageRow", pure_virtual(&IO2GTablesUpdatesReader::getMessageRow), return_value_policy<reference_existing_object>())
 		;
 }
