@@ -12,7 +12,7 @@ public:
 
 void export_IO2GLastOrderUpdateResponseReader()
 {
-	class_<IO2GLastOrderUpdateResponseReaderWrap, boost::noncopyable>("IO2GLastOrderUpdateResponseReader", no_init)
+	class_<IO2GLastOrderUpdateResponseReaderWrap, bases<IAddRef>, boost::noncopyable>("IO2GLastOrderUpdateResponseReader", no_init)
 		.def("getUpdateType", pure_virtual(&IO2GLastOrderUpdateResponseReader::getUpdateType))
 		.def("getOrder", pure_virtual(&IO2GLastOrderUpdateResponseReader::getOrder), return_value_policy<reference_existing_object>())
 		;

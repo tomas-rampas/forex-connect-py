@@ -13,7 +13,7 @@ public:
 
 void export_IO2GSystemPropertiesReader()
 {
-	class_<IO2GSystemPropertiesReaderWrap, boost::noncopyable>("IO2GSystemPropertiesReader", no_init)
+	class_<IO2GSystemPropertiesReaderWrap, bases<IAddRef>, boost::noncopyable>("IO2GSystemPropertiesReader", no_init)
 		.def("findProperty", pure_virtual(&IO2GSystemPropertiesReader::findProperty))
 		.def("getProperty", pure_virtual(&IO2GSystemPropertiesReader::getProperty))
 		.def("size", pure_virtual(&IO2GSystemPropertiesReader::size))

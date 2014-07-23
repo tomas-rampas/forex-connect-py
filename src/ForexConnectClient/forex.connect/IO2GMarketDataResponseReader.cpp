@@ -38,7 +38,7 @@ public:
 
 void export_IO2GMarketDataResponseReader()
 {
-	class_<IO2GMarketDataResponseReaderWrap, boost::noncopyable>("IO2GMarketDataResponseReader", no_init)
+	class_<IO2GMarketDataResponseReaderWrap, bases<IAddRef>, boost::noncopyable>("IO2GMarketDataResponseReader", no_init)
 		.def("getQuoteID", pure_virtual(&IO2GMarketDataResponseReader::getQuoteID))
 		.def("getInstrument", pure_virtual(&IO2GMarketDataResponseReader::getInstrument))
 		.def("getSymbolID", pure_virtual(&IO2GMarketDataResponseReader::getSymbolID))

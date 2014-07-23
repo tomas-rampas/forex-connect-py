@@ -18,7 +18,6 @@ public:
 	IO2GMessageRow* getMessageRow(int){ return this->get_override("getMessageRow")(); }
 };
 
-//TODO missing Rows definitons
 void export_IO2GTablesUpdatesReader()
 {
 	class_<IO2GTablesUpdatesReaderWrap, boost::noncopyable>("IO2GTablesUpdatesReader", no_init)

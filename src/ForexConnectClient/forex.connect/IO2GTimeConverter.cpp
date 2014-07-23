@@ -10,7 +10,7 @@ class IO2GTimeConverterWrap : public IO2GTimeConverter, public wrapper < IO2GTim
 
 void export_IO2GTimeConverter(){
 	
-	object obj_IO2GTimeConverter = class_<IO2GTimeConverterWrap, boost::noncopyable>("IO2GTimeConverter", no_init)
+	object obj_IO2GTimeConverter = class_<IO2GTimeConverterWrap, bases<IAddRef>, boost::noncopyable>("IO2GTimeConverter", no_init)
 		.def("convert", pure_virtual(&IO2GTimeConverter::convert))
 		;
 	{

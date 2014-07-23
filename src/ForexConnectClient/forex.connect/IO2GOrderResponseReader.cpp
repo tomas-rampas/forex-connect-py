@@ -12,7 +12,7 @@ public:
 
 void export_IO2GOrderResponseReader()
 {
-	class_<IO2GOrderResponseReaderWrap, boost::noncopyable>("IO2GOrderResponseReader", no_init)
+	class_<IO2GOrderResponseReaderWrap, bases<IAddRef>, boost::noncopyable>("IO2GOrderResponseReader", no_init)
 		.def("getOrderID", pure_virtual(&IO2GOrderResponseReader::getOrderID))
 		.def("isUnderDealerIntervention", pure_virtual(&IO2GOrderResponseReader::isUnderDealerIntervention))
 		;

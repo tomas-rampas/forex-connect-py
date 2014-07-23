@@ -26,7 +26,7 @@ public:
 
 void export_IO2GMarketDataSnapshotResponseReader()
 {
-	class_<IO2GMarketDataSnapshotResponseReaderWrap, boost::noncopyable>("IO2GMarketDataSnapshotResponseReader", no_init)
+	class_<IO2GMarketDataSnapshotResponseReaderWrap, bases<IAddRef>, boost::noncopyable>("IO2GMarketDataSnapshotResponseReader", no_init)
 		.def("isBar", pure_virtual(&IO2GMarketDataSnapshotResponseReader::isBar))
 		.def("size", pure_virtual(&IO2GMarketDataSnapshotResponseReader::size))
 		.def("getDate", pure_virtual(&IO2GMarketDataSnapshotResponseReader::getDate))
