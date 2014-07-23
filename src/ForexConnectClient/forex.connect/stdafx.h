@@ -31,4 +31,7 @@ void export_IAddRefClass();
 void export_IO2GLastOrderUpdateResponseReader();
 void export_IO2GMarketDataResponseReader();
 void export_IO2GMarketDataSnapshotResponseReader();
+void export_IO2GOrderResponseReader();
+void export_IO2GSystemPropertiesReader();
+void export_IO2GTablesUpdatesReader();
 void export_IO2GTableColumn();

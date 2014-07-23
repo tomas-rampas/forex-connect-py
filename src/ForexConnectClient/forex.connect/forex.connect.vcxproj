@@ -165,6 +165,9 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
     <ClCompile Include="IO2GLastOrderUpdateResponseReader.cpp" />
     <ClCompile Include="IO2GMarketDataResponseReader.cpp" />
     <ClCompile Include="IO2GMarketDataSnapshotResponseReader.cpp" />
+    <ClCompile Include="IO2GOrderResponseReader.cpp" />
+    <ClCompile Include="IO2GSystemPropertiesReader.cpp" />
+    <ClCompile Include="IO2GTablesUpdatesReader.cpp" />
     <ClCompile Include="MessagesColumnsEnum.cpp" />
     <ClCompile Include="O2GEnum.cpp" />
     <ClCompile Include="OffersColumnsEnum.cpp" />
