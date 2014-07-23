@@ -3,6 +3,7 @@ pyfxconnect
 FXCM's Forex Connect API wrapper enabling it as Python module
 
 Develompent environment:
+
 Windows 7 64 bit
 Visual Studio 2013
 Python 2.7
