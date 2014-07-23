@@ -14,6 +14,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_IAddRefClass();
 	export_IO2GLastOrderUpdateResponseReader();
 	export_IO2GMarketDataResponseReader();
+	export_IO2GMarketDataSnapshotResponseReader();
 	export_IO2GTableColumn();
 };
 

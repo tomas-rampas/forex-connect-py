@@ -153,20 +153,18 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Connection.h" />
     <ClInclude Include="forex.connect.h" />
-    <ClInclude Include="SessionStatusListener.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClosedTradesColumnsEnum.cpp" />
-    <ClCompile Include="Connection.cpp" />
     <ClCompile Include="AccountsColumnsEnum.cpp" />
     <ClCompile Include="IAddRef.cpp" />
     <ClCompile Include="IO2GColumn.cpp" />
     <ClCompile Include="IO2GLastOrderUpdateResponseReader.cpp" />
     <ClCompile Include="IO2GMarketDataResponseReader.cpp" />
+    <ClCompile Include="IO2GMarketDataSnapshotResponseReader.cpp" />
     <ClCompile Include="MessagesColumnsEnum.cpp" />
     <ClCompile Include="O2GEnum.cpp" />
     <ClCompile Include="OffersColumnsEnum.cpp" />
@@ -188,7 +186,6 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="forex.connect.cpp" />
-    <ClCompile Include="SessionStatusListener.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

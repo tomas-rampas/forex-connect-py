@@ -30,4 +30,5 @@ void export_O2GEnum();
 void export_IAddRefClass();
 void export_IO2GLastOrderUpdateResponseReader();
 void export_IO2GMarketDataResponseReader();
+void export_IO2GMarketDataSnapshotResponseReader();
 void export_IO2GTableColumn();
