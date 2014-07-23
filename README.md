@@ -1,4 +1,4 @@
-pyfxconnect
+forex-connect-py
 
 FXCM's Forex Connect API wrapper enabling it as Python module
 
