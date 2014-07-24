@@ -42,6 +42,7 @@ void export_IO2GOfferRow();
 void export_IO2GOrderRow();
 void export_IO2GSummaryRow();
 void export_IO2GTradeRow();
+void export_IO2GColumn();
 void export_IO2GLoginRules();
 void export_IO2GPermissionChecker();
-void export_IO2GColumn();
+void export_IO2GRequest();

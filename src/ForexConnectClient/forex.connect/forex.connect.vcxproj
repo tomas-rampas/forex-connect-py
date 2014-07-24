@@ -173,6 +173,7 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
     <ClCompile Include="IO2GOrderResponseReader.cpp" />
     <ClCompile Include="IO2GOrderRow.cpp" />
     <ClCompile Include="IO2GPermissionChecker.cpp" />
+    <ClCompile Include="IO2GRequest.cpp" />
     <ClCompile Include="IO2GSummaryRow.cpp" />
     <ClCompile Include="IO2GSystemPropertiesReader.cpp" />
     <ClCompile Include="IO2GTablesUpdatesReader.cpp" />
