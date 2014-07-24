@@ -6,7 +6,6 @@ using namespace boost::python;
 class IAddRefWrap : public IAddRef, public wrapper < IAddRef >
 {
 public:
-	//virtual ~IAddRefWrap() {}
 	long addRef() { return this->get_override("addRef")(); }
 	long release() { return this->get_override("release")(); }
 };

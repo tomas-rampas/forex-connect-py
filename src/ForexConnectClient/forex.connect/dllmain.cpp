@@ -3,6 +3,7 @@
 
 BOOST_PYTHON_MODULE(forexconnect)
 {
+	// enumerations exports
 	export_AccountsColumnsEnum();
 	export_TradesColumnsEnum();
 	export_ClosedTradesColumnsEnum();
@@ -10,8 +11,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_OffersColumnsEnum();
 	export_OrdersColumnsEnum();
 	export_SummariesColumnsEnum();
-	export_O2GEnum();
-	export_IAddRefClass();
+	// readers
 	export_IO2GLastOrderUpdateResponseReader();
 	export_IO2GMarketDataResponseReader();
 	export_IO2GMarketDataSnapshotResponseReader();
@@ -19,6 +19,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_IO2GSystemPropertiesReader();
 	export_IO2GTablesUpdatesReader();
 	export_IO2GTimeConverter();
+	// rows
 	export_IO2GAccountRow();
 	export_IO2GClosedTradeRow();
 	export_IO2GMessageRow(); 
@@ -26,7 +27,14 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_IO2GOrderRow();
 	export_IO2GSummaryRow();
 	export_IO2GTradeRow();
-	export_IO2GTableColumn();
+	//others
+	export_IAddRefClass();
+	export_IO2GColumn();
+	export_IO2GLoginRules();
+	export_IO2GPermissionChecker();
+	
+	
+	export_O2GEnum();
 };
 
 

@@ -18,7 +18,7 @@ public:
 	IO2GTableColumn* find(const char *){ return this->get_override("find")(); }
 };
 
-void export_IO2GTableColumn()
+void export_IO2GColumn()
 {
 	object obj_IO2GTableColumn = class_<IO2GTableColumnWrap, bases<IAddRef>, boost::noncopyable>("IO2GTableColumn", no_init)
 		.def("getID", pure_virtual(&IO2GTableColumn::getID))
