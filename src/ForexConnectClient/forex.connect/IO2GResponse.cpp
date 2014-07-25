@@ -24,7 +24,7 @@ class IO2GResponseListenerWrap : public IO2GResponseListener, public wrapper < I
 public:
 	void onRequestCompleted(const char * requestId, IO2GResponse* response = 0) { this->get_override("onRequestCompleted")(); }
 	void onRequestFailed(const char *, const char *) { this->get_override("onRequestFailed")(); }
-	void onTablesUpdates(IO2GResponse *) { this->get_override("onTablesUpdates")(); }
+	void onTablesUpdates(IO2GResponse *) { this->get_override("onTablesUpdates")(); }	
 };
 
 
@@ -46,18 +46,20 @@ public:
 	bool processMarginRequirementsResponse(IO2GResponse *response) = 0;	
 };
 
-BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(onRequestCompleted_overload, IO2GResponseListenerWrap::onRequestCompleted, 1, 2)
+//BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(onRequestCompleted_overload, onRequestCompleted, 1, 2)
 
 void export_IO2GResponse()
 {	
-	void(IO2GResponseListenerWrap::*orq)(const char *, IO2GResponse *) = &IO2GResponseListenerWrap::onRequestCompleted;
+	
+	//void(IO2GResponseListener::*orq)(const char *, IO2GResponse *) = &IO2GResponseListener::onRequestCompleted;
 
 	class_<IO2GResponseWrap, bases<IAddRef>, boost::noncopyable>("IO2GResponse", no_init)
 		.def("getType", pure_virtual(&IO2GResponse::getType))
 		.def("getRequestID", pure_virtual(&IO2GResponse::getRequestID))
 		;
 	class_<IO2GResponseListenerWrap, bases<IAddRef>, boost::noncopyable>("IO2GResponseListener", no_init)
-		.def("onRequestCompleted", orq, onRequestCompleted_overload())
+		.def("onRequestCompleted", pure_virtual(&IO2GResponseListener::onRequestCompleted), (arg("requestId"), arg("response") = 0))
+		//onRequestCompleted_overload(args("requestId", "response"), "doc str"))
 		.def("onRequestFailed", pure_virtual(&IO2GResponseListener::onRequestFailed))
 		.def("onTablesUpdates", pure_virtual(&IO2GResponseListener::onTablesUpdates))
 		;

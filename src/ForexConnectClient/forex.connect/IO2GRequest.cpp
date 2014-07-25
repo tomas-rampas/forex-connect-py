@@ -30,11 +30,11 @@ class IO2GRequestFactoryWrap : public IO2GRequestFactory, public wrapper < IO2GR
 {
 public:
 	IO2GTimeframeCollection* getTimeFrameCollection(){ return this->get_override("getTimeFrameCollection")(); }
-	IO2GRequest* createMarketDataSnapshotRequestInstrument(const char *, IO2GTimeframe *, int maxBars = 300)
+	IO2GRequest* createMarketDataSnapshotRequestInstrument(const char *instrument, IO2GTimeframe *timeframe, int maxBars = 300)
 	{
 		return this->get_override("createMarketDataSnapshotRequestInstrument")();
 	}
-	void fillMarketDataSnapshotRequestTime(IO2GRequest *, DATE timeFrom = 0, DATE timeTo = 0, bool isIncludeWeekends = false)
+	void fillMarketDataSnapshotRequestTime(IO2GRequest *request, DATE timeFrom = 0, DATE timeTo = 0, bool isIncludeWeekends = false)
 	{
 		this->get_override("fillMarketDataSnapshotRequestTime")();
 	}
@@ -44,9 +44,6 @@ public:
 	IO2GValueMap* createValueMap(){ return this->get_override("createValueMap")(); }
 	const char* getLastError(){ return this->get_override("getLastError")(); }
 };
-
-BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(createMarketDataSnapshotRequestInstrument, IO2GRequestFactory::createMarketDataSnapshotRequestInstrument, 2, 3)
-BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(fillMarketDataSnapshotRequestTime, IO2GRequestFactory::fillMarketDataSnapshotRequestTime, 1, 4)
 
 void export_IO2GRequest()
 {
@@ -71,10 +68,9 @@ void export_IO2GRequest()
 	class_<IO2GRequestFactoryWrap, bases<IAddRef>, boost::noncopyable>("IO2GRequestFactory", no_init)
 		.def("getTimeFrameCollection", pure_virtual(&IO2GRequestFactory::getTimeFrameCollection), return_value_policy<reference_existing_object>())
 		.def("createMarketDataSnapshotRequestInstrument", pure_virtual(&IO2GRequestFactory::createMarketDataSnapshotRequestInstrument),
-			return_value_policy<reference_existing_object>(), createMarketDataSnapshotRequestInstrument())
-		//TODO: what should be correct return_value_policy parameter for void?  
+			(arg("instrument"), arg("timeFrame"), arg("maxBar") = 300), return_value_policy<reference_existing_object>())
 		.def("fillMarketDataSnapshotRequestTime", pure_virtual(&IO2GRequestFactory::fillMarketDataSnapshotRequestTime),
-		return_value_policy<reference_existing_object>(), fillMarketDataSnapshotRequestTime())
+			(arg("request"), arg("timeFrom") = 0, arg("timeTo") = 0, arg("isIncludeWeekends") = false))
 		.def("createRefreshTableRequest", pure_virtual(&IO2GRequestFactory::createRefreshTableRequest), return_value_policy<reference_existing_object>())
 		.def("createRefreshTableRequestByAccount", pure_virtual(&IO2GRequestFactory::createRefreshTableRequestByAccount), return_value_policy<reference_existing_object>())
 		.def("createOrderRequest", pure_virtual(&IO2GRequestFactory::createOrderRequest), return_value_policy<reference_existing_object>())
