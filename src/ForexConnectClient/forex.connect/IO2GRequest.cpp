@@ -72,8 +72,9 @@ void export_IO2GRequest()
 		.def("getTimeFrameCollection", pure_virtual(&IO2GRequestFactory::getTimeFrameCollection), return_value_policy<reference_existing_object>())
 		.def("createMarketDataSnapshotRequestInstrument", pure_virtual(&IO2GRequestFactory::createMarketDataSnapshotRequestInstrument),
 			return_value_policy<reference_existing_object>(), createMarketDataSnapshotRequestInstrument())
+		//TODO: what should be correct return_value_policy parameter for void?  
 		.def("fillMarketDataSnapshotRequestTime", pure_virtual(&IO2GRequestFactory::fillMarketDataSnapshotRequestTime),
-			return_value_policy<reference_existing_object>(), fillMarketDataSnapshotRequestTime())
+		return_value_policy<reference_existing_object>(), fillMarketDataSnapshotRequestTime())
 		.def("createRefreshTableRequest", pure_virtual(&IO2GRequestFactory::createRefreshTableRequest), return_value_policy<reference_existing_object>())
 		.def("createRefreshTableRequestByAccount", pure_virtual(&IO2GRequestFactory::createRefreshTableRequestByAccount), return_value_policy<reference_existing_object>())
 		.def("createOrderRequest", pure_virtual(&IO2GRequestFactory::createOrderRequest), return_value_policy<reference_existing_object>())

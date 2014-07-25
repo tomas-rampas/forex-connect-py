@@ -33,7 +33,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_IO2GLoginRules();
 	export_IO2GPermissionChecker();
 	export_IO2GRequest();	
-	
+	export_IO2GResponse();
 	export_O2GEnum();
 };
 

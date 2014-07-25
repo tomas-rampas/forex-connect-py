@@ -46,3 +46,4 @@ void export_IO2GColumn();
 void export_IO2GLoginRules();
 void export_IO2GPermissionChecker();
 void export_IO2GRequest();
+void export_IO2GResponse();
