@@ -27,7 +27,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_IO2GOrderRow();
 	export_IO2GSummaryRow();
 	export_IO2GTradeRow();
-	//others
+	//root
 	export_IAddRefClass();
 	export_IO2GColumn();
 	export_IO2GLoginRules();
@@ -35,6 +35,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_IO2GRequest();	
 	export_IO2GResponse();
 	export_IO2GRow();
+	export_IO2GSession();
 	export_O2GEnum();
 };
 

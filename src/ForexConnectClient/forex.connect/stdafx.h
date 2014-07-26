@@ -48,3 +48,4 @@ void export_IO2GPermissionChecker();
 void export_IO2GRequest();
 void export_IO2GResponse();
 void export_IO2GRow();
+void export_IO2GSession();

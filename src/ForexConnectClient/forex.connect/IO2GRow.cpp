@@ -5,10 +5,7 @@ using namespace boost::python;
 class IO2GRowWrap : public IO2GRow, public wrapper < IO2GRow >
 {
 public:
-	const void* getCell(int column)
-	{ 
-		return this->get_override("getCell")(column);
-	}
+	const void* getCell(int column){ return this->get_override("getCell")(column);}
 	bool isCellChanged(int column){ return this->get_override("isCellChanged")();}
 	IO2GTableColumnCollection* columns(){ return this->get_override("columns")();}
 	O2GTable getTableType(){ return this->get_override("getTableType")();}

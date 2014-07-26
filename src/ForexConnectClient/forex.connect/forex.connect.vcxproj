@@ -177,6 +177,7 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
     <ClCompile Include="IO2GRequest.cpp" />
     <ClCompile Include="IO2GResponse.cpp" />
     <ClCompile Include="IO2GRow.cpp" />
+    <ClCompile Include="IO2GSession.cpp" />
     <ClCompile Include="IO2GSummaryRow.cpp" />
     <ClCompile Include="IO2GSystemPropertiesReader.cpp" />
     <ClCompile Include="IO2GTablesUpdatesReader.cpp" />
