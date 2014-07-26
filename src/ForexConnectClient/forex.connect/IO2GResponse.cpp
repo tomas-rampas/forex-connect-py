@@ -1,13 +1,4 @@
 #include "stdafx.h"
-
-#include <boost/python/module.hpp>
-#include <boost/python/def.hpp>
-#include <boost/python/args.hpp>
-#include <boost/python/tuple.hpp>
-#include <boost/python/class.hpp>
-#include <boost/python/overloads.hpp>
-#include <boost/python/return_internal_reference.hpp>
-
 #include "IO2GResponse.h"
 
 using namespace boost::python;

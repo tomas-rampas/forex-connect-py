@@ -104,11 +104,12 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;FOREXCONNECT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\!dev\Python278\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\!projects\!github\pyfxconnect\libs\x64\boost;D:\!projects\!github\pyfxconnect\libs\x64\forexconnect;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\!dev\Python278\libs;D:\!projects\!github\pyfxconnect\libs\x64\boost;D:\!projects\!github\pyfxconnect\libs\x64\forexconnect;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>ForexConnect.lib;libboost_python-vc120-mt-gd-1_55.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -175,6 +176,7 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
     <ClCompile Include="IO2GPermissionChecker.cpp" />
     <ClCompile Include="IO2GRequest.cpp" />
     <ClCompile Include="IO2GResponse.cpp" />
+    <ClCompile Include="IO2GRow.cpp" />
     <ClCompile Include="IO2GSummaryRow.cpp" />
     <ClCompile Include="IO2GSystemPropertiesReader.cpp" />
     <ClCompile Include="IO2GTablesUpdatesReader.cpp" />
