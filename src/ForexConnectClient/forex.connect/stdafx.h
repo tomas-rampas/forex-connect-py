@@ -52,5 +52,9 @@ void export_IO2GSession();
 void export_IO2GGenericTableResponseReader();
 void export_IO2GOffersTableResponseReader();
 void export_IO2GAccountsTableResponseReader();
+void export_IO2GOrdersTableResponseReader();
+void export_IO2GTradesTableResponseReader();
+void export_IO2GClosedTradesTableResponseReader();
+void export_IO2GMessagesTableResponseReader();
 //IO2GTable_End
 void export_O2GEnum();
