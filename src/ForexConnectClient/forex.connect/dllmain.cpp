@@ -36,6 +36,11 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_IO2GResponse();
 	export_IO2GRow();
 	export_IO2GSession();
+	//IO2GTable_Begin
+	export_IO2GGenericTableResponseReader();
+	export_IO2GOffersTableResponseReader();
+	export_IO2GAccountsTableResponseReader()
+	//IO2GTable_End
 	export_O2GEnum();
 };
 

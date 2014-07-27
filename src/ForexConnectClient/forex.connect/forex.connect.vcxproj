@@ -180,6 +180,7 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
     <ClCompile Include="IO2GSession.cpp" />
     <ClCompile Include="IO2GSummaryRow.cpp" />
     <ClCompile Include="IO2GSystemPropertiesReader.cpp" />
+    <ClCompile Include="IO2GTable.cpp" />
     <ClCompile Include="IO2GTablesUpdatesReader.cpp" />
     <ClCompile Include="IO2GTimeConverter.cpp" />
     <ClCompile Include="IO2GTradeRow.cpp" />

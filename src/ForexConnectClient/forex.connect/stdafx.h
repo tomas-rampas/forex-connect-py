@@ -26,7 +26,6 @@ void export_MessagesColumnsEnum();
 void export_OffersColumnsEnum();
 void export_OrdersColumnsEnum();
 void export_SummariesColumnsEnum();
-void export_O2GEnum();
 void export_IAddRefClass();
 void export_IO2GLastOrderUpdateResponseReader();
 void export_IO2GMarketDataResponseReader();
@@ -49,3 +48,9 @@ void export_IO2GRequest();
 void export_IO2GResponse();
 void export_IO2GRow();
 void export_IO2GSession();
+//IO2GTable_Begin
+void export_IO2GGenericTableResponseReader();
+void export_IO2GOffersTableResponseReader();
+void export_IO2GAccountsTableResponseReader();
+//IO2GTable_End
+void export_O2GEnum();
