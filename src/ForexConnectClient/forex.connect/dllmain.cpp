@@ -56,6 +56,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_IO2GMessagesTable();
 	export_IO2GSummaryTable();
 	//IO2GTable_End
+	void export_IO2GTimeframe();
 	export_O2GEnum();
 };
 

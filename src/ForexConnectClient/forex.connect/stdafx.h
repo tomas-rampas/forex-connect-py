@@ -68,4 +68,5 @@ void export_IO2GClosedTradesTable();
 void export_IO2GMessagesTable();
 void export_IO2GSummaryTable();
 //IO2GTable_End
+void export_IO2GTimeframe();
 void export_O2GEnum();
