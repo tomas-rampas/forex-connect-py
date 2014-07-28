@@ -103,3 +103,10 @@ void export_IO2GMessagesTableResponseReader()
 		.def("getRow", pure_virtual(&IO2GMessagesTableResponseReader::getRow), return_value_policy<reference_existing_object>())
 		;
 };
+
+//IO2GTableIterator
+void export_IO2GTableIterator(){
+	class_<IO2GTableIterator>("IO2GTableIterator", init<>())
+		.def("reset", &IO2GTableIterator::reset)
+	;
+};

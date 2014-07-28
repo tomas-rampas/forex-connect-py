@@ -56,5 +56,6 @@ void export_IO2GOrdersTableResponseReader();
 void export_IO2GTradesTableResponseReader();
 void export_IO2GClosedTradesTableResponseReader();
 void export_IO2GMessagesTableResponseReader();
+void export_IO2GTableIterator();
 //IO2GTable_End
 void export_O2GEnum();
