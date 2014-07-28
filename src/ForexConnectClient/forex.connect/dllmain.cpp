@@ -45,6 +45,16 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_IO2GClosedTradesTableResponseReader();
 	export_IO2GMessagesTableResponseReader();
 	export_IO2GTableIterator();
+	export_IO2GTableListener();
+	export_IO2GTable();
+	export_IO2GTableManager();
+	export_IO2GOffersTable();
+	export_IO2GAccountsTable();
+	export_IO2GOrdersTable();
+	export_IO2GTradesTable();
+	export_IO2GClosedTradesTable();
+	export_IO2GMessagesTable();
+	export_IO2GSummaryTable();
 	//IO2GTable_End
 	export_O2GEnum();
 };

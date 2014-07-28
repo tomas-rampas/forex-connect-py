@@ -57,5 +57,15 @@ void export_IO2GTradesTableResponseReader();
 void export_IO2GClosedTradesTableResponseReader();
 void export_IO2GMessagesTableResponseReader();
 void export_IO2GTableIterator();
+void export_IO2GTableListener();
+void export_IO2GTable();
+void export_IO2GTableManager();
+void export_IO2GOffersTable();
+void export_IO2GAccountsTable();
+void export_IO2GOrdersTable();
+void export_IO2GTradesTable();
+void export_IO2GClosedTradesTable();
+void export_IO2GMessagesTable();
+void export_IO2GSummaryTable();
 //IO2GTable_End
 void export_O2GEnum();
