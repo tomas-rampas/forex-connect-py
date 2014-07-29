@@ -22,19 +22,19 @@ public:
 class IO2GResponseReaderFactoryWrap : public IO2GResponseReaderFactory, public wrapper < IO2GResponseReaderFactory >
 {
 public:
-	IO2GTablesUpdatesReader *createTablesUpdatesReader(IO2GResponse *response) = 0;
-	IO2GMarketDataSnapshotResponseReader *createMarketDataSnapshotReader(IO2GResponse *response) = 0;
-	IO2GMarketDataResponseReader *createMarketDataReader(IO2GResponse *response) = 0;
-	IO2GOffersTableResponseReader *createOffersTableReader(IO2GResponse *response) = 0;
-	IO2GAccountsTableResponseReader *createAccountsTableReader(IO2GResponse *response) = 0;
-	IO2GOrdersTableResponseReader *createOrdersTableReader(IO2GResponse *response) = 0;
-	IO2GTradesTableResponseReader *createTradesTableReader(IO2GResponse *response) = 0;
-	IO2GClosedTradesTableResponseReader *createClosedTradesTableReader(IO2GResponse *response) = 0;
-	IO2GMessagesTableResponseReader *createMessagesTableReader(IO2GResponse *response) = 0;
-	IO2GOrderResponseReader *createOrderResponseReader(IO2GResponse *response) = 0;
-	IO2GLastOrderUpdateResponseReader *createLastOrderUpdateResponseReader(IO2GResponse *response) = 0;
-	IO2GSystemPropertiesReader *createSystemPropertiesReader(IO2GResponse *response) = 0;
-	bool processMarginRequirementsResponse(IO2GResponse *response) = 0;	
+	IO2GTablesUpdatesReader* createTablesUpdatesReader(IO2GResponse *response){ return this->get_override("createTablesUpdatesReader")();}
+	IO2GMarketDataSnapshotResponseReader* createMarketDataSnapshotReader(IO2GResponse *response){ return this->get_override("createMarketDataSnapshotReader")();}
+	IO2GMarketDataResponseReader* createMarketDataReader(IO2GResponse *response){ return this->get_override("createMarketDataReader")();}
+	IO2GOffersTableResponseReader* createOffersTableReader(IO2GResponse *response){ return this->get_override("createOffersTableReader")();}
+	IO2GAccountsTableResponseReader* createAccountsTableReader(IO2GResponse *response){ return this->get_override("createAccountsTableReader")();}
+	IO2GOrdersTableResponseReader* createOrdersTableReader(IO2GResponse *response){ return this->get_override("createOrdersTableReader")();}
+	IO2GTradesTableResponseReader* createTradesTableReader(IO2GResponse *response){ return this->get_override("createTradesTableReader")();}
+	IO2GClosedTradesTableResponseReader* createClosedTradesTableReader(IO2GResponse *response){ return this->get_override("createClosedTradesTableReader")();}
+	IO2GMessagesTableResponseReader* createMessagesTableReader(IO2GResponse *response){ return this->get_override("createMessagesTableReader")();}
+	IO2GOrderResponseReader* createOrderResponseReader(IO2GResponse *response){ return this->get_override("createOrderResponseReader")();}
+	IO2GLastOrderUpdateResponseReader* createLastOrderUpdateResponseReader(IO2GResponse *response){ return this->get_override("createLastOrderUpdateResponseReader")();}
+	IO2GSystemPropertiesReader* createSystemPropertiesReader(IO2GResponse *response){ return this->get_override("createSystemPropertiesReader")();}
+	bool processMarginRequirementsResponse(IO2GResponse *response){ return this->get_override("processMarginRequirementsResponse")();}	
 };
 
 //BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(onRequestCompleted_overload, onRequestCompleted, 1, 2)
