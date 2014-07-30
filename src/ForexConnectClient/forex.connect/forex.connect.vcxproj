@@ -187,6 +187,7 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
     <ClCompile Include="IO2GTradeRow.cpp" />
     <ClCompile Include="IO2GTradingSettingsProvider.cpp" />
     <ClCompile Include="MessagesColumnsEnum.cpp" />
+    <ClCompile Include="O2GDateUtils.cpp" />
     <ClCompile Include="O2GEnum.cpp" />
     <ClCompile Include="O2G2ptr.cpp" />
     <ClCompile Include="OffersColumnsEnum.cpp" />
