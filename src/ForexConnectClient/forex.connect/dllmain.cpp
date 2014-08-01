@@ -58,6 +58,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	//IO2GTable_End
 	export_IO2GTimeframe();
 	export_IO2GTradingSettingsProvider();
+	export_O2GDateUtils();
 	export_O2GEnum();
 };
 
