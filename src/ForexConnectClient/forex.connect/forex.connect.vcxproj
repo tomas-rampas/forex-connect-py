@@ -161,6 +161,7 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
   <ItemGroup>
     <ClCompile Include="ClosedTradesColumnsEnum.cpp" />
     <ClCompile Include="AccountsColumnsEnum.cpp" />
+    <ClCompile Include="O2GTransport.cpp" />
     <ClCompile Include="IAddRef.cpp" />
     <ClCompile Include="IO2GAccountRow.cpp" />
     <ClCompile Include="IO2GClosedTradeRow.cpp" />
@@ -190,6 +191,7 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
     <ClCompile Include="O2GDateUtils.cpp" />
     <ClCompile Include="O2GEnum.cpp" />
     <ClCompile Include="O2G2ptr.cpp" />
+    <ClCompile Include="O2GRequestParamsEnum.cpp" />
     <ClCompile Include="OffersColumnsEnum.cpp" />
     <ClCompile Include="OrdersColumnsEnum.cpp" />
     <ClCompile Include="SummariesColumnsEnum.cpp" />
