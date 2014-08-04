@@ -61,6 +61,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_O2GDateUtils();
 	export_O2GEnum();
 	export_O2GRequestParamsEnum();
+	export_CO2GTransport();
 };
 
 

@@ -73,3 +73,4 @@ void export_IO2GTradingSettingsProvider();
 void export_O2GDateUtils();
 void export_O2GEnum();
 void export_O2GRequestParamsEnum();
+void export_CO2GTransport();
