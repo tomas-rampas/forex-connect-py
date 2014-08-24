@@ -37,8 +37,8 @@ public:
 	IO2GLoginRules* getLoginRules(){ return this->get_override("getLoginRules")();}
 	void login(const char *user, const char *pwd, const char *url, const char *connection){  this->get_override("login")();}
 	void logout(){ this->get_override("logout")();}
-	void subscribeSessionStatus(IO2GSessionStatus *listener){ this->get_override("subscribeSessionStatus")();}
-	void unsubscribeSessionStatus(IO2GSessionStatus *listener){ this->get_override("unsubscribeSessionStatus")();}
+	void subscribeSessionStatus(IO2GSessionStatus &listener){ this->get_override("subscribeSessionStatus")();}
+	void unsubscribeSessionStatus(IO2GSessionStatus &listener){ this->get_override("unsubscribeSessionStatus")(); }
 	IO2GSessionDescriptorCollection* getTradingSessionDescriptors(){  this->get_override("getTradingSessionDescriptors")();}
 	void setTradingSession(const char *sessionId, const char *pin){ this->get_override("setTradingSession")();}
 	void subscribeResponse(IO2GResponseListener *listener){ this->get_override("subscribeResponse")();}

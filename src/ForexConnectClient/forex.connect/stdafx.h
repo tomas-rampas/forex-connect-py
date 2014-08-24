@@ -16,7 +16,19 @@
 #define BOOST_PYTHON_STATIC_LIB
 #include <boost/python.hpp>
 
+#include <string>
+#include <iostream>
+
 #include <ForexConnect.h>
+
+#include <list>
+#include <map>
+#include <vector>
+#include <ctime>
+#include <cstring>
+#include <cmath>
+
+#define _TIMEOUT 30000
 
 // Declaration
 void export_AccountsColumnsEnum();

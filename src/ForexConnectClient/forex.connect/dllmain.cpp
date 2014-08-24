@@ -1,5 +1,6 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
+#include "SessionStatusListener.h"
 
 BOOST_PYTHON_MODULE(forexconnect)
 {
