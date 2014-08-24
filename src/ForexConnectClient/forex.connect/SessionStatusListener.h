@@ -22,9 +22,9 @@ private:
 	IO2GSession *mSession;
 	/** Event handle. */
 	HANDLE mSessionEvent;
-protected:
-	/** Destructor. */
-	~SessionStatusListener();
+//protected:
+//	/** Destructor. */
+//	~SessionStatusListener();
 
 public:
 	/** Constructor.
@@ -35,6 +35,8 @@ public:
 	@param pin              Pin code or NULL in case no pin code request is expected.
 	*/
 	SessionStatusListener(IO2GSession *session, bool printSubsessions, const char *sessionID = 0, const char *pin = 0);
+	/** Destructor. */
+	~SessionStatusListener();
 
 	/** Increase reference counter. */
 	virtual long addRef();

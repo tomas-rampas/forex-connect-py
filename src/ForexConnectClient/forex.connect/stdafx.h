@@ -7,9 +7,9 @@
 
 #include "targetver.h"
 
-#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
+//#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 // Windows Header Files:
-#include <windows.h>
+//#include <windows.h>
 
 #define BOOST_ALL_DYN_LINK
 #define BOOST_LIB_DIAGNOSTIC
@@ -26,7 +26,7 @@
 #include <vector>
 #include <ctime>
 #include <cstring>
-#include <cmath>
+//#include <cmath>
 
 #define _TIMEOUT 30000
 

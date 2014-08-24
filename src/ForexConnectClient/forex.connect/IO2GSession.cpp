@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "SessionStatusListener.h"
 #include <IO2GSession.h>
 using namespace boost::python;
 
@@ -37,8 +38,8 @@ public:
 	IO2GLoginRules* getLoginRules(){ return this->get_override("getLoginRules")();}
 	void login(const char *user, const char *pwd, const char *url, const char *connection){  this->get_override("login")();}
 	void logout(){ this->get_override("logout")();}
-	void subscribeSessionStatus(IO2GSessionStatus &listener){ this->get_override("subscribeSessionStatus")();}
-	void unsubscribeSessionStatus(IO2GSessionStatus &listener){ this->get_override("unsubscribeSessionStatus")(); }
+	void subscribeSessionStatus(IO2GSessionStatus* listener){ this->get_override("subscribeSessionStatus")();}
+	void unsubscribeSessionStatus(IO2GSessionStatus* listener){ this->get_override("unsubscribeSessionStatus")(); }
 	IO2GSessionDescriptorCollection* getTradingSessionDescriptors(){  this->get_override("getTradingSessionDescriptors")();}
 	void setTradingSession(const char *sessionId, const char *pin){ this->get_override("setTradingSession")();}
 	void subscribeResponse(IO2GResponseListener *listener){ this->get_override("subscribeResponse")();}
@@ -87,6 +88,11 @@ void export_IO2GSession()
 			.export_values()
 			;
 	};
+
+	class_<SessionStatusListener>("SessionStatusListener", init<IO2GSession*, bool, const char *, const char *>())
+		.def("onSessionStatusChanged", &SessionStatusListener::onSessionStatusChanged)
+		.def("onLoginFailed", &SessionStatusListener::onLoginFailed)
+		;
 
 	class_<IO2GTableManagerListenerWrap, bases<IAddRef>, boost::noncopyable>("IO2GTableManagerListener", no_init)
 		.def("onStatusChanged", pure_virtual(&IO2GTableManagerListener::onStatusChanged))
