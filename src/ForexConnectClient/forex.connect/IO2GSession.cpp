@@ -38,7 +38,7 @@ public:
 	IO2GLoginRules* getLoginRules(){ return this->get_override("getLoginRules")();}
 	void login(const char *user, const char *pwd, const char *url, const char *connection){  this->get_override("login")();}
 	void logout(){ this->get_override("logout")();}
-	void subscribeSessionStatus(IO2GSessionStatus* listener){ this->get_override("subscribeSessionStatus")();}
+	void subscribeSessionStatus(IO2GSessionStatus* listener){ this->get_override("subscribeSessionStatus")(); }
 	void unsubscribeSessionStatus(IO2GSessionStatus* listener){ this->get_override("unsubscribeSessionStatus")(); }
 	IO2GSessionDescriptorCollection* getTradingSessionDescriptors(){  this->get_override("getTradingSessionDescriptors")();}
 	void setTradingSession(const char *sessionId, const char *pin){ this->get_override("setTradingSession")();}
@@ -89,7 +89,7 @@ void export_IO2GSession()
 			;
 	};
 
-	class_<SessionStatusListener>("SessionStatusListener", init<IO2GSession*, bool, const char *, const char *>())
+	class_<SessionStatusListener, bases<IO2GSessionStatus>>("SessionStatusListener", init<IO2GSession*, bool, const char *, const char *>())
 		.def("onSessionStatusChanged", &SessionStatusListener::onSessionStatusChanged)
 		.def("onLoginFailed", &SessionStatusListener::onLoginFailed)
 		;
