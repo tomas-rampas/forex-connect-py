@@ -1,6 +1,18 @@
 import forexconnect as fx
 from settings import ACCOUNT, PWD
 
+def getAccount(session):
+    readerFactory = session.getResponseReaderFactory();
+    if readerFactory is None:
+        return None
+    loginRules = session.getLoginRules()
+    response = loginRules.getTableRefreshResponse(fx.O2GTable.Accounts);
+    accountsResponseReader = readerFactory.createAccountsTableReader(response);
+    for i in range(accountsResponseReader.size()):
+        account = accountsResponseReader.getRow(i);
+        if not account.getMaintenanceFlag():
+            print account.getBalance()
+
 session = fx.CO2GTransport.createSession()
 status = fx.SessionStatusListener(session, False, "", "")
 
@@ -10,9 +22,8 @@ session.login(ACCOUNT, PWD, "http://www.fxcorporate.com/Hosts.jsp", "Demo")
 
 if status.waitEvents() and status.isConnected():
     print "ForexConnect client Connected"
+    account = getAccount(session)
     session.logout();
     status.waitEvents();
-
-
 session.unsubscribeSessionStatus(status)
 
