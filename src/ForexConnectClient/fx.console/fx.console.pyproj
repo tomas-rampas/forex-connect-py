@@ -25,6 +25,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="fx.console.py" />
+    <Compile Include="settings.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{929fd3b6-b7f4-4f18-8279-20762a12412b}\2.7" />

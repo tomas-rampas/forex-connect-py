@@ -44,3 +44,4 @@ ForexConnectClient/**/x64
 #files
 src/ForexConnectClient/**/ReadMe.txt
 /src/ForexConnectClient/forex.connect/x64
+settings.py
