@@ -92,6 +92,8 @@ void export_IO2GSession()
 	class_<SessionStatusListener, bases<IO2GSessionStatus>>("SessionStatusListener", init<IO2GSession*, bool, const char *, const char *>())
 		.def("onSessionStatusChanged", &SessionStatusListener::onSessionStatusChanged)
 		.def("onLoginFailed", &SessionStatusListener::onLoginFailed)
+		.def("isConnected", &SessionStatusListener::isConnected)
+		.def("waitEvents", &SessionStatusListener::waitEvents)
 		;
 
 	class_<IO2GTableManagerListenerWrap, bases<IAddRef>, boost::noncopyable>("IO2GTableManagerListener", no_init)
