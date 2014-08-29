@@ -23,8 +23,20 @@ session.login(ACCOUNT_ID, PWD, "http://www.fxcorporate.com/Hosts.jsp", "Demo")
 if status.waitEvents() and status.isConnected():
     print "ForexConnect client Connected"
     account = getAccount(session)
+
+def stop():
     session.logout();
     status.waitEvents();
+    session.unsubscribeSessionStatus(status)
 
-session.unsubscribeSessionStatus(status)
+
+def input_loop():
+    line = ''
+    while line != 'stop':
+        line = raw_input('Prompt ("stop" to quit): ')
+        print 'Dispatch %s' % line
+    stop()
+
+input_loop()
+
 
