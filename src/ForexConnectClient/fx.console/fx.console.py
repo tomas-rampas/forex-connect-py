@@ -1,5 +1,5 @@
 import forexconnect as fx
-from settings import ACCOUNT, PWD
+from settings import ACCOUNT_ID, PWD
 
 def getAccount(session):
     readerFactory = session.getResponseReaderFactory();
@@ -18,12 +18,13 @@ status = fx.SessionStatusListener(session, False, "", "")
 
 session.subscribeSessionStatus(status);
 status.reset()
-session.login(ACCOUNT, PWD, "http://www.fxcorporate.com/Hosts.jsp", "Demo")
+session.login(ACCOUNT_ID, PWD, "http://www.fxcorporate.com/Hosts.jsp", "Demo")
 
 if status.waitEvents() and status.isConnected():
     print "ForexConnect client Connected"
     account = getAccount(session)
     session.logout();
     status.waitEvents();
+
 session.unsubscribeSessionStatus(status)
 
