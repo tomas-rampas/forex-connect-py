@@ -29,7 +29,6 @@ def stop():
     status.waitEvents();
     session.unsubscribeSessionStatus(status)
 
-
 def input_loop():
     line = ''
     while line != 'stop':
