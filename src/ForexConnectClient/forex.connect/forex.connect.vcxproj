@@ -156,6 +156,7 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="forex.connect.h" />
+    <ClInclude Include="ResponseListener.h" />
     <ClInclude Include="SessionStatusListener.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -196,6 +197,7 @@ rem copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)lib\$(ProjectName).p
     <ClCompile Include="O2GRequestParamsEnum.cpp" />
     <ClCompile Include="OffersColumnsEnum.cpp" />
     <ClCompile Include="OrdersColumnsEnum.cpp" />
+    <ClCompile Include="ResponseListener.cpp" />
     <ClCompile Include="SessionStatusListener.cpp" />
     <ClCompile Include="SummariesColumnsEnum.cpp" />
     <ClCompile Include="TradesColumnsEnum.cpp" />
