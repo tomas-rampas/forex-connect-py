@@ -46,3 +46,4 @@ src/ForexConnectClient/**/ReadMe.txt
 /src/ForexConnectClient/forex.connect/x64
 settings.py
 /src/ForexConnectClient/fx.console/*.pyc
+*.pyc

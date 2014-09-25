@@ -1,17 +1,6 @@
 import forexconnect as fx
+from listeners.status import *
 from settings import ACCOUNT_ID, PWD
-
-class SessionStatusListenerPy(fx.SessionStatusListener):
-    def __init__(self, session):
-        super(SessionStatusListenerPy, self). __init__(session, False, "", "")
-
-    def onSessionStatusChanged(self, status):
-        print "from py " 
-        super(SessionStatusListenerPy, self).onSessionStatusChanged(status)
-
-    def reset(self):
-        print "py:reset"
-        super(SessionStatusListenerPy, self).reset()
 
 def getAccount(session):
     readerFactory = session.getResponseReaderFactory();
@@ -27,7 +16,7 @@ def getAccount(session):
 
 session = fx.CO2GTransport.createSession()
 #status = fx.SessionStatusListener(session, False, "", "")
-status = SessionStatusListenerPy(session)
+status = SessionStatusListener(session)
 
 session.subscribeSessionStatus(status);
 status.reset()
