@@ -55,6 +55,28 @@ public:
 		const char* format, const char* reportType, const char* langID, long ansiCP){ return this->get_override("getReportURL")();}
 };
 
+struct SessionStatusListenerCallback : SessionStatusListener
+{
+	SessionStatusListenerCallback(PyObject *pyObject, IO2GSession *session, bool printSubsessions, const char *sessionID = 0, const char *pin = 0) :
+		SessionStatusListener(session, printSubsessions, sessionID, pin), self(pyObject) {}
+
+	SessionStatusListenerCallback(PyObject* pyObject, const SessionStatusListener& listener):
+		SessionStatusListener(listener), self(pyObject) {}
+
+	void onSessionStatusChanged(IO2GSessionStatus::O2GSessionStatus status)
+	{
+		return call_method<void>(self, "onSessionStatusChanged", status);
+	}
+
+	static void default_onSessionStatusChanged(SessionStatusListener& self_, IO2GSessionStatus::O2GSessionStatus status)
+	{
+		return self_.SessionStatusListener::onSessionStatusChanged(status);
+	}
+
+private:
+	PyObject* self;
+};
+
 void export_IO2GSession()
 {
 	class_<IO2GSessionDescriptorWrap, bases<IAddRef>, boost::noncopyable>("IO2GSessionDescriptor", no_init)
@@ -89,8 +111,8 @@ void export_IO2GSession()
 			;
 	};
 
-	class_<SessionStatusListener, bases<IO2GSessionStatus>>("SessionStatusListener", init<IO2GSession*, bool, const char *, const char *>())
-		.def("onSessionStatusChanged", &SessionStatusListener::onSessionStatusChanged)
+	class_<SessionStatusListener, SessionStatusListenerCallback, bases<IO2GSessionStatus>>("SessionStatusListener", init<IO2GSession*, bool, const char *, const char *>())
+		.def("onSessionStatusChanged", &SessionStatusListenerCallback::default_onSessionStatusChanged)
 		.def("onLoginFailed", &SessionStatusListener::onLoginFailed)
 		.def("isConnected", &SessionStatusListener::isConnected)
 		.def("waitEvents", &SessionStatusListener::waitEvents)

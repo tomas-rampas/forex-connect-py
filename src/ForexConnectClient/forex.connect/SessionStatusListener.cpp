@@ -47,6 +47,7 @@ long SessionStatusListener::release()
 
 void SessionStatusListener::reset()
 {
+	std::cout << "reset" << std::endl;
 	mConnected = false;
 	mDisconnected = false;
 	mError = false;

@@ -1,5 +1,5 @@
 import forexconnect as fx
-from listeners.status import *
+from listeners.sessionstatus import *
 from settings import ACCOUNT_ID, PWD
 
 def getAccount(session):
