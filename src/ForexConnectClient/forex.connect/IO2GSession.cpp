@@ -68,9 +68,19 @@ struct SessionStatusListenerCallback : SessionStatusListener
 		return call_method<void>(self, "onSessionStatusChanged", status);
 	}
 
+	void onLoginFailed(const char* error)
+	{
+		return call_method<void>(self, "onLoginFailed", error);
+	}
+
 	static void default_onSessionStatusChanged(SessionStatusListener& self_, IO2GSessionStatus::O2GSessionStatus status)
 	{
 		return self_.SessionStatusListener::onSessionStatusChanged(status);
+	}
+
+	static void default_onLoginFailed(SessionStatusListener& self_, const char* error)
+	{
+		return self_.SessionStatusListener::onLoginFailed(error);
 	}
 
 private:
@@ -113,10 +123,11 @@ void export_IO2GSession()
 
 	class_<SessionStatusListener, SessionStatusListenerCallback, bases<IO2GSessionStatus>>("SessionStatusListener", init<IO2GSession*, bool, const char *, const char *>())
 		.def("onSessionStatusChanged", &SessionStatusListenerCallback::default_onSessionStatusChanged)
-		.def("onLoginFailed", &SessionStatusListener::onLoginFailed)
+		.def("onLoginFailed", &SessionStatusListenerCallback::default_onLoginFailed)
 		.def("isConnected", &SessionStatusListener::isConnected)
 		.def("waitEvents", &SessionStatusListener::waitEvents)
 		.def("reset", &SessionStatusListener::reset)
+		.def("hasError", &SessionStatusListener::hasError)
 		;
 
 	class_<IO2GTableManagerListenerWrap, bases<IAddRef>, boost::noncopyable>("IO2GTableManagerListener", no_init)

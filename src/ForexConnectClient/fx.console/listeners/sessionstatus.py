@@ -8,11 +8,14 @@ class SessionStatusListener(fx.SessionStatusListener):
         print status
         super(SessionStatusListener, self).onSessionStatusChanged(status)        
 
+    def onLoginFailed(self, error):
+        super(SessionStatusListener, self).onLoginFailed(error)
+
     def reset(self):
         super(SessionStatusListener, self).reset()
 
-    def waitEvents(self):
-        super(SessionStatusListener, self).waitEvents()
+    #def waitEvents(self):
+    #    super(SessionStatusListener, self).waitEvents()
 
-    def isConnected(self):
-        super(SessionStatusListener, self).isConnected()
+    #def isConnected(self):
+    #    super(SessionStatusListener, self).isConnected()

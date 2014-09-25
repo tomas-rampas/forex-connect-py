@@ -20,9 +20,12 @@ status = SessionStatusListener(session)
 
 session.subscribeSessionStatus(status);
 status.reset()
-session.login(ACCOUNT_ID, PWD, "http://www.fxcorporate.com/Hosts.jsp", "Demo")
+try:
+    session.login(ACCOUNT_ID, PWD, "http://www.fxcorporate.com/Hosts.jsp", "Demo")
+except Exception, e:
+    print repr(e)
 
-if status.waitEvents() and status.isConnected():
+if status.waitEvents() and status.isConnected() and not status.hasError():
     print "ForexConnect client Connected"
     account = getAccount(session)
 
