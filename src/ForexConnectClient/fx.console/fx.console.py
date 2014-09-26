@@ -2,6 +2,18 @@ import forexconnect as fx
 from listeners.sessionstatus import *
 from settings import ACCOUNT_ID, PWD
 
+def stop():
+    session.logout();
+    status.waitEvents();
+    session.unsubscribeSessionStatus(status)
+
+def input_loop():
+    line = ''
+    while (line != 'stop'):
+        line = raw_input('Prompt ("stop" to quit): ')
+        print 'Dispatch %s' % line
+    stop()
+
 def getAccount(session):
     readerFactory = session.getResponseReaderFactory();
     if readerFactory is None:
@@ -15,32 +27,24 @@ def getAccount(session):
             print account.getBalance()
 
 session = fx.CO2GTransport.createSession()
-#status = fx.SessionStatusListener(session, False, "", "")
-status = SessionStatusListener(session)
 
+status = SessionStatusListener(session)
 session.subscribeSessionStatus(status);
 status.reset()
+
 try:
     session.login(ACCOUNT_ID, PWD, "http://www.fxcorporate.com/Hosts.jsp", "Demo")
 except Exception, e:
     print repr(e)
 
-if status.waitEvents() and status.isConnected() and not status.hasError():
-    print "ForexConnect client Connected"
-    account = getAccount(session)
-
-def stop():
-    session.logout();
-    status.waitEvents();
-    session.unsubscribeSessionStatus(status)
-
-def input_loop():
-    line = ''
-    while line != 'stop':
-        line = raw_input('Prompt ("stop" to quit): ')
-        print 'Dispatch %s' % line
+if status.waitEvents() and status.isConnected():
+    if status.status == fx.IO2GSessionStatus.Connected:
+        print "ForexConnect client Connected"
+        account = getAccount(session)
+else:
     stop()
 
-input_loop()
+if not status.hasError():
+    input_loop()
 
 
