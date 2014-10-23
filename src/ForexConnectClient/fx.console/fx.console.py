@@ -28,7 +28,8 @@ def getAccount(session):
 
 session = fx.CO2GTransport.createSession()
 
-status = SessionStatusListener(session)
+#status = SessionStatusListener(session)
+status = fx.SessionStatusListener(session, False, None, None)
 session.subscribeSessionStatus(status);
 status.reset()
 
@@ -38,9 +39,9 @@ except Exception, e:
     print repr(e)
 
 if status.waitEvents() and status.isConnected():
-    if status.status == fx.IO2GSessionStatus.Connected:
-        print "ForexConnect client Connected"
-        account = getAccount(session)
+    #if status.status == fx.IO2GSessionStatus.Connected:
+    print "ForexConnect client Connected"
+    account = getAccount(session)
 else:
     stop()
 

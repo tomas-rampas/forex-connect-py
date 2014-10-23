@@ -3,18 +3,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>3a533c8e-ee7c-4c04-ab98-106ddb55df05</ProjectGuid>
+    <ProjectGuid>e9607f20-c508-4ab4-a652-f63913e16305</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>fx.console.py</StartupFile>
+    <StartupFile>fx.market.watcher.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>fx.console</Name>
-    <RootNamespace>fx.console</RootNamespace>
+    <Name>fx.market.watcher</Name>
+    <RootNamespace>fx.market.watcher</RootNamespace>
+    <IsWindowsApplication>True</IsWindowsApplication>
     <InterpreterId>{929fd3b6-b7f4-4f18-8279-20762a12412b}</InterpreterId>
     <InterpreterVersion>2.7</InterpreterVersion>
-    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,17 +25,11 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="fx.console.py" />
-    <Compile Include="listeners\sessionstatus.py" />
-    <Compile Include="listeners\__init__.py" />
-    <Compile Include="market.watcher.py" />
+    <Compile Include="fx.market.watcher.py" />
     <Compile Include="settings.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{929fd3b6-b7f4-4f18-8279-20762a12412b}\2.7" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="listeners\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
