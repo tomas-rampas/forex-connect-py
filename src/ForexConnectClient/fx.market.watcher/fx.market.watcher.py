@@ -1,10 +1,21 @@
 from Tkinter import *
-import Tkinter as tk
 import tkFont, ttk, tkMessageBox
 from ttk import Frame, Button, Style
 import forexconnect as fx
 #from listeners.sessionstatus import *
 from settings import ACCOUNT_ID, PWD
+
+symbols_header = ['Symbol', 'Bid', 'Ask']
+symbols_list = [
+('EUR/USD', '0.000000', '0.000000') ,
+('EUR/CHF', '0.000000', '0.000000') ,
+('USD/JPY', '0.000000', '0.000000') ,
+('GBP/USD', '0.000000', '0.000000') ,
+('AUD/USD', '0.000000', '0.000000') ,
+('NZD/USD', '0.000000', '0.000000') ,
+('EUR/CHF', '0.000000', '0.000000') ,
+('AUD/NZD', '0.000000', '0.000000') ,
+('GBP/JPY', '0.000000', '0.000000') ,]
 
 class MultiColumnListBox(Frame):
 
@@ -56,30 +67,12 @@ def sortby(tree, col, descending):
     # switch the heading so it will sort in the opposite direction
     tree.heading(col, command=lambda col=col: sortby(tree, col, int(not descending)))
 
-symbols_header = ['Symbol', 'Bid', 'Ask']
-symbols_list = [
-('EUR/USD', '0.000000', '0.000000') ,
-('EUR/CHF', '0.000000', '0.000000') ,
-('USD/JPY', '0.000000', '0.000000') ,
-('GBP/USD', '0.000000', '0.000000') ,
-('AUD/USD', '0.000000', '0.000000') ,
-('NZD/USD', '0.000000', '0.000000') ,
-('EUR/CHF', '0.000000', '0.000000') ,
-('AUD/NZD', '0.000000', '0.000000') ,
-('GBP/JPY', '0.000000', '0.000000') ,]
-"""
-root = tk.Tk()
-root.wm_title("multicolumn ListBox")
-mc_listbox = MultiColumnListBox()
-root.mainloop()
-"""
-
 class MarketWatcher(Frame):
   
     def __init__(self, parent):
         Frame.__init__(self, parent)           
         self.parent = parent
-        
+        self.status = None
         self.initUI()
         
     def initUI(self):
@@ -103,6 +96,9 @@ class MarketWatcher(Frame):
         okButton.pack(side=RIGHT)
          
     def close_window (self):
+        if self.status and self.status.isConnected():
+            tkMessageBox.showinfo("fxClient", "ForexConnect client Connected! Disconnect first")
+            return
         self.parent.destroy() 
     
     def login(self):    
