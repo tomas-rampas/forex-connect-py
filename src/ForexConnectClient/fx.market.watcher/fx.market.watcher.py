@@ -1,9 +1,15 @@
-from Tkinter import *
+import sys
 import tkFont, ttk, tkMessageBox
+from Tkinter import *
 from ttk import Frame, Button, Style
 import forexconnect as fx
 #from listeners.sessionstatus import *
-from settings import ACCOUNT_ID, PWD
+window_caption = "MarketWatcher"
+try:
+    from settings import ACCOUNT_ID, PWD
+except BaseException:
+    tkMessageBox.showinfo(window_caption, "Create settings.py with ACCOUNT_ID and PWD")
+    sys.exit(0)
 
 symbols_header = ['Symbol', 'Bid', 'Ask']
 symbols_list = [
@@ -77,7 +83,7 @@ class MarketWatcher(Frame):
         
     def initUI(self):
       
-        self.parent.title("MarketWatcher")
+        self.parent.title(window_caption)
         self.style = Style()
         self.style.theme_use("default")
         
@@ -97,7 +103,7 @@ class MarketWatcher(Frame):
          
     def close_window (self):
         if self.status and self.status.isConnected():
-            tkMessageBox.showinfo("fxClient", "ForexConnect client Connected! Disconnect first")
+            tkMessageBox.showinfo(window_caption, "ForexConnect client Connected! Disconnect first")
             return
         self.parent.destroy() 
     
