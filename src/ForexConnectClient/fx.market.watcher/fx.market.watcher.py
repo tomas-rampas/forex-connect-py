@@ -96,10 +96,10 @@ class MarketWatcher(Frame):
         
         closeButton = Button(self, text="Close", command = lambda: self.close_window())
         closeButton.pack(side=RIGHT, padx=5, pady=5)
-        okButton = Button(self, text="Logout", command = lambda: self.logout())
-        okButton.pack(side=RIGHT)
-        okButton = Button(self, text="Login", command = lambda: self.login())
-        okButton.pack(side=RIGHT)
+        logoutButton = Button(self, text="Logout", command = lambda: self.logout())
+        logoutButton.pack(side=RIGHT)
+        loginButton = Button(self, text="Login", command = lambda: self.login())
+        loginButton.pack(side=RIGHT)
          
     def close_window (self):
         if self.status and self.status.isConnected():
