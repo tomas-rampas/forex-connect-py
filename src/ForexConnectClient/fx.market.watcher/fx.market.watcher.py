@@ -88,10 +88,10 @@ class MarketWatcher(Frame):
         self.style.theme_use("default")
         
         frame = Frame(self, relief=RAISED, borderwidth=1)
-        #symbolList = MultiColumnListBox(frame)
-        #symbolList.pack()
+        symbolList = MultiColumnListBox(frame)
+        symbolList.pack()
         frame.pack(fill=BOTH, expand=1)
-        logger = Text(frame)
+        logger = Text(frame, height=10)
         logger.pack()
         self.pack(fill=BOTH, expand=1)
         
