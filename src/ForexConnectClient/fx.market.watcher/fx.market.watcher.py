@@ -60,8 +60,10 @@ class MultiColumnListBox(Frame):
                     self.tree.column(symbols_header[ix], width=col_w)
 
 def sortby(tree, col, descending):
-    """sort tree contents when a column header is clicked on"""
-    # grab values to sort
+    """
+    sort tree contents when a column header is clicked on
+    grab values to sort
+    """
     data = [(tree.set(child, col), child) \
         for child in tree.get_children('')]
     # if the data to be sorted is numeric change to float
