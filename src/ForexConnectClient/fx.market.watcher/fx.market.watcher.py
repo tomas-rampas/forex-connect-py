@@ -1,7 +1,7 @@
 import sys
 import tkFont, ttk, tkMessageBox
 from Tkinter import *
-from ttk import Frame, Button, Style
+#from ttk import Frame, Button, Style
 import forexconnect as fx
 #from listeners.sessionstatus import *
 window_caption = "MarketWatcher"
@@ -75,10 +75,10 @@ def sortby(tree, col, descending):
     # switch the heading so it will sort in the opposite direction
     tree.heading(col, command=lambda col=col: sortby(tree, col, int(not descending)))
 
-class MarketWatcher(Frame):
+class MarketWatcher(ttk.Frame):
   
     def __init__(self, parent):
-        Frame.__init__(self, parent)           
+        ttk.Frame.__init__(self, parent)           
         self.parent = parent
         self.status = None
         self.initUI()
@@ -86,9 +86,9 @@ class MarketWatcher(Frame):
     def initUI(self):
       
         self.parent.title(window_caption)
-        self.style = Style()
+        self.style = ttk.Style()
         self.style.theme_use("default")
-        
+
         frame = Frame(self, relief=RAISED, borderwidth=1)
         symbolList = MultiColumnListBox(frame)
         symbolList.pack()
@@ -97,16 +97,25 @@ class MarketWatcher(Frame):
         logger.pack()
         self.pack(fill=BOTH, expand=1)
         
-        closeButton = Button(self, text="Close", command = lambda: self.close_window(), underline=0)        
+        closeButton = ttk.Button(self, text="Close", command = lambda: self.close_window(), underline=0)        
         closeButton.pack(side=RIGHT, padx=5, pady=5)
         self.parent.bind('<Alt_L><c>', lambda e:closeButton.invoke())
-        logoutButton = Button(self, text="Logout", command = lambda: self.logout(), underline=3)
+        logoutButton = ttk.Button(self, text="Logout", command = lambda: self.logout(), underline=3)
         logoutButton.pack(side=RIGHT)
         self.parent.bind('<Alt_L><o>', lambda e:logoutButton.invoke())
-        loginButton = Button(self, text="Login", command = lambda: self.login(),underline=3)
+        loginButton = ttk.Button(self, text="Login", command = lambda: self.login(),underline=3)
         loginButton.pack(side=RIGHT)
         self.parent.bind('<Alt_L><i>', lambda e:loginButton.invoke())
          
+        menubar = Menu(self)
+        filemenu = Menu(menubar, tearoff=0)
+        filemenu.add_command(label="Login", command=self.login, underline=0)
+        filemenu.add_command(label="Logout", command=self.logout, underline=0)
+        filemenu.add_separator()
+        filemenu.add_command(label="Exit", command=self.close_window, underline=0)
+        menubar.add_cascade(label="File", menu=filemenu)
+        self.master.config(menu=menubar)
+
     def close_window (self):
         if self.status and self.status.isConnected():
             tkMessageBox.showwarning(window_caption, "ForexConnect client Connected! Disconnect first")
@@ -139,7 +148,9 @@ def main():
   
     root = Tk()
     root.geometry("600x450+200+200")
+    root.protocol("WM_DELETE_WINDOW", root.iconify)
     app = MarketWatcher(root)
+    root.bind('<Escape>', lambda e: app.close_window())
     root.mainloop()  
 
 
