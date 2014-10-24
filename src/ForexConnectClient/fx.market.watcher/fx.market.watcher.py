@@ -88,24 +88,28 @@ class MarketWatcher(Frame):
         self.style.theme_use("default")
         
         frame = Frame(self, relief=RAISED, borderwidth=1)
-        symbolList = MultiColumnListBox(frame)
-        symbolList.pack()
+        #symbolList = MultiColumnListBox(frame)
+        #symbolList.pack()
         frame.pack(fill=BOTH, expand=1)
-        
+        logger = Text(frame)
+        logger.pack()
         self.pack(fill=BOTH, expand=1)
         
-        closeButton = Button(self, text="Close", command = lambda: self.close_window())
+        closeButton = Button(self, text="Close", command = lambda: self.close_window(), underline=0)        
         closeButton.pack(side=RIGHT, padx=5, pady=5)
-        logoutButton = Button(self, text="Logout", command = lambda: self.logout())
+        self.parent.bind('<Alt_L><c>', lambda e:closeButton.invoke())
+        logoutButton = Button(self, text="Logout", command = lambda: self.logout(), underline=3)
         logoutButton.pack(side=RIGHT)
-        loginButton = Button(self, text="Login", command = lambda: self.login())
+        self.parent.bind('<Alt_L><o>', lambda e:logoutButton.invoke())
+        loginButton = Button(self, text="Login", command = lambda: self.login(),underline=3)
         loginButton.pack(side=RIGHT)
+        self.parent.bind('<Alt_L><i>', lambda e:loginButton.invoke())
          
     def close_window (self):
         if self.status and self.status.isConnected():
-            tkMessageBox.showinfo(window_caption, "ForexConnect client Connected! Disconnect first")
-            return
-        self.parent.destroy() 
+            tkMessageBox.showwarning(window_caption, "ForexConnect client Connected! Disconnect first")
+        else:
+            self.parent.destroy() 
     
     def login(self):    
         self.session = fx.CO2GTransport.createSession()
