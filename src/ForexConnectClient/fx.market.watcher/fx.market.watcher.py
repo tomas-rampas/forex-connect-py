@@ -110,11 +110,13 @@ class MarketWatcher(ttk.Frame):
         menubar = Menu(self)
         filemenu = Menu(menubar, tearoff=0)
         filemenu.add_command(label="Login", command=self.login, underline=0)
-        filemenu.add_command(label="Logout", command=self.logout, underline=0)
+        filemenu.add_command(label="Logout", command=self.logout, accelerator='Ctrl-O')
         filemenu.add_separator()
-        filemenu.add_command(label="Exit", command=self.close_window, underline=0)
+        filemenu.add_command(label="Exit", command=self.close_window, accelerator='Ctrl-X', underline=1)
         menubar.add_cascade(label="File", menu=filemenu)
         self.master.config(menu=menubar)
+        #self.master.bind_all("<Control-x>", self.close_window)
+        self.parent.bind("<Control-l>", self.login)
 
     def close_window (self):
         if self.status and self.status.isConnected():
@@ -148,9 +150,11 @@ def main():
   
     root = Tk()
     root.geometry("600x450+200+200")
-    root.protocol("WM_DELETE_WINDOW", root.iconify)
     app = MarketWatcher(root)
-    root.bind('<Escape>', lambda e: app.close_window())
+    root.protocol("WM_DELETE_WINDOW", app.close_window)
+    root.bind('<Escape>', lambda e: root.iconify)
+    root.bind("<Control-x>", 'exit')
+    root.bind("<Control-q>", 'exit')
     root.mainloop()  
 
 
