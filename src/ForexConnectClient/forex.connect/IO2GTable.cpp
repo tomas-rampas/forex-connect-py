@@ -118,6 +118,7 @@ public:
 	void onAdded(const char *rowID, IO2GRow *rowData){ this->get_override("onAdded")();}
 	void onChanged(const char *rowID, IO2GRow *rowData){ this->get_override("onChanged")();}
 	void onDeleted(const char *rowID, IO2GRow *rowData){ this->get_override("onDeleted")();}
+	void onStatusChanged(O2GTableStatus status) { this->get_override("onStatusChanged")();}
 };
 
 //IO2GEachRowListener
@@ -133,6 +134,7 @@ void export_IO2GTableListener()
 		.def("onAdded", pure_virtual(&IO2GTableListener::onAdded))
 		.def("onChanged", pure_virtual(&IO2GTableListener::onChanged))
 		.def("onDeleted", pure_virtual(&IO2GTableListener::onDeleted))
+		.def("onStatusChanged", pure_virtual(&IO2GTableListener::onStatusChanged))
 		;
 
 	class_<IO2GEachRowListenerWrap, bases<IAddRef>, boost::noncopyable>("IO2GEachRowListener", no_init)

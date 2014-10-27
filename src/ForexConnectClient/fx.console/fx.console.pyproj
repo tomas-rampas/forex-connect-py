@@ -28,7 +28,6 @@
     <Compile Include="fx.console.py" />
     <Compile Include="listeners\sessionstatus.py" />
     <Compile Include="listeners\__init__.py" />
-    <Compile Include="market.watcher.py" />
     <Compile Include="settings.py" />
   </ItemGroup>
   <ItemGroup>
