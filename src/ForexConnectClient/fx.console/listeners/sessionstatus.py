@@ -1,6 +1,5 @@
 import forexconnect as fx
 from multiprocessing import Process, Value, Lock
-from win32api import CloseHandle
 from win32event import CreateEvent, SetEvent, WaitForSingleObject, WAIT_OBJECT_0
 
 class Counter(object):
