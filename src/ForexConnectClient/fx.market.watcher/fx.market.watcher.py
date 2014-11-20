@@ -78,7 +78,9 @@ def sortby(tree, col, descending):
 class MarketWatcher(ttk.Frame):
   
     def __init__(self, parent):
-        ttk.Frame.__init__(self, parent)           
+        ttk.Frame.__init__(self, parent)   
+        self.session = None
+        self.status = None        
         self.parent = parent
         self.status = None
         self.initUI()
@@ -142,9 +144,10 @@ class MarketWatcher(ttk.Frame):
             #self.account = getAccount(self.session)    
 
     def logout(self):
-        self.session.logout()
-        self.status.waitEvents()
-        self.session.unsubscribeSessionStatus(self.status)
+        if self.session is not None:
+            self.session.logout()
+            self.status.waitEvents()
+            self.session.unsubscribeSessionStatus(self.status)
 
 def main():
   

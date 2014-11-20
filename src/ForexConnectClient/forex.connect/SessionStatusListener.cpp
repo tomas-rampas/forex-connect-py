@@ -1,8 +1,6 @@
 #include "stdafx.h"
-#include <IO2GSession.h>
+/*#include <IO2GSession.h>
 #include "SessionStatusListener.h"
-
-/** Constructor. */
 SessionStatusListener::SessionStatusListener(IO2GSession *session, bool printSubsessions, const char *sessionID, const char *pin)
 {
 	if (sessionID != 0)
@@ -21,7 +19,6 @@ SessionStatusListener::SessionStatusListener(IO2GSession *session, bool printSub
 	mSessionEvent = CreateEvent(0, FALSE, FALSE, 0);
 }
 
-/** Destructor. */
 SessionStatusListener::~SessionStatusListener()
 {
 	mSession->release();
@@ -30,13 +27,11 @@ SessionStatusListener::~SessionStatusListener()
 	CloseHandle(mSessionEvent);
 }
 
-/** Increase reference counter. */
 long SessionStatusListener::addRef()
 {
 	return InterlockedIncrement(&mRefCount);
 }
 
-/** Decrease reference counter. */
 long SessionStatusListener::release()
 {
 	long rc = InterlockedDecrement(&mRefCount);
@@ -53,7 +48,6 @@ void SessionStatusListener::reset()
 	mError = false;
 }
 
-/** Callback called when login has been failed. */
 void SessionStatusListener::onLoginFailed(const char *error)
 {
 	std::cout << "Login error: " << error << std::endl;
@@ -61,7 +55,6 @@ void SessionStatusListener::onLoginFailed(const char *error)
 	SetEvent(mSessionEvent);
 }
 
-/** Callback called when session status has been changed. */
 void SessionStatusListener::onSessionStatusChanged(IO2GSessionStatus::O2GSessionStatus status)
 {
 	switch (status)
@@ -127,27 +120,22 @@ void SessionStatusListener::onSessionStatusChanged(IO2GSessionStatus::O2GSession
 	}
 }
 
-/** Check whether error happened. */
 bool SessionStatusListener::hasError() const
 {
 	return mError;
 }
 
-/** Check whether session is connected */
 bool SessionStatusListener::isConnected() const
 {
 	return mConnected;
 }
 
-/** Check whether session is disconnected */
 bool SessionStatusListener::isDisconnected() const
 {
 	return mDisconnected;
 }
 
-/** Wait for connection or error. */
 bool SessionStatusListener::waitEvents()
 {
 	return WaitForSingleObject(mSessionEvent, _TIMEOUT) == 0;
-}
-
+}*/

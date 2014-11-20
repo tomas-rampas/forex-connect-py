@@ -55,36 +55,51 @@ public:
 		const char* format, const char* reportType, const char* langID, long ansiCP){ return this->get_override("getReportURL")();}
 };
 
-struct SessionStatusListenerCallback : SessionStatusListener
+class SessionStatusListenerCallback : public SessionStatusListener
 {
-	SessionStatusListenerCallback(PyObject *pyObject, IO2GSession *session, bool printSubsessions, const char *sessionID = 0, const char *pin = 0) :
-		SessionStatusListener(session, printSubsessions, sessionID, pin), self(pyObject) {}
+public:
+	SessionStatusListenerCallback(PyObject *pyObject)
+		: self(pyObject) {}
 
-	SessionStatusListenerCallback(PyObject* pyObject, const SessionStatusListener& listener):
-		SessionStatusListener(listener), self(pyObject) {}
+	SessionStatusListenerCallback(PyObject* pyObject, const SessionStatusListener& listener)
+		: self(pyObject), SessionStatusListener(listener) {}
 
-	void onSessionStatusChanged(IO2GSessionStatus::O2GSessionStatus status)
+	void onSessionStatusChanged(O2GSessionStatus status)
 	{
-		return call_method<void>(self, "onSessionStatusChanged", status);
+		PyGILState_STATE gstate;
+		gstate = PyGILState_Ensure();
+		call_method<void>(self, "onSessionStatusChanged", status);
+		PyGILState_Release(gstate);
 	}
-
+	
 	void onLoginFailed(const char* error)
 	{
-		return call_method<void>(self, "onLoginFailed", error);
+		PyGILState_STATE gstate;
+		gstate = PyGILState_Ensure();
+		call_method<void>(self, "onLoginFailed", error);
+		PyGILState_Release(gstate);
 	}
 
-	static void default_onSessionStatusChanged(SessionStatusListener& self_, IO2GSessionStatus::O2GSessionStatus status)
+	long addRef()
 	{
-		return self_.SessionStatusListener::onSessionStatusChanged(status);
+		PyGILState_STATE gstate;
+		gstate = PyGILState_Ensure();
+		long refCount = call_method<long>(self, "addRef");
+		PyGILState_Release(gstate);
+		return refCount;
 	}
 
-	static void default_onLoginFailed(SessionStatusListener& self_, const char* error)
+	long release()
 	{
-		return self_.SessionStatusListener::onLoginFailed(error);
+		PyGILState_STATE gstate;
+		gstate = PyGILState_Ensure();
+		long refCount = call_method<long>(self, "release");
+		PyGILState_Release(gstate);
+		return refCount;
 	}
 
 private:
-	PyObject* self;
+	PyObject* const self;
 };
 
 void export_IO2GSession()
@@ -121,13 +136,11 @@ void export_IO2GSession()
 			;
 	};
 
-	class_<SessionStatusListener, SessionStatusListenerCallback, bases<IO2GSessionStatus>>("SessionStatusListener", init<IO2GSession*, bool, const char *, const char *>())
-		.def("onSessionStatusChanged", &SessionStatusListenerCallback::default_onSessionStatusChanged)
-		.def("onLoginFailed", &SessionStatusListenerCallback::default_onLoginFailed)
-		.def("isConnected", &SessionStatusListener::isConnected)
-		.def("waitEvents", &SessionStatusListener::waitEvents)
-		.def("reset", &SessionStatusListener::reset)
-		.def("hasError", &SessionStatusListener::hasError)
+	class_<SessionStatusListener, SessionStatusListenerCallback, bases<IO2GSessionStatus>, boost::noncopyable >("SessionStatusListener", init<>())
+		.def("onSessionStatusChanged", &SessionStatusListenerCallback::onSessionStatusChanged)
+		.def("onLoginFailed", &SessionStatusListenerCallback::onLoginFailed)
+		.def("addRef", &SessionStatusListenerCallback::addRef)
+		.def("release", &SessionStatusListenerCallback::release)
 		;
 
 	class_<IO2GTableManagerListenerWrap, bases<IAddRef>, boost::noncopyable>("IO2GTableManagerListener", no_init)
@@ -149,7 +162,7 @@ void export_IO2GSession()
 		.def("sendRequest", pure_virtual(&IO2GSession::sendRequest))
 		.def("getTimeConverter", pure_virtual(&IO2GSession::getTimeConverter), return_value_policy<reference_existing_object>())
 		.def("setPriceUpdateMode", pure_virtual(&IO2GSession::setPriceUpdateMode))
-		.def("getPriceUpdateMode", pure_virtual(&IO2GSession::getPriceUpdateMode))//, return_value_policy<manage_new_object>())
+		.def("getPriceUpdateMode", pure_virtual(&IO2GSession::getPriceUpdateMode))
 		.def("getServerTime", pure_virtual(&IO2GSession::getServerTime))
 		.def("getReportURL", pure_virtual(&IO2GSession::getReportURL))
 		;

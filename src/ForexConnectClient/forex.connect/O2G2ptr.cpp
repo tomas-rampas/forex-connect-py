@@ -4,13 +4,11 @@
 
 using namespace boost::python;
 
-class IO2GSessionPtr : public O2G2Ptr < IO2GSession >
-{
-};
+class IO2GSessionPtr : public O2G2Ptr < IO2GSession >{};
 
-class IO2GLoginRulesPtr : public O2G2Ptr < IO2GLoginRules >
-{
-};
+class IO2GLoginRulesPtr : public O2G2Ptr < IO2GLoginRules >{};
+
+class IO2GSessionDescriptorCollectionPtr : public O2G2Ptr<IO2GSessionDescriptorCollection>{};
 
 class IO2GAccountRowPtr : public O2G2Ptr<IO2GAccountRow> {};
 
@@ -33,5 +31,15 @@ void export_O2G2PteredClasses()
 		.def("__eq__", &IO2GAccountRowPtr::operator==)
 		.def("__lt__", &IO2GAccountRowPtr::operator<)
 		.def("__not__", &IO2GAccountRowPtr::operator!)
+		;
+	class_<IO2GSessionDescriptorCollectionPtr, bases<O2G2Ptr<IO2GSessionDescriptorCollection>>>("IO2GSessionDescriptorCollectionPtr", init<>())
+		.def(init<IO2GSessionDescriptorCollectionPtr>())
+		.def("release", &IO2GSessionDescriptorCollectionPtr::Release)
+		.def("detach", (IO2GSession*(IO2GSessionDescriptorCollectionPtr::*)())(&IO2GSessionDescriptorCollectionPtr::Detach), return_value_policy<reference_existing_object>())
+		.def("assign", &IO2GSessionDescriptorCollectionPtr::operator=, return_value_policy<reference_existing_object>())
+		.def("__eq__", &IO2GSessionDescriptorCollectionPtr::operator==)
+		.def("__lt__", &IO2GSessionDescriptorCollectionPtr::operator<)
+		.def("__not__", &IO2GSessionDescriptorCollectionPtr::operator!)
+		//.def("size", &IO2GSessionDescriptorCollectionPtr::size)
 		;
 };
