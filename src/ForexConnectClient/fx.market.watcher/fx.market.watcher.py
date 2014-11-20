@@ -1,15 +1,20 @@
-import sys
+import os, sys
 import tkFont, ttk, tkMessageBox
 from Tkinter import *
 #from ttk import Frame, Button, Style
 import forexconnect as fx
-#from listeners.sessionstatus import *
+#from listeners.sessionstatus import SessionStatusListener
 window_caption = "MarketWatcher"
 try:
     from settings import ACCOUNT_ID, PWD
 except BaseException:
     tkMessageBox.showinfo(window_caption, "Create settings.py with ACCOUNT_ID and PWD")
     sys.exit(0)
+
+scriptpath = "../fx.console/listeners/"
+sys.path.append(os.path.abspath(scriptpath))
+from sessionstatus import SessionStatusListener
+
 
 symbols_header = ['Symbol', 'Bid', 'Ask']
 symbols_list = [
@@ -128,8 +133,7 @@ class MarketWatcher(ttk.Frame):
     
     def login(self):    
         self.session = fx.CO2GTransport.createSession()
-
-        self.status = fx.SessionStatusListener(self.session, False, None, None)
+        self.status = SessionStatusListener(self.session)
         self.session.subscribeSessionStatus(self.status);
         self.status.reset()
 
