@@ -6,6 +6,8 @@ import forexconnect as fx
 
 scriptpath = "../fx.console/listeners/"
 sys.path.append(os.path.abspath(scriptpath))
+scriptpath = "../fx.console/"
+sys.path.append(os.path.abspath(scriptpath))
 from sessionstatus import SessionStatusListener
 
 window_caption = "MarketWatcher"
@@ -151,6 +153,7 @@ class MarketWatcher(ttk.Frame):
             self.session.logout()
             self.status.waitEvents()
             self.session.unsubscribeSessionStatus(self.status)
+            tkMessageBox.showinfo("fxClient", "ForexConnect client Disconnected")
 
 def main():
   
