@@ -125,7 +125,6 @@ class IO2GTableListener : public IAddRef
     virtual void onAdded(const char *rowID, IO2GRow *rowData) = 0;
     virtual void onChanged(const char *rowID, IO2GRow *rowData) = 0;
     virtual void onDeleted(const char *rowID, IO2GRow *rowData) = 0;
-
     virtual void onStatusChanged(O2GTableStatus status) = 0;
 };
 

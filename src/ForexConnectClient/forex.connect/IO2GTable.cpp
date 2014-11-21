@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <IO2GTable.h>
+#include "TableListener.h"
 using namespace boost::python;
 
 class IO2GGenericTableResponseReaderWrap : public IO2GGenericTableResponseReader, public wrapper < IO2GGenericTableResponseReader >
@@ -135,6 +136,15 @@ void export_IO2GTableListener()
 		.def("onChanged", pure_virtual(&IO2GTableListener::onChanged))
 		.def("onDeleted", pure_virtual(&IO2GTableListener::onDeleted))
 		.def("onStatusChanged", pure_virtual(&IO2GTableListener::onStatusChanged))
+		;
+
+	class_<TableListener, TableListenerImpl, bases<IO2GTableListener>, boost::noncopyable>("TableListener", init<>())
+		.def("onAdded", &TableListenerImpl::onAdded)
+		.def("onChanged", &TableListenerImpl::onChanged)
+		.def("onDeleted", &TableListenerImpl::onDeleted)
+		.def("onStatusChanged", &TableListenerImpl::onStatusChanged)
+		.def("addRef", &TableListenerImpl::addRef)
+		.def("release", &TableListenerImpl::release)
 		;
 
 	class_<IO2GEachRowListenerWrap, bases<IAddRef>, boost::noncopyable>("IO2GEachRowListener", no_init)
