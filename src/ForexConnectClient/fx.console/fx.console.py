@@ -1,11 +1,18 @@
+import time
 import forexconnect as fx
 from listeners.sessionstatus import *
+from listeners.table import TableListener
 from settings import ACCOUNT_ID, PWD
 
 def stop():
-    session.logout();
-    status.waitEvents();
+    if tableManager is not None and tableListener is not None:
+        tableListener.unsubscribeEvents(tableManager)
+    if tableListener  is not None:
+        tableListener.release()
+    session.logout()
+    status.waitEvents()
     session.unsubscribeSessionStatus(status)
+    session.release()
 
 def input_loop():
     line = ''
@@ -15,21 +22,21 @@ def input_loop():
     stop()
 
 def getAccount(session):
-    readerFactory = session.getResponseReaderFactory();
+    readerFactory = session.getResponseReaderFactory()
     if readerFactory is None:
         return None
     loginRules = session.getLoginRules()
-    response = loginRules.getTableRefreshResponse(fx.O2GTable.Accounts);
-    accountsResponseReader = readerFactory.createAccountsTableReader(response);
+    response = loginRules.getTableRefreshResponse(fx.O2GTable.Accounts)
+    accountsResponseReader = readerFactory.createAccountsTableReader(response)
     for i in range(accountsResponseReader.size()):
-        account = accountsResponseReader.getRow(i);
+        account = accountsResponseReader.getRow(i)
         if not account.getMaintenanceFlag():
             print account.getBalance()
 
 session = fx.CO2GTransport.createSession()
-
+session.useTableManager(fx.O2GTableManagerMode.Yes, None)
 status = SessionStatusListener(session)
-session.subscribeSessionStatus(status);
+session.subscribeSessionStatus(status)
 status.reset()
 
 try:
@@ -44,7 +51,34 @@ if  status.waitEvents() and status.isConnected():
 else:
     stop()
 
+tableListener = TableListener()
+tableManager = session.getTableManager()
+
+
+
+if tableManager is not None:
+    managerStatus = tableManager.getStatus()
+
+    while managerStatus == fx.O2GTableManagerStatus.TablesLoading:
+        time.sleep(0.050)
+        managerStatus = tableManager.getStatus()    
+
+    if managerStatus == fx.O2GTableManagerStatus.TablesLoadFailed:
+        print "Cannot refresh all tables of table manager"
+
+    tableListener.setInstrument("EUR/USD")
+    tableListener.subscribeEvents(tableManager)
+    offers = tableManager.getTable(fx.O2GTable.Offers)
+    try:
+        print fx.IO2GOffersTablePtr
+        offers.__class__ = fx.IO2GOffersTablePtr
+    except Exception, e:
+        print repr(e)
+        #tableListener.printOffers(offers, "")
+
+    print offers
+
+
+
 if not status.hasError():
     input_loop()
-
-

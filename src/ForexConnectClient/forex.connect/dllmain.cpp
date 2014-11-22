@@ -40,7 +40,6 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_O2GEnum();
 	export_O2GRequestParamsEnum();
 	export_CO2GTransport();
-
 	// enumerations exports
 	export_AccountsColumnsEnum();
 	export_TradesColumnsEnum();
@@ -65,6 +64,9 @@ BOOST_PYTHON_MODULE(forexconnect)
 	export_IO2GOrderRow();
 	export_IO2GSummaryRow();
 	export_IO2GTradeRow();
+
+	export_O2G2PteredClasses();
+
 };
 
 

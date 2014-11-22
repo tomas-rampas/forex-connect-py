@@ -40,7 +40,7 @@ public:
 	void logout(){ this->get_override("logout")();}
 	void subscribeSessionStatus(IO2GSessionStatus* listener){ this->get_override("subscribeSessionStatus")(); }
 	void unsubscribeSessionStatus(IO2GSessionStatus* listener){ this->get_override("unsubscribeSessionStatus")(); }
-	IO2GSessionDescriptorCollection* getTradingSessionDescriptors(){  this->get_override("getTradingSessionDescriptors")();}
+	IO2GSessionDescriptorCollection* getTradingSessionDescriptors(){ return this->get_override("getTradingSessionDescriptors")();}
 	void setTradingSession(const char *sessionId, const char *pin){ this->get_override("setTradingSession")();}
 	void subscribeResponse(IO2GResponseListener *listener){ this->get_override("subscribeResponse")();}
 	void unsubscribeResponse(IO2GResponseListener *listener){ this->get_override("unsubscribeResponse")();}
@@ -53,6 +53,10 @@ public:
 	DATE getServerTime(){ return this->get_override("getServerTime")();}
 	int getReportURL(char* urlBuffer, int bufferSize, IO2GAccountRow* account, DATE dateFrom, DATE dateTo, 
 		const char* format, const char* reportType, const char* langID, long ansiCP){ return this->get_override("getReportURL")();}
+	IO2GTableManager* getTableManager() { return this->get_override("getTableManager")(); }
+	IO2GTableManager* getTableManagerByAccount(const char *accountID) { return this->get_override("getTableManagerByAccount")(); }
+	void useTableManager(O2GTableManagerMode mode, IO2GTableManagerListener *tablesListener) { this->get_override("useTableManager")(); }
+	IO2GSessionStatus::O2GSessionStatus getSessionStatus() { return this->get_override("getSessionStatus")(); }
 };
 
 class SessionStatusListenerCallback : public SessionStatusListener
@@ -165,5 +169,9 @@ void export_IO2GSession()
 		.def("getPriceUpdateMode", pure_virtual(&IO2GSession::getPriceUpdateMode))
 		.def("getServerTime", pure_virtual(&IO2GSession::getServerTime))
 		.def("getReportURL", pure_virtual(&IO2GSession::getReportURL))
+		.def("getTableManager", pure_virtual(&IO2GSession::getTableManager), return_value_policy<reference_existing_object>())
+		.def("getTableManagerByAccount", pure_virtual(&IO2GSession::getTableManagerByAccount), return_value_policy<reference_existing_object>())
+		.def("useTableManager", pure_virtual(&IO2GSession::useTableManager))
+		.def("getSessionStatus", pure_virtual(&IO2GSession::getSessionStatus))
 		;
 };
