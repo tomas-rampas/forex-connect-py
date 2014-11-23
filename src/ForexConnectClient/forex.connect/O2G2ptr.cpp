@@ -6,7 +6,7 @@ using namespace boost::python;
 
 template<typename T> class O2G2PtrWrap : public O2G2Ptr<T>, public wrapper<O2G2Ptr<T>>{};
 
-class IO2GSessionPtr : public O2G2Ptr < IO2GSession > {};
+class IO2GSessionPtr : public O2G2Ptr < IO2GSession >/*, public wrapper<O2G2Ptr<IO2GSession>>*/  {};
 
 class IO2GLoginRulesPtr : public O2G2Ptr < IO2GLoginRules > {};
 
@@ -18,8 +18,11 @@ class IO2GTableManagerPtr : public O2G2Ptr < IO2GTableManager > {};
 
 class IO2GOffersTablePtr : public O2G2Ptr < IO2GOffersTable > {};
 
+//template class O2G2PtrWrap < IO2GSession >;
 void export_O2G2PteredClasses()
 {
+	class_<O2G2PtrWrap<IAddRef>, boost::noncopyable>("O2GPtr", no_init);
+
 	class_<IO2GSessionPtr, bases<O2G2Ptr<IO2GSession>>>("IO2GSessionPtr", init<>())
 		.def(init<IO2GSessionPtr>())
 		.def("release", &IO2GSessionPtr::Release)
