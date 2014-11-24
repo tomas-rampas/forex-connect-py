@@ -66,17 +66,15 @@ if tableManager is not None:
     if managerStatus == fx.O2GTableManagerStatus.TablesLoadFailed:
         print "Cannot refresh all tables of table manager"
 
-    tableListener.setInstrument("EUR/USD")
+    tableListener.setInstrument("GER30")
     tableListener.subscribeEvents(tableManager)
-    offers = tableManager.getTable(fx.O2GTable.Offers)
+    #offers = tableManager.getTable(fx.O2GTable.Offers)
     try:
-        print fx.IO2GOffersTablePtr
-        offers.__class__ = fx.IO2GOffersTablePtr
-    except Exception, e:
-        print repr(e)
         #tableListener.printOffers(offers, "")
+        pass
+    except Exception, e:
+        print e    
 
-    print offers
 
 
 

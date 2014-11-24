@@ -139,6 +139,7 @@ void export_IO2GTableListener()
 		;
 
 	class_<TableListener, TableListenerImpl, bases<IO2GTableListener>, boost::noncopyable>("TableListener", init<>())
+		//.def(init<TableListener>())
 		.def("onAdded", &TableListenerImpl::onAdded)
 		.def("onChanged", &TableListenerImpl::onChanged)
 		.def("onDeleted", &TableListenerImpl::onDeleted)
@@ -221,7 +222,13 @@ public:
 	bool getNextRowByMultiColumnValues(const int columnCount, const char *columnNames[], const void *columnValues[], IO2GTableIterator &iterator, IO2GOfferTableRow *&row)
 	{ return this->get_override("getNextRowByMultiColumnValues")();}
 	bool getNextRowByColumnValues(const char *columnName, const int valueCount, const void *columnValues[], IO2GTableIterator &iterator, IO2GOfferTableRow *&row)
-	{ return this->get_override("getNextRowByColumnValues")();}
+	{ return this->get_override("getNextRowByColumnValues")();} 
+	void subscribeUpdate(O2GTableUpdateType updateType, IO2GTableListener *listener)
+	{ 		
+		this->get_override("subscribeUpdate")(); 
+	}
+
+	void print(){ std::cout << "r" << std::endl; }
 };
 
 void export_IO2GOffersTable()
@@ -233,7 +240,9 @@ void export_IO2GOffersTable()
 		.def("findRow", pure_virtual(&IO2GOffersTable::findRow))
 		.def("getNextRowByMultiColumnValues", pure_virtual(&IO2GOffersTable::getNextRowByMultiColumnValues))
 		.def("getNextRowByColumnValue", pure_virtual(&IO2GOffersTable::getNextRowByColumnValue))
+		.def("subscribeUpdate", pure_virtual(&IO2GOffersTable::subscribeUpdate))
 		;
+
 };
 
 //IO2GAccountsTable

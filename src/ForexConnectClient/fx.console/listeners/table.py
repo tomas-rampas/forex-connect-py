@@ -52,7 +52,10 @@ class TableListener(fx.TableListener):
 
     def subscribeEvents(self,manager):
         offersTable = manager.getTable(fx.O2GTable.Offers)
-        offersTable.subscribeUpdate(fx.O2GTableUpdateType.Update, self)
+        offersTable.__class__ = fx.IO2GOffersTable
+        print offersTable.__class__
+        print offersTable.getRow(0)
+        #offersTable.subscribeUpdate(fx.O2GTableUpdateType.Update, self)
 
     def unsubscribeEvents(self, manager):
         offersTable = manager.getTable(fx.O2GTable.Offers)
