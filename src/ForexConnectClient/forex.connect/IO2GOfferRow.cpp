@@ -56,6 +56,84 @@ public:
 	double getPipCost() { return this->get_override("getPipCost")(); }
 };
 
+/*
+class IO2GOfferTableRowPtr : public IO2GOfferTableRow
+{
+public:
+	virtual double getPipCost() = 0;
+};
+
+class IO2GOfferTableRowPtrCallable : virtual IO2GOfferTableRowPtr
+{
+public:
+	IO2GOfferTableRowPtrCallable(PyObject* py) :self(py){}
+	IO2GOfferTableRowPtrCallable(PyObject* py, const IO2GOfferTableRowPtr& roe) :self(py), IO2GOfferTableRowPtr(roe) {}
+
+	//long addRef(){ return 0; }
+	//long release() { return 0; }
+	//const void *getCell(int column) { return 0; };
+	//bool isCellChanged(int column) { return false; }
+	//IO2GTableColumnCollection *columns() { return 0; }
+	//O2GTable getTableType() { return O2GTable(); }
+	////==================================================
+	//const char* getOfferID(){ return "";  }
+	//const char* getInstrument(){ return ""; }
+	//const char* getQuoteID(){ return ""; }
+	//double getBid(){ return 0.0; }
+	//double getAsk(){ return 0.0; }
+	//double getLow(){ return 0.0; }
+	//double getHigh(){ return 0.0; }
+	//int getVolume(){ return 0; }
+	//DATE getTime(){ return 0.0; };
+	//const char* getBidTradable(){ return ""; };
+	//const char* getAskTradable(){ return ""; };
+	//double getSellInterest(){ return 0.0; }
+	//double getBuyInterest(){ return 0.0; }
+	//const char* getContractCurrency(){ return ""; };
+	//int getDigits(){ return 0; };
+	//double getPointSize(){ return 0.0; };
+	//const char* getSubscriptionStatus(){ return ""; };
+	//int getInstrumentType(){ return 0; }
+	//double getContractMultiplier(){ return 0.0; };
+	//const char* getTradingStatus(){ return ""; };
+	//const char* getValueDate(){ return ""; };
+	//bool isOfferIDValid(){ return false; };
+	//bool isInstrumentValid(){ return false; }
+	//bool isQuoteIDValid(){ return false; }
+	//bool isBidValid(){ return false; }
+	//bool isAskValid(){ return false; }
+	//bool isLowValid(){ return false; }
+	//bool isHighValid(){ return false; }
+	//bool isVolumeValid(){ return false; }
+	//bool isTimeValid(){ return false; }
+	//bool isBidTradableValid(){ return false; }
+	//bool isAskTradableValid(){ return false; }
+	//bool isSellInterestValid(){ return false; }
+	//bool isBuyInterestValid(){ return false; }
+	//bool isContractCurrencyValid(){ return false; }
+	//bool isDigitsValid(){ return false; }
+	//bool isPointSizeValid(){ return false; }
+	//bool isSubscriptionStatusValid(){ return false; }
+	//bool isInstrumentTypeValid(){ return false; }
+	//bool isContractMultiplierValid(){ return false; }
+	//bool isTradingStatusValid(){ return false; }	
+	//bool isValueDateValid(){ return false; }
+	//================================================
+	double getPipCost()
+	{
+		std::cout << "getPipCost" << std::endl;
+		return 0;
+	}
+
+	//double getPipCost(IO2GOfferTableRowPtrCallable & self_) const
+	//{
+	//	return self_.getPipCost();
+	//}
+private:
+	PyObject* const self;
+};*/
+
+
 void export_IO2GOfferRow()
 {
 	class_<IO2GOfferRowWrap, bases<IO2GRow>, boost::noncopyable>("IO2GOfferRow", no_init)
@@ -106,4 +184,10 @@ void export_IO2GOfferRow()
 	class_<IO2GOfferTableRowWrap, bases<IO2GOfferRow>, boost::noncopyable>("IO2GOfferTableRow", no_init)
 		.def("getPipCost", pure_virtual(&IO2GOfferTableRow::getPipCost))
 		;
+
+	//class_<IO2GOfferTableRowPtr, IO2GOfferTableRowPtrCallable, bases<IO2GOfferTableRow, IO2GOfferRow, IO2GRow, IAddRef>, 
+	//	boost::noncopyable>("IO2GOfferTableRowPtr", init<>())
+	//	.def(init<IO2GOfferTableRowPtr>())
+	//	.def("getPipCost", &IO2GOfferTableRowPtrCallable::getPipCost)
+	//	;
 };

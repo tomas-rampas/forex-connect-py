@@ -74,7 +74,7 @@ if tableManager is not None:
     offers = tableManager.getTable(fx.O2GTable.Offers)
     try:
         offers.__class__ = fx.IO2GOffersTable
-        #tableListener.printOffers(offers, "")
+        tableListener.printOffers(offers, "")
         pass
     except Exception, e:
         print e    

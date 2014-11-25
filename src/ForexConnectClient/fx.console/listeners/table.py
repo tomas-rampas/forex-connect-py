@@ -40,15 +40,15 @@ class TableListener(fx.TableListener):
         print status
 
     def printOffers(self, offersTable, instrument):
-        offerRow = fx.IO2GOfferTableRowWrap()
         iterator = fx.IO2GTableIterator()
-        #while offersTable.getNextRow(iterator, offerRow):
-        offersTable.getNextRow(iterator, offerRow)
-        printOffer(offerRow, instrument)
+        offerRow = offersTable.getNextRow(iterator)
+        while offerRow:
+            self.printOffer(offerRow, instrument)
+            offerRow = offersTable.getNextRow(iterator)
         offerRow.release()
 
     def printOffer(self, offerRow, instrument):
-        print offerRow.getOfferID()
+        print offerRow.getInstrument()
 
     def subscribeEvents(self,manager):
         offersTable = manager.getTable(fx.O2GTable.Offers)
