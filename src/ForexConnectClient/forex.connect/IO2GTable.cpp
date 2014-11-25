@@ -227,8 +227,6 @@ public:
 	{ 		
 		this->get_override("subscribeUpdate")(); 
 	}
-
-	void print(){ std::cout << "r" << std::endl; }
 };
 
 void export_IO2GOffersTable()

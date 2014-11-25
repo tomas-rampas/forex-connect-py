@@ -9,6 +9,8 @@ public:
 	virtual void onChanged(const char *rowID, IO2GRow *rowData) = 0;
 	virtual void onDeleted(const char *rowID, IO2GRow *rowData) = 0;
 	virtual void onStatusChanged(O2GTableStatus status) = 0;
+	virtual long addRef() = 0;
+	virtual long release() = 0;
 };
 
 class TableListenerImpl : public TableListener 
@@ -27,6 +29,7 @@ public:
 
 	void onChanged(const char *rowID, IO2GRow *rowData)
 	{
+		std::cout << "onChanged" << std::endl;
 		PyGILState_STATE gstate;
 		gstate = PyGILState_Ensure();
 		call_method<void>(self, "onChanged", rowID, rowData);
@@ -34,6 +37,7 @@ public:
 	};
 	void onDeleted(const char *rowID, IO2GRow *rowData)
 	{
+		std::cout << "onDeleted" << std::endl;
 		PyGILState_STATE gstate;
 		gstate = PyGILState_Ensure();
 		call_method<void>(self, "onDeleted", rowID, rowData);
@@ -41,6 +45,7 @@ public:
 	};
 	void onStatusChanged(O2GTableStatus status)
 	{
+		std::cout << "onStatusChanged" << std::endl;
 		PyGILState_STATE gstate;
 		gstate = PyGILState_Ensure();
 		call_method<void>(self, "onStatusChanged", status);
@@ -48,6 +53,7 @@ public:
 	};
 	long addRef()
 	{
+		std::cout << "addRef" << std::endl;
 		PyGILState_STATE gstate;
 		gstate = PyGILState_Ensure();
 		long refCount = call_method<long>(self, "addRef");
@@ -57,6 +63,7 @@ public:
 
 	long release()
 	{
+		std::cout << "release" << std::endl;
 		PyGILState_STATE gstate;
 		gstate = PyGILState_Ensure();
 		long refCount = call_method<long>(self, "release");

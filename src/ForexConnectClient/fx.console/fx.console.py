@@ -59,8 +59,11 @@ tableManager = session.getTableManager()
 if tableManager is not None:
     managerStatus = tableManager.getStatus()
 
+    i = 0
     while managerStatus == fx.O2GTableManagerStatus.TablesLoading:
-        time.sleep(0.050)
+        time.sleep(0.250)
+        i += 1
+        if not i % 10 : print tableManager.getStatus()
         managerStatus = tableManager.getStatus()    
 
     if managerStatus == fx.O2GTableManagerStatus.TablesLoadFailed:
@@ -68,8 +71,9 @@ if tableManager is not None:
 
     tableListener.setInstrument("GER30")
     tableListener.subscribeEvents(tableManager)
-    #offers = tableManager.getTable(fx.O2GTable.Offers)
+    offers = tableManager.getTable(fx.O2GTable.Offers)
     try:
+        offers.__class__ = fx.IO2GOffersTable
         #tableListener.printOffers(offers, "")
         pass
     except Exception, e:
