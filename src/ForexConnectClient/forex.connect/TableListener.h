@@ -13,7 +13,7 @@ public:
 	virtual long release() = 0;
 };
 
-class TableListenerImpl : public TableListener 
+struct TableListenerImpl : public TableListener 
 {
 public:
 	TableListenerImpl(PyObject* pyObject) : self(pyObject){}
