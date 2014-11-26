@@ -91,7 +91,8 @@ class MarketWatcher(ttk.Frame):
         self.session = None
         self.tableManager = None
         self.tableListener = None
-        self.status = None        
+        self.status = None  
+        self.account = None      
         self.parent = parent
         self.status = None
         self.initUI()
@@ -150,11 +151,22 @@ class MarketWatcher(ttk.Frame):
             print repr(e)
 
         if self.status.waitEvents() and self.status.isConnected():
-            #if self.status.status == fx.IO2GSessionStatus.Connected:
-            #tkMessageBox.showinfo("fxClient", "ForexConnect client Connected")
-            self.log("ForexConnect client Connected")
-            #self.account = getAccount(self.session)
+            if self.status.status == fx.IO2GSessionStatus.Connected:
+                self.log("ForexConnect client Connected")
+            self.account = self.getAccount()
             self.createTableListener()
+
+    def getAccount(self):
+        readerFactory = self.session.getResponseReaderFactory()
+        if readerFactory is None:
+            return None
+        loginRules = self.session.getLoginRules()
+        response = loginRules.getTableRefreshResponse(fx.O2GTable.Accounts)
+        accountsResponseReader = readerFactory.createAccountsTableReader(response)
+        for i in range(accountsResponseReader.size()):
+            account = accountsResponseReader.getRow(i)
+            if not account.getMaintenanceFlag():
+                self.log("Current account balance:" + str(account.getBalance()))
 
     def logout(self):        
         if self.tableManager is not None and self.tableListener is not None:
