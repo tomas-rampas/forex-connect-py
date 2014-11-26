@@ -30,6 +30,7 @@ class TableListener(fx.TableListener):
         print "onAdded"
 
     def onChanged(self, rowID, row):
+        print "onChanged1"
         if row.getTableType() == fx.O2GTable.Offers:
             printOffer(row, self.instrument)
 
@@ -44,8 +45,8 @@ class TableListener(fx.TableListener):
         offerRow = offersTable.getNextRow(iterator)
         while offerRow:
             self.printOffer(offerRow, instrument)
+            offerRow.release()
             offerRow = offersTable.getNextRow(iterator)
-        offerRow.release()
 
     def printOffer(self, offerRow, instrument):
         print offerRow.getInstrument()
@@ -53,8 +54,7 @@ class TableListener(fx.TableListener):
     def subscribeEvents(self,manager):
         offersTable = manager.getTable(fx.O2GTable.Offers)
         offersTable.__class__ = fx.IO2GOffersTable
-        print offersTable.getRow(0)
-        #offersTable.subscribeUpdate(fx.O2GTableUpdateType.Update, self)
+        offersTable.subscribeUpdate(fx.O2GTableUpdateType.Update, self)
 
     def unsubscribeEvents(self, manager):
         offersTable = manager.getTable(fx.O2GTable.Offers)

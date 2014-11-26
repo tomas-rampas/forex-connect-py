@@ -75,12 +75,8 @@ if tableManager is not None:
     try:
         offers.__class__ = fx.IO2GOffersTable
         tableListener.printOffers(offers, "")
-        pass
     except Exception, e:
         print e    
-
-
-
 
 if not status.hasError():
     input_loop()

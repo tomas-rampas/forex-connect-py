@@ -247,7 +247,6 @@ void export_IO2GOffersTable()
 {
 	class_<IO2GOffersTableWrap, IO2GOffersTableCallable, bases<IO2GTable>, boost::noncopyable>("IO2GOffersTable", no_init)
 		.def("getRow", pure_virtual(&IO2GOffersTable::getRow), return_value_policy<reference_existing_object>())
-		//.def("getNextRow", pure_virtual(&IO2GOffersTable::getNextRow))
 		.def("getNextRow", &IO2GOffersTableCallable::getNextRow, return_value_policy<reference_existing_object>())
 		.def("getNextRowByColumnValue", pure_virtual(&IO2GOffersTable::getNextRowByColumnValue))
 		.def("findRow", pure_virtual(&IO2GOffersTable::findRow))
