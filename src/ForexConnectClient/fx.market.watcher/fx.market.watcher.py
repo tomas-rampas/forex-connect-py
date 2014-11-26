@@ -1,5 +1,7 @@
-import os, sys
-import tkFont, ttk, tkMessageBox
+import os, sys, time
+import tkFont
+import ttk
+import tkMessageBox
 from Tkinter import *
 #from ttk import Frame, Button, Style
 import forexconnect as fx
@@ -19,8 +21,7 @@ except BaseException:
     sys.exit(0)
 
 symbols_header = ['Symbol', 'Bid', 'Ask']
-symbols_list = [
-('EUR/USD', '0.000000', '0.000000') ,
+symbols_list = [('EUR/USD', '0.000000', '0.000000') ,
 ('EUR/CHF', '0.000000', '0.000000') ,
 ('USD/JPY', '0.000000', '0.000000') ,
 ('GBP/USD', '0.000000', '0.000000') ,
@@ -64,7 +65,7 @@ class MultiColumnListBox(Frame):
             # adjust column's width if necessary to fit each value
             for ix, val in enumerate(item):
                 col_w = tkFont.Font().measure(val)
-                if self.tree.column(symbols_header[ix],width=None)<col_w:
+                if self.tree.column(symbols_header[ix],width=None) < col_w:
                     self.tree.column(symbols_header[ix], width=col_w)
 
 def sortby(tree, col, descending):
@@ -88,6 +89,8 @@ class MarketWatcher(ttk.Frame):
     def __init__(self, parent):
         ttk.Frame.__init__(self, parent)   
         self.session = None
+        self.tableManager = None
+        self.tableListener = None
         self.status = None        
         self.parent = parent
         self.status = None
@@ -128,7 +131,7 @@ class MarketWatcher(ttk.Frame):
         #self.master.bind_all("<Control-x>", self.close_window)
         self.parent.bind("<Control-l>", self.login)
 
-    def close_window (self):
+    def close_window(self):
         if self.status and self.status.isConnected():
             tkMessageBox.showwarning(window_caption, "ForexConnect client Connected! Disconnect first")
         else:
@@ -136,8 +139,9 @@ class MarketWatcher(ttk.Frame):
     
     def login(self):    
         self.session = fx.CO2GTransport.createSession()
+        self.session.useTableManager(fx.O2GTableManagerMode.Yes, None)
         self.status = SessionStatusListener(self.session)
-        self.session.subscribeSessionStatus(self.status);
+        self.session.subscribeSessionStatus(self.status)
         self.status.reset()
 
         try:
@@ -149,10 +153,16 @@ class MarketWatcher(ttk.Frame):
             #if self.status.status == fx.IO2GSessionStatus.Connected:
             #tkMessageBox.showinfo("fxClient", "ForexConnect client Connected")
             self.log("ForexConnect client Connected")
-            #self.account = getAccount(self.session) 
+            #self.account = getAccount(self.session)
             self.createTableListener()
 
-    def logout(self):
+    def logout(self):        
+        if self.tableManager is not None and self.tableListener is not None:
+            self.tableListener.unsubscribeEvents(self.tableManager)
+        if self.tableListener is not None:
+            self.tableListener.onOffersChanged -= self.onOffersChanged
+            self.tableListener.release()
+
         if self.session is not None:
             self.session.logout()
             self.status.waitEvents()
@@ -160,11 +170,11 @@ class MarketWatcher(ttk.Frame):
             self.log("ForexConnect client Disconnected")
             #tkMessageBox.showinfo("fxClient", "ForexConnect client Disconnected")
 
-    def createTableListener(self):
+    def createTableListener(self):        
         self.tableListener = TableListener()
+        self.tableListener.onOffersChanged += self.onOffersChanged
         self.tableManager = self.session.getTableManager()
-
-        if self.tableManager is not None:
+        if self.tableManager:
             managerStatus = self.tableManager.getStatus()
 
             i = 0
@@ -178,13 +188,10 @@ class MarketWatcher(ttk.Frame):
                 self.log("Cannot refresh all tables of table manager")
 
             self.tableListener.setInstrument("GER30")
-            self.tableListener.subscribeEvents(tableManager)
-            offers = self.tableManager.getTable(fx.O2GTable.Offers)
-            try:
-                offers.__class__ = fx.IO2GOffersTable
-                #self.log(self.tableListener.printOffers(offers, ""))
-            except Exception, e:
-                print e    
+            self.tableListener.subscribeEvents(self.tableManager)
+
+    def onOffersChanged(self, offerRow):
+        self.log(offerRow.getInstrument())
 
     def log(self, message):
         if self.logger:
