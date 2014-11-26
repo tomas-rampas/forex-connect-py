@@ -13,7 +13,7 @@ public:
 	virtual long release() = 0;
 };
 
-struct TableListenerImpl : public TableListener 
+class TableListenerImpl : public TableListener 
 {
 public:
 	TableListenerImpl(PyObject* pyObject) : self(pyObject){}
@@ -21,41 +21,32 @@ public:
 
 	void onAdded(const char *rowID, IO2GRow *rowData) 
 	{
-		PyGILState_STATE gstate;
-		gstate = PyGILState_Ensure();
-		call_method<void>(self, "onAdded", rowID, rowData);
+		PyGILState_STATE gstate = PyGILState_Ensure();
+		call_method<void>(self, "onAdded", rowID, boost::ref(rowData));
 		PyGILState_Release(gstate);
 	};
 
 	void onChanged(const char *rowID, IO2GRow *rowData)
 	{
-		std::cout << "onChanged" << std::endl;
-		PyGILState_STATE gstate;
-		gstate = PyGILState_Ensure();
-		call_method<void>(self, "onChanged", rowID, rowData);
+		PyGILState_STATE gstate = PyGILState_Ensure();
+		call_method<void>(self, "onChanged", rowID, boost::ref(rowData));
 		PyGILState_Release(gstate);
 	};
 	void onDeleted(const char *rowID, IO2GRow *rowData)
 	{
-		std::cout << "onDeleted" << std::endl;
-		PyGILState_STATE gstate;
-		gstate = PyGILState_Ensure();
-		call_method<void>(self, "onDeleted", rowID, rowData);
+		PyGILState_STATE gstate = PyGILState_Ensure();
+		call_method<void>(self, "onDeleted", rowID, boost::ref(rowData));
 		PyGILState_Release(gstate);
 	};
 	void onStatusChanged(O2GTableStatus status)
 	{
-		std::cout << "onStatusChanged" << std::endl;
-		PyGILState_STATE gstate;
-		gstate = PyGILState_Ensure();
+		PyGILState_STATE gstate = PyGILState_Ensure();
 		call_method<void>(self, "onStatusChanged", status);
 		PyGILState_Release(gstate);
 	};
 	long addRef()
 	{
-		std::cout << "addRef" << std::endl;
-		PyGILState_STATE gstate;
-		gstate = PyGILState_Ensure();
+		PyGILState_STATE gstate = PyGILState_Ensure();
 		long refCount = call_method<long>(self, "addRef");
 		PyGILState_Release(gstate);
 		return refCount;
@@ -63,9 +54,7 @@ public:
 
 	long release()
 	{
-		std::cout << "release" << std::endl;
-		PyGILState_STATE gstate;
-		gstate = PyGILState_Ensure();
+		PyGILState_STATE gstate = PyGILState_Ensure();
 		long refCount = call_method<long>(self, "release");
 		PyGILState_Release(gstate);
 		return refCount;

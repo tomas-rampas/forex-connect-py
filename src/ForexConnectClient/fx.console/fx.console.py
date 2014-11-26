@@ -16,7 +16,7 @@ def stop():
 
 def input_loop():
     line = ''
-    while (line != 'stop'):
+    while (line not in ('stop', '5')):
         line = raw_input('Prompt ("stop" to quit): ')
         print 'Dispatch %s' % line
     stop()
