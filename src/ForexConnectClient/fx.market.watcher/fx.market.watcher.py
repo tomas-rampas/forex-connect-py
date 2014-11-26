@@ -9,6 +9,7 @@ sys.path.append(os.path.abspath(scriptpath))
 scriptpath = "../fx.console/"
 sys.path.append(os.path.abspath(scriptpath))
 from sessionstatus import SessionStatusListener
+from table import TableListener
 
 window_caption = "MarketWatcher"
 try:
@@ -27,7 +28,8 @@ symbols_list = [
 ('NZD/USD', '0.000000', '0.000000') ,
 ('EUR/CHF', '0.000000', '0.000000') ,
 ('AUD/NZD', '0.000000', '0.000000') ,
-('GBP/JPY', '0.000000', '0.000000') ,]
+('GBP/JPY', '0.000000', '0.000000') ,
+('GER30', '0.000000', '0.000000') ,]
 
 class MultiColumnListBox(Frame):
 
@@ -101,8 +103,8 @@ class MarketWatcher(ttk.Frame):
         symbolList = MultiColumnListBox(frame)
         symbolList.pack()
         frame.pack(fill=BOTH, expand=1)
-        logger = Text(frame, height=10)
-        logger.pack()
+        self.logger = Text(frame, height=10)
+        self.logger.pack()
         self.pack(fill=BOTH, expand=1)
         
         closeButton = ttk.Button(self, text="Close", command = lambda: self.close_window(), underline=0)        
@@ -145,7 +147,8 @@ class MarketWatcher(ttk.Frame):
 
         if self.status.waitEvents() and self.status.isConnected():
             #if self.status.status == fx.IO2GSessionStatus.Connected:
-            tkMessageBox.showinfo("fxClient", "ForexConnect client Connected")
+            #tkMessageBox.showinfo("fxClient", "ForexConnect client Connected")
+            self.log("ForexConnect client Connected")
             #self.account = getAccount(self.session)    
 
     def logout(self):
@@ -153,7 +156,13 @@ class MarketWatcher(ttk.Frame):
             self.session.logout()
             self.status.waitEvents()
             self.session.unsubscribeSessionStatus(self.status)
-            tkMessageBox.showinfo("fxClient", "ForexConnect client Disconnected")
+            self.log("ForexConnect client Disconnected")
+            #tkMessageBox.showinfo("fxClient", "ForexConnect client Disconnected")
+
+    def log(self, message):
+        if self.logger:
+            self.logger.insert(END, message + "\n")
+
 
 def main():
   

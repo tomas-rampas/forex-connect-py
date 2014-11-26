@@ -49,7 +49,8 @@ class TableListener(fx.TableListener):
             offerRow = offersTable.getNextRow(iterator)
 
     def printOffer(self, offerRow, instrument):
-        print offerRow.getInstrument(), "Bid: ", offerRow.getBid(), "Ask: ", offerRow.getAsk()
+        if self.instrument == offerRow.getInstrument():
+            print offerRow.getInstrument(), "Bid: ", offerRow.getBid(), "Ask: ", offerRow.getAsk()
 
     def subscribeEvents(self, manager):
         offersTable = manager.getTable(fx.O2GTable.Offers)
