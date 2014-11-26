@@ -149,7 +149,8 @@ class MarketWatcher(ttk.Frame):
             #if self.status.status == fx.IO2GSessionStatus.Connected:
             #tkMessageBox.showinfo("fxClient", "ForexConnect client Connected")
             self.log("ForexConnect client Connected")
-            #self.account = getAccount(self.session)    
+            #self.account = getAccount(self.session) 
+            self.createTableListener()
 
     def logout(self):
         if self.session is not None:
@@ -158,6 +159,32 @@ class MarketWatcher(ttk.Frame):
             self.session.unsubscribeSessionStatus(self.status)
             self.log("ForexConnect client Disconnected")
             #tkMessageBox.showinfo("fxClient", "ForexConnect client Disconnected")
+
+    def createTableListener(self):
+        self.tableListener = TableListener()
+        self.tableManager = self.session.getTableManager()
+
+        if self.tableManager is not None:
+            managerStatus = self.tableManager.getStatus()
+
+            i = 0
+            while managerStatus == fx.O2GTableManagerStatus.TablesLoading:
+                time.sleep(0.250)
+                i += 1
+                if not i % 10 : self.log(self.tableManager.getStatus())
+                managerStatus = self.tableManager.getStatus()    
+
+            if managerStatus == fx.O2GTableManagerStatus.TablesLoadFailed:
+                self.log("Cannot refresh all tables of table manager")
+
+            self.tableListener.setInstrument("GER30")
+            self.tableListener.subscribeEvents(tableManager)
+            offers = self.tableManager.getTable(fx.O2GTable.Offers)
+            try:
+                offers.__class__ = fx.IO2GOffersTable
+                #self.log(self.tableListener.printOffers(offers, ""))
+            except Exception, e:
+                print e    
 
     def log(self, message):
         if self.logger:

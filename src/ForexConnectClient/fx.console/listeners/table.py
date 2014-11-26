@@ -1,5 +1,5 @@
 import forexconnect as fx
-from sessionstatus import Counter
+from listeners import Counter, EventHook
 
 class TableListener(fx.TableListener):
     def __init__(self):
@@ -7,6 +7,7 @@ class TableListener(fx.TableListener):
         self.refcount = Counter(1)
         self.instrument = ""
         self.offers = []
+        self.onOffersChanged = EventHook()
 
     def __del__(self):
         pass
@@ -30,9 +31,11 @@ class TableListener(fx.TableListener):
         print "onAdded"
 
     def onChanged(self, rowID, rowData):        
-        if rowData.getTableType() == fx.O2GTable.Offers:
-            rowData.__class__ = fx.IO2GOfferRow
-            self.printOffer(rowData, self.instrument)
+        rowData.__class__ = fx.IO2GOfferRow
+        self.onOffersChanged.fire(rowData)
+        #if rowData.getTableType() == fx.O2GTable.Offers:
+        #    rowData.__class__ = fx.IO2GOfferRow
+        #    self.printOffer(rowData, self.instrument)
 
     def onDelete(self, rowID, rowData):
         print "onDelete"

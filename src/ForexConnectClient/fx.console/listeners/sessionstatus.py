@@ -62,7 +62,7 @@ class SessionStatusListener(fx.SessionStatusListener):
                         break
 
             if found:
-                session.setTradingSession(self.sessionId, self.pin )
+                session.setTradingSession(self.sessionId, self.pin)
                 pass
             else:
                 pass

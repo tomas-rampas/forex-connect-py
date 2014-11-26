@@ -5,6 +5,7 @@ from listeners.table import TableListener
 from settings import ACCOUNT_ID, PWD
 
 def stop():
+    tableListener.onOffersChanged -= onDataChanged
     if tableManager is not None and tableListener is not None:
         tableListener.unsubscribeEvents(tableManager)
     if tableListener  is not None:
@@ -33,6 +34,9 @@ def getAccount(session):
         if not account.getMaintenanceFlag():
             print account.getBalance()
 
+def onDataChanged(data):
+    print data.getInstrument()
+
 session = fx.CO2GTransport.createSession()
 session.useTableManager(fx.O2GTableManagerMode.Yes, None)
 status = SessionStatusListener(session)
@@ -52,9 +56,8 @@ else:
     stop()
 
 tableListener = TableListener()
+tableListener.onOffersChanged += onDataChanged
 tableManager = session.getTableManager()
-
-
 
 if tableManager is not None:
     managerStatus = tableManager.getStatus()
