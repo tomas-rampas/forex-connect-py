@@ -108,6 +108,11 @@ class MarketWatcher(ttk.Frame):
         symbolList.pack()
         frame.pack(fill=BOTH, expand=1)
         self.logger = Text(frame, height=10)
+        self.logger.grid()
+        self.scroller = Scrollbar(frame,command=self.logger.yview)
+        self.logger.config(yscrollcommand=self.scroller.set)
+        #self.scroller.grid(row=0, column=1, sticky='ns')
+        self.scroller.pack(side="right", fill="y", expand=False)
         self.logger.pack()
         self.pack(fill=BOTH, expand=1)
         
@@ -208,6 +213,7 @@ class MarketWatcher(ttk.Frame):
     def log(self, message):
         if self.logger:
             self.logger.insert(END, message + "\n")
+            self.logger.see(END)
 
 
 def main():
