@@ -27,7 +27,7 @@ symbols_list = [('EUR/USD', '0.000000', '0.000000') ,
 ('GBP/USD', '0.000000', '0.000000') ,
 ('AUD/USD', '0.000000', '0.000000') ,
 ('NZD/USD', '0.000000', '0.000000') ,
-('EUR/CHF', '0.000000', '0.000000') ,
+('EUR/NZD', '0.000000', '0.000000') ,
 ('AUD/NZD', '0.000000', '0.000000') ,
 ('GBP/JPY', '0.000000', '0.000000') ,
 ('GER30', '0.000000', '0.000000') ,]
@@ -61,12 +61,17 @@ class MultiColumnListBox(Frame):
             # adjust the column's width to the header string
             self.tree.column(col, width=tkFont.Font().measure(col.title()))
         for item in symbols_list:
-            self.tree.insert('', 'end', values=item)
+            self.tree.insert('', 'end', iid=item[0], values=item)
             # adjust column's width if necessary to fit each value
             for ix, val in enumerate(item):
                 col_w = tkFont.Font().measure(val)
                 if self.tree.column(symbols_header[ix],width=None) < col_w:
                     self.tree.column(symbols_header[ix], width=col_w)
+
+    def updateValues(self, symbol, bid, ask):        
+        if self.tree.exists(symbol):
+            self.tree.item(symbol, values = [symbol, bid, ask])
+
 
 def sortby(tree, col, descending):
     """
@@ -88,6 +93,7 @@ class MarketWatcher(ttk.Frame):
   
     def __init__(self, parent):
         ttk.Frame.__init__(self, parent)   
+        self.symbolList = None
         self.session = None
         self.tableManager = None
         self.tableListener = None
@@ -103,15 +109,14 @@ class MarketWatcher(ttk.Frame):
         self.style = ttk.Style()
         self.style.theme_use("default")
 
-        frame = Frame(self, relief=RAISED, borderwidth=1)
-        symbolList = MultiColumnListBox(frame)
-        symbolList.pack()
-        frame.pack(fill=BOTH, expand=1)
-        self.logger = Text(frame, height=10)
+        self.frame = Frame(self, relief=RAISED, borderwidth=1)
+        self.symbolList = MultiColumnListBox(self.frame)
+        self.symbolList.pack()
+        self.frame.pack(fill=BOTH, expand=1)
+        self.logger = Text(self.frame, height=10)
         self.logger.grid()
-        self.scroller = Scrollbar(frame,command=self.logger.yview)
+        self.scroller = Scrollbar(self.frame,command=self.logger.yview)
         self.logger.config(yscrollcommand=self.scroller.set)
-        #self.scroller.grid(row=0, column=1, sticky='ns')
         self.scroller.pack(side="right", fill="y", expand=False)
         self.logger.pack()
         self.pack(fill=BOTH, expand=1)
@@ -198,7 +203,7 @@ class MarketWatcher(ttk.Frame):
             while managerStatus == fx.O2GTableManagerStatus.TablesLoading:
                 time.sleep(0.250)
                 i += 1
-                if not i % 10 : self.log(self.tableManager.getStatus())
+                if not i % 10 : self.log(str(self.tableManager.getStatus()))
                 managerStatus = self.tableManager.getStatus()    
 
             if managerStatus == fx.O2GTableManagerStatus.TablesLoadFailed:
@@ -209,6 +214,8 @@ class MarketWatcher(ttk.Frame):
 
     def onOffersChanged(self, offerRow):
         self.log(offerRow.getInstrument())
+        self.symbolList.updateValues(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk())
+
 
     def log(self, message):
         if self.logger:
