@@ -142,6 +142,9 @@ class MarketWatcher(ttk.Frame):
         #self.master.bind_all("<Control-x>", self.close_window)
         self.parent.bind("<Control-l>", self.login)
 
+    def write(self, str):
+        self.log(str)
+
     def close_window(self):
         if self.status and self.status.isConnected():
             tkMessageBox.showwarning(window_caption, "ForexConnect client Connected! Disconnect first")
@@ -157,14 +160,14 @@ class MarketWatcher(ttk.Frame):
 
         try:
             self.session.login(ACCOUNT_ID, PWD, "http://www.fxcorporate.com/Hosts.jsp", "Demo")
+
+            if self.status.waitEvents() and self.status.isConnected():
+                if self.status.status == fx.O2GSessionStatus.Connected:
+                    self.log("ForexConnect client Connected")
+                self.account = self.getAccount()
+                self.createTableListener()
         except Exception, e:
             print repr(e)
-
-        if self.status.waitEvents() and self.status.isConnected():
-            if self.status.status == fx.IO2GSessionStatus.Connected:
-                self.log("ForexConnect client Connected")
-            self.account = self.getAccount()
-            self.createTableListener()
 
     def getAccount(self):
         readerFactory = self.session.getResponseReaderFactory()
@@ -186,8 +189,9 @@ class MarketWatcher(ttk.Frame):
             self.tableListener.release()
 
         if self.session is not None:
-            self.session.logout()
-            self.status.waitEvents()
+            if self.session.getSessionStatus() == fx.IO2GSessionStatus.Connected:
+                self.session.logout()
+                self.status.waitEvents()
             self.session.unsubscribeSessionStatus(self.status)
             self.log("ForexConnect client Disconnected")
             #tkMessageBox.showinfo("fxClient", "ForexConnect client Disconnected")
@@ -211,7 +215,17 @@ class MarketWatcher(ttk.Frame):
 
             self.tableListener.setInstrument("GER30")
             self.tableListener.subscribeEvents(self.tableManager)
-
+            offers = self.tableManager.getTable(fx.O2GTable.Offers)
+            self.initOffers(offers)
+            
+    def initOffers(self, offersTable):
+        iterator = fx.IO2GTableIterator()
+        offerRow = offersTable.getNextRow(iterator)
+        while offerRow:
+            self.symbolList.updateValues(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk())
+            offerRow.release()
+            offerRow = offersTable.getNextRow(iterator)
+            
     def onOffersChanged(self, offerRow):
         self.log(offerRow.getInstrument())
         self.symbolList.updateValues(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk())
@@ -228,12 +242,12 @@ def main():
     root = Tk()
     root.geometry("600x450+200+200")
     app = MarketWatcher(root)
+    sys.stdout = app
     root.protocol("WM_DELETE_WINDOW", app.close_window)
     root.bind('<Escape>', lambda e: root.iconify)
     root.bind("<Control-x>", 'exit')
     root.bind("<Control-q>", 'exit')
-    root.mainloop()  
-
+    root.mainloop()      
 
 if __name__ == '__main__':
     main()  
