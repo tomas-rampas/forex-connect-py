@@ -3,7 +3,6 @@ import tkFont
 import ttk
 import tkMessageBox
 from Tkinter import *
-#from ttk import Frame, Button, Style
 import forexconnect as fx
 
 scriptpath = "../fx.console/listeners/"
@@ -70,7 +69,11 @@ class MultiColumnListBox(Frame):
 
     def updateValues(self, symbol, bid, ask):        
         if self.tree.exists(symbol):
+            self.tree.focus(symbol)
+            self.tree.selection_set(symbol)
             self.tree.item(symbol, values = [symbol, bid, ask])
+            #time.sleep(0.1)
+            self.tree.selection_remove(symbol)
 
 
 def sortby(tree, col, descending):
@@ -152,6 +155,7 @@ class MarketWatcher(ttk.Frame):
             self.parent.destroy() 
     
     def login(self):    
+        self.symbolList.updateValues("EUR/USD", 1.00035, 1.00033)        
         self.session = fx.CO2GTransport.createSession()
         self.session.useTableManager(fx.O2GTableManagerMode.Yes, None)
         self.status = SessionStatusListener(self.session)
@@ -162,7 +166,7 @@ class MarketWatcher(ttk.Frame):
             self.session.login(ACCOUNT_ID, PWD, "http://www.fxcorporate.com/Hosts.jsp", "Demo")
 
             if self.status.waitEvents() and self.status.isConnected():
-                if self.status.status == fx.O2GSessionStatus.Connected:
+                if self.status.status == fx.IO2GSessionStatus.Connected:
                     self.log("ForexConnect client Connected")
                 self.account = self.getAccount()
                 self.createTableListener()
@@ -219,6 +223,7 @@ class MarketWatcher(ttk.Frame):
             self.initOffers(offers)
             
     def initOffers(self, offersTable):
+        offersTable.__class__ = fx.IO2GOffersTable
         iterator = fx.IO2GTableIterator()
         offerRow = offersTable.getNextRow(iterator)
         while offerRow:
@@ -233,8 +238,11 @@ class MarketWatcher(ttk.Frame):
 
     def log(self, message):
         if self.logger:
-            self.logger.insert(END, message + "\n")
-            self.logger.see(END)
+            if message[-1] == '\n':
+                message = message[:-1]
+            if len(message) > 0:
+                self.logger.insert(END, message + "\n")
+                self.logger.see(END)
 
 
 def main():
