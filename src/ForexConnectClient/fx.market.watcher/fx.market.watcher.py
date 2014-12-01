@@ -115,7 +115,11 @@ class MultiColumnListBox(Frame):
         if self.tree.exists(offer.instrument):
             #self.tree.focus(offer.instrument)
             #self.tree.selection_set(offer.instrument)
-            self.tree.item(offer.instrument, values = [offer.instrument, offer.bid, offer.ask])
+            self.tree.item(offer.instrument, values = [
+                offer.instrument, 
+                "{bid:.{dec}f}".format(bid=offer.bid, dec=offer.digits), 
+                "{ask:.{dec}f}".format(ask=offer.ask, dec=offer.digits),
+            ])
             #time.sleep(0.05)
             #self.tree.selection_remove(offer.instrument)
 
