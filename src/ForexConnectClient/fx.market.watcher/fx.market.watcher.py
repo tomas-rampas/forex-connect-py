@@ -40,7 +40,7 @@ class Offer(object):
         self._digits = digits
 
     def __str__(self):
-        return "{}, bid:{:6f}, ask:{:6f}, digits:{}".format(self._instrument, self._bid, self._ask, self._digits)
+        return "{ins}, bid:{bid:.{dec}f}, ask:{ask:.{dec}f}, digits:{dec}".format(ins=self._instrument, bid=self._bid, ask=self._ask, dec=self._digits)
 
     @property
     def instrument(self):
@@ -113,11 +113,11 @@ class MultiColumnListBox(Frame):
     def updateValues(self, offer):        
         #self.tree.item(symbol, values = [symbol, bid, ask])
         if self.tree.exists(offer.instrument):
-            self.tree.focus(offer.instrument)
-            self.tree.selection_set(offer.instrument)
+            #self.tree.focus(offer.instrument)
+            #self.tree.selection_set(offer.instrument)
             self.tree.item(offer.instrument, values = [offer.instrument, offer.bid, offer.ask])
             #time.sleep(0.05)
-            self.tree.selection_remove(offer.instrument)
+            #self.tree.selection_remove(offer.instrument)
 
 
 def sortby(tree, col, descending):
