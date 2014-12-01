@@ -40,7 +40,8 @@ class Offer(object):
         self._digits = digits
 
     def __str__(self):
-        return "{ins}, bid:{bid:.{dec}f}, ask:{ask:.{dec}f}, digits:{dec}".format(ins=self._instrument, bid=self._bid, ask=self._ask, dec=self._digits)
+        return "{ins}, bid:{bid:.{dec}f}, ask:{ask:.{dec}f}, volume:{vol}, digits:{dec}".format(ins=self._instrument, bid=self._bid, ask=self._ask,
+                                                                                               vol=self._volume, dec=self._digits)
 
     @property
     def instrument(self):
