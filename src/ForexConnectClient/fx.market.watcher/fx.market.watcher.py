@@ -265,7 +265,8 @@ class MarketWatcher(ttk.Frame):
             offerRow = offersTable.getNextRow(iterator)
             
     def onOffersChanged(self, offerRow):
-        self.symbolList.updateValues(Offer(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk()))
+        #self.symbolList.updateValues(Offer(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk()))
+        self.queue.put(Offer(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk(), offerRow.getVolume()))
 
     def processIncoming(self):
         while self.queue.qsize():
@@ -278,10 +279,7 @@ class MarketWatcher(ttk.Frame):
 
     def periodicCall(self):
         self.processIncoming()
-        #if not self.running:
-        #    import sys
-        #    sys.exit(1)
-        self.parent.after(250, self.periodicCall)
+        self.parent.after(100, self.periodicCall)
 
     def log(self, message):
         if self.logger:
