@@ -33,9 +33,6 @@ class TableListener(fx.TableListener):
     def onChanged(self, rowID, rowData):        
         rowData.__class__ = fx.IO2GOfferRow
         self.onOffersChanged.fire(rowData)
-        #if rowData.getTableType() == fx.O2GTable.Offers:
-        #    rowData.__class__ = fx.IO2GOfferRow
-        #    self.printOffer(rowData, self.instrument)
 
     def onDelete(self, rowID, rowData):
         print "onDelete"

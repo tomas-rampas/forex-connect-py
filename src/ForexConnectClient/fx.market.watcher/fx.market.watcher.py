@@ -1,4 +1,4 @@
-import os, sys, time
+import os, sys, time, threading, Queue
 import tkFont
 import ttk
 import tkMessageBox
@@ -30,6 +30,37 @@ symbols_list = [('EUR/USD', '0.000000', '0.000000') ,
 ('AUD/NZD', '0.000000', '0.000000') ,
 ('GBP/JPY', '0.000000', '0.000000') ,
 ('GER30', '0.000000', '0.000000') ,]
+
+class Offer(object):
+    def __init__(self, instrument = None, bid = 0.0, ask = 0.0, volume = 0):
+        self._instrument = instrument
+        self._bid = bid
+        self._ask = ask
+        self._volume = volume
+
+    @property
+    def instrument(self):
+        return self._instrument
+
+    @instrument.setter
+    def instrument(self, value):
+        self._instrument = value
+
+    @property
+    def bid(self):
+        return self._bid
+
+    @bid.setter
+    def bid(self, value):
+        self._bid = value
+
+    @property
+    def ask(self):
+        return self._ask
+
+    @ask.setter
+    def ask(self, value):
+        self._ask = value
 
 class MultiColumnListBox(Frame):
 
@@ -67,13 +98,14 @@ class MultiColumnListBox(Frame):
                 if self.tree.column(symbols_header[ix],width=None) < col_w:
                     self.tree.column(symbols_header[ix], width=col_w)
 
-    def updateValues(self, symbol, bid, ask):        
-        if self.tree.exists(symbol):
-            self.tree.focus(symbol)
-            self.tree.selection_set(symbol)
-            self.tree.item(symbol, values = [symbol, bid, ask])
+    def updateValues(self, offer):        
+        #self.tree.item(symbol, values = [symbol, bid, ask])
+        if self.tree.exists(offer.instrument):
+            #self.tree.focus(symbol)
+            #self.tree.selection_set(symbol)
+            self.tree.item(offer.instrument, values = [offer.instrument, offer.bid, offer.ask])
             #time.sleep(0.1)
-            self.tree.selection_remove(symbol)
+            #self.tree.selection_remove(symbol)
 
 
 def sortby(tree, col, descending):
@@ -95,7 +127,8 @@ def sortby(tree, col, descending):
 class MarketWatcher(ttk.Frame):
   
     def __init__(self, parent):
-        ttk.Frame.__init__(self, parent)   
+        ttk.Frame.__init__(self, parent)           
+        self.lock = threading.Lock()
         self.symbolList = None
         self.session = None
         self.tableManager = None
@@ -103,7 +136,7 @@ class MarketWatcher(ttk.Frame):
         self.status = None  
         self.account = None      
         self.parent = parent
-        self.status = None
+        self.queue = Queue.Queue()
         self.initUI()
         
     def initUI(self):
@@ -154,8 +187,7 @@ class MarketWatcher(ttk.Frame):
         else:
             self.parent.destroy() 
     
-    def login(self):    
-        self.symbolList.updateValues("EUR/USD", 1.00035, 1.00033)        
+    def login(self):            
         self.session = fx.CO2GTransport.createSession()
         self.session.useTableManager(fx.O2GTableManagerMode.Yes, None)
         self.status = SessionStatusListener(self.session)
@@ -202,7 +234,6 @@ class MarketWatcher(ttk.Frame):
 
     def createTableListener(self):        
         self.tableListener = TableListener()
-        self.tableListener.onOffersChanged += self.onOffersChanged
         self.tableManager = self.session.getTableManager()
         if self.tableManager:
             managerStatus = self.tableManager.getStatus()
@@ -221,20 +252,36 @@ class MarketWatcher(ttk.Frame):
             self.tableListener.subscribeEvents(self.tableManager)
             offers = self.tableManager.getTable(fx.O2GTable.Offers)
             self.initOffers(offers)
+            self.tableListener.onOffersChanged += self.onOffersChanged
+            self.periodicCall()
             
     def initOffers(self, offersTable):
         offersTable.__class__ = fx.IO2GOffersTable
         iterator = fx.IO2GTableIterator()
         offerRow = offersTable.getNextRow(iterator)
         while offerRow:
-            self.symbolList.updateValues(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk())
+            self.symbolList.updateValues(Offer(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk()))
             offerRow.release()
             offerRow = offersTable.getNextRow(iterator)
             
     def onOffersChanged(self, offerRow):
-        self.log(offerRow.getInstrument())
-        self.symbolList.updateValues(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk())
+        self.symbolList.updateValues(Offer(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk()))
 
+    def processIncoming(self):
+        while self.queue.qsize():
+            try:
+                offer = self.queue.get(0)
+                self.log(offer.instrument)
+                self.symbolList.updateValues(offer)
+            except Queue.Empty:
+                pass
+
+    def periodicCall(self):
+        self.processIncoming()
+        #if not self.running:
+        #    import sys
+        #    sys.exit(1)
+        self.parent.after(250, self.periodicCall)
 
     def log(self, message):
         if self.logger:
