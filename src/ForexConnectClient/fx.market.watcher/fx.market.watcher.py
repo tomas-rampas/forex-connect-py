@@ -257,9 +257,9 @@ class MarketWatcher(ttk.Frame):
 
             i = 0
             while managerStatus == fx.O2GTableManagerStatus.TablesLoading:
-                time.sleep(0.250)
+                #time.sleep(0.250)
                 i += 1
-                if not i % 10 : self.log(str(self.tableManager.getStatus()))
+                if not i % 10000 : print self.tableManager.getStatus()
                 managerStatus = self.tableManager.getStatus()    
 
             if managerStatus == fx.O2GTableManagerStatus.TablesLoadFailed:
