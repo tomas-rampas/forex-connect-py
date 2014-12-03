@@ -233,12 +233,21 @@ class IO2GOffersTableCallable : public IO2GOffersTableWrap
 {
 public:
 	IO2GOffersTableCallable(PyObject* obj, IO2GOffersTableWrap& table) :self(obj), IO2GOffersTableWrap(table){}
+
 	static IO2GOfferTableRow* getNextRow(IO2GOffersTable& self_, IO2GTableIterator &iterator)
 	{
 		IO2GOfferTableRow *offerRow = NULL;
 		bool ret = self_.getNextRow(iterator, offerRow);
 		return offerRow;
 	}
+
+	static IO2GOfferTableRow* findRow(IO2GOffersTable& self_, const char* id)
+	{
+		IO2GOfferTableRow *offerRow = NULL;
+		bool ret = self_.findRow(id, offerRow);
+		return offerRow;
+	}
+
 private:
 	PyObject* const self;
 };
@@ -249,7 +258,7 @@ void export_IO2GOffersTable()
 		.def("getRow", pure_virtual(&IO2GOffersTable::getRow), return_value_policy<reference_existing_object>())
 		.def("getNextRow", &IO2GOffersTableCallable::getNextRow, return_value_policy<reference_existing_object>())
 		.def("getNextRowByColumnValue", pure_virtual(&IO2GOffersTable::getNextRowByColumnValue))
-		.def("findRow", pure_virtual(&IO2GOffersTable::findRow))
+		.def("findRow", &IO2GOffersTableCallable::findRow, return_value_policy<reference_existing_object>())
 		.def("getNextRowByMultiColumnValues", pure_virtual(&IO2GOffersTable::getNextRowByMultiColumnValues))
 		.def("getNextRowByColumnValue", pure_virtual(&IO2GOffersTable::getNextRowByColumnValue))
 		.def("subscribeUpdate", pure_virtual(&IO2GOffersTable::subscribeUpdate))

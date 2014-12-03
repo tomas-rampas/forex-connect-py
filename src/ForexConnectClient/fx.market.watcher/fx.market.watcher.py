@@ -152,6 +152,7 @@ class MarketWatcher(ttk.Frame):
         self.tableListener = None
         self.status = None  
         self.account = None      
+        self.offers = None
         self.parent = parent
         self.queue = Queue.Queue()
         self.initUI()
@@ -188,6 +189,8 @@ class MarketWatcher(ttk.Frame):
         filemenu = Menu(menubar, tearoff=0)
         filemenu.add_command(label="Login", command=self.login, underline=0)
         filemenu.add_command(label="Logout", command=self.logout, accelerator='Ctrl-O')
+        filemenu.add_separator()
+        filemenu.add_command(label="Orders", command=self.getOrders)
         filemenu.add_separator()
         filemenu.add_command(label="Exit", command=self.close_window, accelerator='Ctrl-X', underline=1)
         menubar.add_cascade(label="File", menu=filemenu)
@@ -231,8 +234,21 @@ class MarketWatcher(ttk.Frame):
         accountsResponseReader = readerFactory.createAccountsTableReader(response)
         for i in range(accountsResponseReader.size()):
             account = accountsResponseReader.getRow(i)
-            if not account.getMaintenanceFlag():
+            if not account.getMaintenanceFlag():        
                 self.log("Current account balance:" + str(account.getBalance()))
+
+
+    def getOrders(self):
+        orders = self.tableManager.getTable(fx.O2GTable.Orders)
+        orders.__class__ = fx.IO2GOrdersTable
+        for i in range(orders.size()):
+            order = orders.getRow(i)
+            order.__class__ = fx.IO2GOrderRow
+            if self.offers:
+                offer = self.offers.findRow(str(order.getOfferID()))
+                if offer:
+                    offer.__class__ = fx.IO2GOfferRow
+            self.log("%s %s %d" % (order.getBuySell(), offer.getInstrument(), order.getAmount()))
 
     def logout(self):        
         if self.tableManager is not None and self.tableListener is not None:
@@ -257,9 +273,9 @@ class MarketWatcher(ttk.Frame):
 
             i = 0
             while managerStatus == fx.O2GTableManagerStatus.TablesLoading:
-                #time.sleep(0.250)
+                time.sleep(0.050)
                 i += 1
-                if not i % 10000 : print self.tableManager.getStatus()
+                if not i % 500 : print self.tableManager.getStatus()
                 managerStatus = self.tableManager.getStatus()    
 
             if managerStatus == fx.O2GTableManagerStatus.TablesLoadFailed:
@@ -267,8 +283,8 @@ class MarketWatcher(ttk.Frame):
 
             self.tableListener.setInstrument("GER30")
             self.tableListener.subscribeEvents(self.tableManager)
-            offers = self.tableManager.getTable(fx.O2GTable.Offers)
-            self.initOffers(offers)
+            self.offers = self.tableManager.getTable(fx.O2GTable.Offers)
+            self.initOffers(self.offers)
             self.tableListener.onOffersChanged += self.onOffersChanged
             self.periodicCall()
             
@@ -288,14 +304,14 @@ class MarketWatcher(ttk.Frame):
         while self.queue.qsize():
             try:
                 offer = self.queue.get(0)
-                print offer
+                #print offer
                 self.symbolList.updateValues(offer)
             except Queue.Empty:
                 pass
 
     def periodicCall(self):
         self.processIncoming()
-        self.parent.after(100, self.periodicCall)
+        self.parent.after(50, self.periodicCall)
 
     def log(self, message):
         if self.logger:
