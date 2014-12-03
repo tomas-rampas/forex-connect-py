@@ -191,6 +191,7 @@ class MarketWatcher(ttk.Frame):
         filemenu.add_command(label="Logout", command=self.logout, accelerator='Ctrl-O')
         filemenu.add_separator()
         filemenu.add_command(label="Orders", command=self.getOrders)
+        filemenu.add_command(label="Trades", command=self.getTrades)
         filemenu.add_separator()
         filemenu.add_command(label="Exit", command=self.close_window, accelerator='Ctrl-X', underline=1)
         menubar.add_cascade(label="File", menu=filemenu)
@@ -249,6 +250,19 @@ class MarketWatcher(ttk.Frame):
                 if offer:
                     offer.__class__ = fx.IO2GOfferRow
             self.log("%s %s %d" % (order.getBuySell(), offer.getInstrument(), order.getAmount()))
+
+    def getTrades(self):
+        trades = self.tableManager.getTable(fx.O2GTable.Trades)
+        trades.__class__ = fx.IO2GTradesTable
+        for i in range(trades.size()):
+            trade = trades.getRow(i)
+            trade.__class__ = fx.IO2GTradeRow
+            if self.offers:
+                offer = self.offers.findRow(str(trade.getOfferID()))
+                if offer:
+                    offer.__class__ = fx.IO2GOfferRow
+            self.log("%s %s %d" % (trade.getBuySell(), offer.getInstrument(), trade.getAmount()))
+
 
     def logout(self):        
         if self.tableManager is not None and self.tableListener is not None:

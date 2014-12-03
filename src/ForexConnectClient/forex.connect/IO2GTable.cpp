@@ -332,13 +332,37 @@ public:
 	{ return this->get_override("getNextRowByColumnValues")();}
 };
 
+class IO2GTradesTableCallable : public IO2GTradesTableWrap
+{
+public:
+	IO2GTradesTableCallable(PyObject* obj, IO2GTradesTableWrap& table) :self(obj), IO2GTradesTableWrap(table){}
+
+	static IO2GTradeTableRow* getNextRow(IO2GTradesTable& self_, IO2GTableIterator &iterator)
+	{
+		IO2GTradeTableRow *tradeRow = NULL;
+		bool ret = self_.getNextRow(iterator, tradeRow);
+		return tradeRow;
+	}
+
+	static IO2GTradeTableRow* findRow(IO2GTradesTable& self_, const char* id)
+	{
+		IO2GTradeTableRow *tradeRow= NULL;
+		bool ret = self_.findRow(id, tradeRow);
+		return tradeRow;
+	}
+
+private:
+	PyObject* const self;
+};
+
+
 void export_IO2GTradesTable()
 {
 	class_<IO2GTradesTableWrap, bases<IO2GTable>, boost::noncopyable>("IO2GTradesTable", no_init)
 		.def("getRow", pure_virtual(&IO2GTradesTable::getRow), return_value_policy<reference_existing_object>())
-		.def("getNextRow", pure_virtual(&IO2GTradesTable::getNextRow))
+		.def("getNextRow", &IO2GTradesTableCallable::getNextRow, return_value_policy<reference_existing_object>())
 		.def("getNextRowByColumnValue", pure_virtual(&IO2GTradesTable::getNextRowByColumnValue))
-		.def("findRow", pure_virtual(&IO2GTradesTable::findRow))
+		.def("findRow", &IO2GTradesTableCallable::findRow, return_value_policy<reference_existing_object>())
 		.def("getNextRowByMultiColumnValues", pure_virtual(&IO2GTradesTable::getNextRowByMultiColumnValues))
 		.def("getNextRowByColumnValue", pure_virtual(&IO2GTradesTable::getNextRowByColumnValue))
 		;
