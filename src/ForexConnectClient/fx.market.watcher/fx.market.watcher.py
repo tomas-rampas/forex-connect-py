@@ -261,7 +261,7 @@ class MarketWatcher(ttk.Frame):
                 offer = self.offers.findRow(str(trade.getOfferID()))
                 if offer:
                     offer.__class__ = fx.IO2GOfferRow
-            self.log("%s %s %d" % (trade.getBuySell(), offer.getInstrument(), trade.getAmount()))
+            self.log("%s %s %d %f" % (trade.getBuySell(), offer.getInstrument(), trade.getAmount() ,trade.getOpenRate()))
 
 
     def logout(self):        
