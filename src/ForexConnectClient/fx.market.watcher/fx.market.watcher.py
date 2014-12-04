@@ -256,12 +256,12 @@ class MarketWatcher(ttk.Frame):
         trades.__class__ = fx.IO2GTradesTable
         for i in range(trades.size()):
             trade = trades.getRow(i)
-            trade.__class__ = fx.IO2GTradeRow
+            trade.__class__ = fx.IO2GTradeTableRow
             if self.offers:
                 offer = self.offers.findRow(str(trade.getOfferID()))
                 if offer:
                     offer.__class__ = fx.IO2GOfferRow
-            self.log("%s %s %d %f" % (trade.getBuySell(), offer.getInstrument(), trade.getAmount() ,trade.getOpenRate()))
+            self.log("%s %s %d %f %f %f" % (trade.getBuySell(), offer.getInstrument(), trade.getAmount() ,trade.getOpenRate(), trade.getLimit(), trade.getStop()))
 
 
     def logout(self):        

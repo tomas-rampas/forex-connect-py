@@ -106,10 +106,4 @@ void export_IO2GOfferRow()
 	class_<IO2GOfferTableRowWrap, bases<IO2GOfferRow>, boost::noncopyable>("IO2GOfferTableRow", no_init)
 		.def("getPipCost", pure_virtual(&IO2GOfferTableRow::getPipCost))
 		;
-
-	//class_<IO2GOfferTableRowPtr, IO2GOfferTableRowPtrCallable, bases<IO2GOfferTableRow, IO2GOfferRow, IO2GRow, IAddRef>, 
-	//	boost::noncopyable>("IO2GOfferTableRowPtr", init<>())
-	//	.def(init<IO2GOfferTableRowPtr>())
-	//	.def("getPipCost", &IO2GOfferTableRowPtrCallable::getPipCost)
-	//	;
 };
