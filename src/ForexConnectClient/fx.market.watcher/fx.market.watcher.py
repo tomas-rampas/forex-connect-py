@@ -178,15 +178,19 @@ class MarketWatcher(ttk.Frame):
         self.logger.pack()
         self.pack(fill=BOTH, expand=1)
         
-        closeButton = ttk.Button(self, text="Close", command = lambda: self.close_window(), underline=0)        
+        closeButton = ttk.Button(self, text="Exit", command = lambda: self.close_window(), underline=0)        
         closeButton.pack(side=RIGHT, padx=5, pady=5)
-        self.parent.bind('<Alt_L><c>', lambda e:closeButton.invoke())
+        self.parent.bind('<Alt_L><e>', lambda e:closeButton.invoke())
         logoutButton = ttk.Button(self, text="Logout", command = lambda: self.logout(), underline=3)
         logoutButton.pack(side=RIGHT)
         self.parent.bind('<Alt_L><o>', lambda e:logoutButton.invoke())
         loginButton = ttk.Button(self, text="Login", command = lambda: self.login(),underline=3)
         loginButton.pack(side=RIGHT)
         self.parent.bind('<Alt_L><i>', lambda e:loginButton.invoke())
+        openButton = ttk.Button(self, text="Open", command = lambda: self.openPosition())
+        openButton.pack(side=LEFT)
+        closeButton = ttk.Button(self, text="Close", command = lambda: self.closePosition())
+        closeButton.pack(side=LEFT)
          
         menubar = Menu(self)
         filemenu = Menu(menubar, tearoff=0)
@@ -266,6 +270,11 @@ class MarketWatcher(ttk.Frame):
                     offer.__class__ = fx.IO2GOfferRow
             self.log("%s %s %d %f %f %f" % (trade.getBuySell(), offer.getInstrument(), trade.getAmount() ,trade.getOpenRate(), trade.getLimit(), trade.getStop()))
 
+    def openPosition(self):
+        tkMessageBox.showinfo(window_caption, "TBD: Open Position")
+
+    def closePosition(self):
+        tkMessageBox.showinfo(window_caption, "TBD: Close Position")
 
     def logout(self):        
         if self.tableManager is not None and self.tableListener is not None:

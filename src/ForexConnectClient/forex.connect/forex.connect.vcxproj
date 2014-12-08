@@ -71,8 +71,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\!dev\Python276\include;D:\!projects\!github\pyfxconnect\includes\;D:\!projects\!github\pyfxconnect\includes\forexconnect;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\!dev\Python276\libs;D:\!projects\!github\pyfxconnect\libs\x64\boost;D:\!projects\!github\pyfxconnect\libs\x64\forexconnect;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\!dev\Python278\include;D:\!projects\!github\pyfxconnect\includes\;D:\!projects\!github\pyfxconnect\includes\forexconnect;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\!dev\Python278\libs;D:\!projects\!github\pyfxconnect\libs\x64\boost;D:\!projects\!github\pyfxconnect\libs\x64\forexconnect;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
