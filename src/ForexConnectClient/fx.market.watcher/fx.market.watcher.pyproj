@@ -25,11 +25,20 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="dialogs\order.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="dialogs\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fx.market.watcher.py" />
     <Compile Include="settings.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{929fd3b6-b7f4-4f18-8279-20762a12412b}\2.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="dialogs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
