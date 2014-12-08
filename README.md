@@ -6,6 +6,7 @@ Develompent environment:
 
 * Windows 7 64 bit,
 * Visual Studio 2013,
+* [PyCharm](https://www.jetbrains.com/pycharm/) for more advanced Python programming
 * Python 2.7,
 * [Python Tools for Visual Studio](http://pytools.codeplex.com/),
 * [Boost 1.55](http://www.boost.org/),
