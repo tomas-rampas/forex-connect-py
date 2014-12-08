@@ -1,9 +1,10 @@
 from Tkinter import *
-import tkMessageBox, os
+import tkMessageBox
+import os
 
 class OrderDialog(Toplevel):
 
-    def __init__(self, parent, title = None):
+    def __init__(self, parent, title=None):
         Toplevel.__init__(self, parent)
         self.transient(parent)
         if title:
@@ -20,8 +21,8 @@ class OrderDialog(Toplevel):
             self.initial_focus = self
 
         self.protocol("WM_DELETE_WINDOW", self.cancel)
-        self.geometry("+%d+%d" % (parent.winfo_rootx()+50,
-                                  parent.winfo_rooty()+50))
+        self.geometry("+%d+%d" % (parent.winfo_rootx() + 50,
+                                  parent.winfo_rooty() + 50))
         self.initial_focus.focus_set()
         self.wait_window(self)
 
@@ -60,7 +61,7 @@ class OrderDialog(Toplevel):
 
 class OpenPosition(OrderDialog):
     """description of class"""
-    def __init__(self, parent, title = None):
+    def __init__(self, parent, title=None):
         OrderDialog.__init__(self, parent, title)
 
     def body(self, master):
@@ -84,7 +85,7 @@ class OpenPosition(OrderDialog):
             amount = int(self.e2.get())
             tp = float(self.tp.get())            
             sl = float(self.sl.get())
-            self.result = pair, amount, tp, sl
+            self.result = {'pair': pair, 'amount': amount, 'tp': tp, 'sl': sl }
         except ValueError:
             tkMessageBox.showwarning("Bad input","Illegal values, please try again")
 

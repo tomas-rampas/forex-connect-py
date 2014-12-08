@@ -341,7 +341,8 @@ class MarketWatcher(ttk.Frame):
 
     def openPosition(self):
         openDialog = OpenPosition(self.parent)
-        print openDialog.result
+        result = openDialog.result
+        print result
 
     def closePosition(self):
         tkMessageBox.showinfo(window_caption, "TBD: Close Position")
