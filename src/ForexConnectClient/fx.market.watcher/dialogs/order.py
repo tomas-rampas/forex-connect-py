@@ -25,16 +25,10 @@ class OrderDialog(Toplevel):
         self.initial_focus.focus_set()
         self.wait_window(self)
 
-    #
-    # construction hooks
     def body(self, master):
-        # create dialog body.  return widget that should have
-        # initial focus.  this method should be overridden
         pass
 
     def buttonbox(self):
-        # add standard button box. override if you don't want the
-        # standard buttons
         box = Frame(self)
         w = Button(box, text="OK", width=10, command=self.ok, default=ACTIVE)
         w.pack(side=LEFT, padx=5, pady=5)
@@ -42,15 +36,12 @@ class OrderDialog(Toplevel):
         w.pack(side=LEFT, padx=5, pady=5)
         self.bind("<Return>", self.ok)
         self.bind("<Escape>", self.cancel)
-
         box.pack()
 
-    #
-    # standard button semantics
     def ok(self, event=None):
 
         if not self.validate():
-            self.initial_focus.focus_set() # put focus back
+            self.initial_focus.focus_set()
             return
         self.withdraw()
         self.update_idletasks()
@@ -58,18 +49,14 @@ class OrderDialog(Toplevel):
         self.cancel()
 
     def cancel(self, event=None):
-        # put focus back to the parent window
         self.parent.focus_set()
         self.destroy()
 
-    #
-    # command hooks
-
     def validate(self):
-        return 1 # override
+        return 1
 
     def apply(self):
-        pass # override
+        pass
 
 class OpenPosition(OrderDialog):
     """description of class"""
@@ -79,19 +66,25 @@ class OpenPosition(OrderDialog):
     def body(self, master):
         Label(master, text="Pair:").grid(row=0, sticky=W)
         Label(master, text="Amount:").grid(row=1, sticky=W)
+        Label(master, text="Take Profit:").grid(row=2, sticky=W)
+        Label(master, text="Stop Loss:").grid(row=3, sticky=W)
 
         self.e1 = Entry(master)
         self.e2 = Entry(master)
         self.e1.grid(row=0, column=1)
         self.e2.grid(row=1, column=1)
-        self.cb = Checkbutton(master, text="Hardcopy")
-        self.cb.grid(row=2, columnspan=2, sticky=W)
+        self.tp = Entry(master)
+        self.tp.grid(row=2, column=1)
+        self.sl = Entry(master)
+        self.sl.grid(row=3, column=1)
 
     def apply(self):
         try:
-            first = self.e1.get()
-            second = int(self.e2.get())
-            print first, second
+            pair = self.e1.get()
+            amount = int(self.e2.get())
+            tp = float(self.tp.get())            
+            sl = float(self.sl.get())
+            self.result = pair, amount, tp, sl
         except ValueError:
             tkMessageBox.showwarning("Bad input","Illegal values, please try again")
 
