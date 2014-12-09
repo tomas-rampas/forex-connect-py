@@ -61,8 +61,9 @@ class OrderDialog(Toplevel):
 
 class OpenPosition(OrderDialog):
     """description of class"""
-    def __init__(self, parent, title=None):
+    def __init__(self, parent, order=None, title=None):
         OrderDialog.__init__(self, parent, title)
+        self.order = order
 
     def body(self, master):
         Label(master, text="Pair:").grid(row=0, sticky=W)

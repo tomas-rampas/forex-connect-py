@@ -344,6 +344,11 @@ class MarketWatcher(ttk.Frame):
         result = openDialog.result
         print result
 
+    def editPosition(self):
+        openDialog = OpenPosition(self.parent)
+        result = openDialog.result
+        print result
+
     def closePosition(self):
         tkMessageBox.showinfo(window_caption, "TBD: Close Position")
 
@@ -359,8 +364,7 @@ class MarketWatcher(ttk.Frame):
                 self.session.logout()
                 self.status.waitEvents()
             self.session.unsubscribeSessionStatus(self.status)
-            self.log("ForexConnect client Disconnected")
-            #tkMessageBox.showinfo("fxClient", "ForexConnect client Disconnected")
+            print "ForexConnect client Disconnected"
 
     def createTableListener(self):        
         self.tableListener = TableListener()
