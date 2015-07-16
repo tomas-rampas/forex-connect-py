@@ -203,6 +203,7 @@ class MultiColumnListBox(Frame):
     def updateValues(self, offer):        
         #self.tree.item(symbol, values = [symbol, bid, ask])
         if self.tree.exists(offer.instrument):
+            if 'AUD' in offer.instrument: print offer.instrument
             #self.tree.focus(offer.instrument)
             #self.tree.selection_set(offer.instrument)
             self.tree.item(offer.instrument, values = [
@@ -213,7 +214,8 @@ class MultiColumnListBox(Frame):
             ])
             #time.sleep(0.05)
             #self.tree.selection_remove(offer.instrument)
-
+        #else:
+        #    print (offer.instrument + " does.not exist")
 
 def sortby(tree, col, descending):
     """
@@ -400,7 +402,6 @@ class MarketWatcher(ttk.Frame):
             if managerStatus == fx.O2GTableManagerStatus.TablesLoadFailed:
                 self.log("Cannot refresh all tables of table manager")
 
-            self.tableListener.setInstrument("GER30")
             self.tableListener.subscribeEvents(self.tableManager)
             self.offers = self.tableManager.getTable(fx.O2GTable.Offers)
             self.initOffers(self.offers)

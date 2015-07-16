@@ -37,6 +37,41 @@ def getAccount(session):
 def onDataChanged(data):
     print data.getInstrument()
 
+
+def checkSubscriptions(session, tblManager):    
+    offers = tblManager.getTable(fx.O2GTable.Offers)
+    offers.__class__ = fx.IO2GOffersTable
+    for ii in range(0,10000):
+        offer = offers.getRow(ii);
+        if not offer: return
+        offer.__class__ = fx.IO2GOfferRow
+        if offer.getInstrumentType() == 1:
+            if offer.getSubscriptionStatus() == "T":
+                print offer.getInstrument() + " subscribed"
+            else:
+                subscribeOffer(session, ii)   
+        else:
+            print "unsubscribing ", offer.getInstrument()
+            unsubscribeOffer(session, ii)
+
+def subscribeOffer(session, offerId):
+    valueMap = session.getRequestFactory().createValueMap()
+    valueMap.setString(fx.O2GRequestParamsEnum.Command, "SetSubscriptionStatus")#Constants.Commands.SetSubscriptionStatus)
+    valueMap.setString(fx.O2GRequestParamsEnum.SubscriptionStatus, "T")
+    valueMap.setString(fx.O2GRequestParamsEnum.OfferID, str(offerId))
+    factory = session.getRequestFactory()
+    request = factory.createOrderRequest(valueMap)
+    session.sendRequest(request)
+
+def unsubscribeOffer(session, offerId):
+    valueMap = session.getRequestFactory().createValueMap()
+    valueMap.setString(fx.O2GRequestParamsEnum.Command, "SetSubscriptionStatus")#Constants.Commands.SetSubscriptionStatus)
+    valueMap.setString(fx.O2GRequestParamsEnum.SubscriptionStatus, "D")
+    valueMap.setString(fx.O2GRequestParamsEnum.OfferID, str(offerId))
+    factory = session.getRequestFactory()
+    request = factory.createOrderRequest(valueMap)
+    session.sendRequest(request)
+
 session = fx.CO2GTransport.createSession()
 session.useTableManager(fx.O2GTableManagerMode.Yes, None)
 status = SessionStatusListener(session)
@@ -55,11 +90,14 @@ if  status.waitEvents() and status.isConnected():
 else:
     stop()
 
+
 tableListener = TableListener()
 tableListener.onOffersChanged += onDataChanged
 tableManager = session.getTableManager()
 
 if tableManager is not None:
+    checkSubscriptions(session, tableManager)
+
     managerStatus = tableManager.getStatus()
 
     i = 0
