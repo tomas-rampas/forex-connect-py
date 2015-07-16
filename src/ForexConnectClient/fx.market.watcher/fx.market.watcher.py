@@ -18,19 +18,36 @@ except BaseException:
     tkMessageBox.showinfo(window_caption, "Create settings.py with ACCOUNT_ID and PWD")
     sys.exit(0)
 
-symbols_header = ['Symbol', 'Bid', 'Ask']
+symbols_header = ['Symbol', 'Bid', 'Ask', 'Spread']
 symbols_list = [
-    ('EUR/USD', '0.000000', '0.000000') ,
-    ('EUR/CHF', '0.000000', '0.000000') ,
-    ('USD/JPY', '0.000000', '0.000000') ,
-    ('GBP/USD', '0.000000', '0.000000') ,
-    ('AUD/USD', '0.000000', '0.000000') ,
-    ('NZD/USD', '0.000000', '0.000000') ,
-    ('EUR/NZD', '0.000000', '0.000000') ,
-    ('AUD/NZD', '0.000000', '0.000000') ,
-    ('GBP/JPY', '0.000000', '0.000000') ,
-    ('XAU/USD', '0.000000', '0.000000') ,
-    ('GER30', '0.000000', '0.000000') ,
+    ('AUD/CAD', '0.00000', '0.00000', '00.0'),
+    ('AUD/CHF', '0.00000', '0.00000', '00.0'),
+    ('AUD/JPY', '000.000', '000.000', '00.0'),
+    ('AUD/NZD', '0.00000', '0.00000', '00.0'),
+    ('AUD/USD', '0.00000', '0.00000', '00.0'),
+    ('CAD/CHF', '0.00000', '0.00000', '00.0'),
+    ('CAD/JPY', '000.000', '000.000', '00.0'),
+    ('CHF/JPY', '000.000', '000.000', '00.0'),
+    ('EUR/AUD', '0.00000', '0.00000', '00.0'),
+    ('EUR/CAD', '0.00000', '0.00000', '00.0'),
+    ('EUR/CHF', '0.00000', '0.00000', '00.0'),
+    ('EUR/GBP', '0.00000', '0.00000', '00.0'),
+    ('EUR/JPY', '000.000', '000.000', '00.0'),
+    ('EUR/NZD', '0.00000', '0.00000', '00.0'),
+    ('EUR/USD', '0.00000', '0.00000', '00.0'),
+    ('GBP/AUD', '0.00000', '0.00000', '00.0'),
+    ('GBP/CAD', '0.00000', '0.00000', '00.0'),
+    ('GBP/CHF', '0.00000', '0.00000', '00.0'),
+    ('GBP/JPY', '000.000', '000.000', '00.0'),
+    ('GBP/NZD', '0.00000', '0.00000', '00.0'),
+    ('GBP/USD', '0.00000', '0.00000', '00.0'),
+    ('NZD/CAD', '0.00000', '0.00000', '00.0'),
+    ('NZD/CHF', '0.00000', '0.00000', '00.0'),
+    ('NZD/JPY', '000.000', '000.000', '00.0'),
+    ('NZD/USD', '0.00000', '0.00000', '00.0'),
+    ('USD/CAD', '0.00000', '0.00000', '00.0'),
+    ('USD/CHF', '0.00000', '0.00000', '00.0'),
+    ('USD/JPY', '000.000', '000.000', '00.0'),
 ]
 
 class Test(Toplevel):
@@ -192,6 +209,7 @@ class MultiColumnListBox(Frame):
                 offer.instrument, 
                 "{bid:.{dec}f}".format(bid=offer.bid, dec=offer.digits), 
                 "{ask:.{dec}f}".format(ask=offer.ask, dec=offer.digits),
+                "{spread:.{dec}f}".format(spread=(offer.ask - offer.bid) * pow(10, offer.digits-1), dec=1),
             ])
             #time.sleep(0.05)
             #self.tree.selection_remove(offer.instrument)

@@ -6,8 +6,7 @@
     <ProjectGuid>e9607f20-c508-4ab4-a652-f63913e16305</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>fx.market.watcher.py</StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <SearchPath>D:\!projects\!github\pyfxconnect\bin</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>fx.market.watcher</Name>
@@ -15,6 +14,8 @@
     <IsWindowsApplication>True</IsWindowsApplication>
     <InterpreterId>{929fd3b6-b7f4-4f18-8279-20762a12412b}</InterpreterId>
     <InterpreterVersion>2.7</InterpreterVersion>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
