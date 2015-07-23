@@ -92,5 +92,6 @@ class OpenPosition(OrderDialog):
 
 class ClosePosition(OrderDialog):
     """description of class"""
+    pass
 
 

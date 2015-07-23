@@ -20,34 +20,34 @@ except BaseException:
 
 symbols_header = ['Symbol', 'Bid', 'Ask', 'Spread']
 symbols_list = [
-    ('AUD/CAD', '0.00000', '0.00000', '00.0'),
-    ('AUD/CHF', '0.00000', '0.00000', '00.0'),
-    ('AUD/JPY', '000.000', '000.000', '00.0'),
-    ('AUD/NZD', '0.00000', '0.00000', '00.0'),
-    ('AUD/USD', '0.00000', '0.00000', '00.0'),
-    ('CAD/CHF', '0.00000', '0.00000', '00.0'),
-    ('CAD/JPY', '000.000', '000.000', '00.0'),
-    ('CHF/JPY', '000.000', '000.000', '00.0'),
-    ('EUR/AUD', '0.00000', '0.00000', '00.0'),
-    ('EUR/CAD', '0.00000', '0.00000', '00.0'),
-    ('EUR/CHF', '0.00000', '0.00000', '00.0'),
-    ('EUR/GBP', '0.00000', '0.00000', '00.0'),
-    ('EUR/JPY', '000.000', '000.000', '00.0'),
-    ('EUR/NZD', '0.00000', '0.00000', '00.0'),
-    ('EUR/USD', '0.00000', '0.00000', '00.0'),
-    ('GBP/AUD', '0.00000', '0.00000', '00.0'),
-    ('GBP/CAD', '0.00000', '0.00000', '00.0'),
-    ('GBP/CHF', '0.00000', '0.00000', '00.0'),
-    ('GBP/JPY', '000.000', '000.000', '00.0'),
-    ('GBP/NZD', '0.00000', '0.00000', '00.0'),
-    ('GBP/USD', '0.00000', '0.00000', '00.0'),
-    ('NZD/CAD', '0.00000', '0.00000', '00.0'),
-    ('NZD/CHF', '0.00000', '0.00000', '00.0'),
-    ('NZD/JPY', '000.000', '000.000', '00.0'),
-    ('NZD/USD', '0.00000', '0.00000', '00.0'),
-    ('USD/CAD', '0.00000', '0.00000', '00.0'),
-    ('USD/CHF', '0.00000', '0.00000', '00.0'),
-    ('USD/JPY', '000.000', '000.000', '00.0'),
+    ('AUD/CAD', '0.00000',  '0.00000',  '0.0'),
+    ('AUD/CHF', '0.00000',  '0.00000',  '0.0'),
+    ('AUD/JPY', '0.000',    '0.000',    '0.0'),
+    ('AUD/NZD', '0.00000',  '0.00000',  '0.0'),
+    ('AUD/USD', '0.00000',  '0.00000',  '0.0'),
+    ('CAD/CHF', '0.00000',  '0.00000',  '0.0'),
+    ('CAD/JPY', '0.000',    '0.000',    '0.0'),
+    ('CHF/JPY', '0.000',    '0.000',    '0.0'),
+    ('EUR/AUD', '0.00000',  '0.00000',  '0.0'),
+    ('EUR/CAD', '0.00000',  '0.00000',  '0.0'),
+    ('EUR/CHF', '0.00000',  '0.00000',  '0.0'),
+    ('EUR/GBP', '0.00000',  '0.00000',  '0.0'),
+    ('EUR/JPY', '0.000',    '0.000',    '0.0'),
+    ('EUR/NZD', '0.00000',  '0.00000',  '0.0'),
+    ('EUR/USD', '0.00000',  '0.00000',  '0.0'),
+    ('GBP/AUD', '0.00000',  '0.00000',  '0.0'),
+    ('GBP/CAD', '0.00000',  '0.00000',  '0.0'),
+    ('GBP/CHF', '0.00000',  '0.00000',  '0.0'),
+    ('GBP/JPY', '0.000',    '0.000',    '0.0'),
+    ('GBP/NZD', '0.00000',  '0.00000',  '0.0'),
+    ('GBP/USD', '0.00000',  '0.00000',  '0.0'),
+    ('NZD/CAD', '0.00000',  '0.00000',  '0.0'),
+    ('NZD/CHF', '0.00000',  '0.00000',  '0.0'),
+    ('NZD/JPY', '0.000',    '0.000',    '0.0'),
+    ('NZD/USD', '0.00000',  '0.00000',  '0.0'),
+    ('USD/CAD', '0.00000',  '0.00000',  '0.0'),
+    ('USD/CHF', '0.00000',  '0.00000',  '0.0'),
+    ('USD/JPY', '0.000',    '0.000',    '0.0'),
 ]
 
 class Test(Toplevel):
@@ -202,8 +202,7 @@ class MultiColumnListBox(Frame):
 
     def updateValues(self, offer):        
         #self.tree.item(symbol, values = [symbol, bid, ask])
-        if self.tree.exists(offer.instrument):
-            if 'AUD' in offer.instrument: print offer.instrument
+        if self.tree.exists(offer.instrument):            
             #self.tree.focus(offer.instrument)
             #self.tree.selection_set(offer.instrument)
             self.tree.item(offer.instrument, values = [
@@ -258,13 +257,13 @@ class MarketWatcher(ttk.Frame):
         self.frame = Frame(self, relief=RAISED, borderwidth=1)
         self.symbolList = MultiColumnListBox(self.frame)
         self.symbolList.pack()
-        self.frame.pack(fill=BOTH, expand=1)
+        self.frame.pack(side=TOP,fill=BOTH, expand=1)
         self.logger = Text(self.frame, height=10)
         self.logger.grid()
         self.scroller = Scrollbar(self.frame,command=self.logger.yview)
         self.logger.config(yscrollcommand=self.scroller.set)
         self.scroller.pack(side="right", fill="y", expand=False)
-        self.logger.pack()
+        self.logger.pack(fill=BOTH, expand=1)
         self.pack(fill=BOTH, expand=1)
         
         closeButton = ttk.Button(self, text="Exit", command = lambda: self.close_window(), underline=0)        
@@ -305,22 +304,25 @@ class MarketWatcher(ttk.Frame):
             self.parent.destroy() 
     
     def login(self):            
-        self.session = fx.CO2GTransport.createSession()
-        self.session.useTableManager(fx.O2GTableManagerMode.Yes, None)
-        self.status = SessionStatusListener(self.session)
-        self.session.subscribeSessionStatus(self.status)
-        self.status.reset()
+        if self.status and self.status.isConnected():
+            tkMessageBox.showwarning(window_caption, "ForexConnect client is already Connected! Disconnect first")
+        else:
+            self.session = fx.CO2GTransport.createSession()
+            self.session.useTableManager(fx.O2GTableManagerMode.Yes, None)
+            self.status = SessionStatusListener(self.session)
+            self.session.subscribeSessionStatus(self.status)
+            self.status.reset()
 
-        try:
-            self.session.login(ACCOUNT_ID, PWD, "http://www.fxcorporate.com/Hosts.jsp", "Demo")
+            try:
+                self.session.login(ACCOUNT_ID, PWD, "http://www.fxcorporate.com/Hosts.jsp", "Demo")
 
-            if self.status.waitEvents() and self.status.isConnected():
-                if self.status.status == fx.IO2GSessionStatus.Connected:
-                    self.log("ForexConnect client Connected")
-                self.account = self.getAccount()
-                self.createTableListener()
-        except Exception, e:
-            print repr(e)
+                if self.status.waitEvents() and self.status.isConnected():
+                    if self.status.status == fx.IO2GSessionStatus.Connected:
+                        self.log("ForexConnect client Connected")
+                    self.account = self.getAccount()
+                    self.createTableListener()
+            except Exception, e:
+                print repr(e)
 
     def getAccount(self):
         readerFactory = self.session.getResponseReaderFactory()
