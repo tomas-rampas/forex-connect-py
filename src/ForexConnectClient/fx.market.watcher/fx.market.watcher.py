@@ -8,7 +8,9 @@ scriptpath = "../fx.console/listeners/"
 sys.path.append(os.path.abspath(scriptpath))
 scriptpath = "../fx.console/"
 sys.path.append(os.path.abspath(scriptpath))
+# noinspection PyUnresolvedReferences
 from sessionstatus import SessionStatusListener
+# noinspection PyUnresolvedReferences
 from table import TableListener
 
 window_caption = "MarketWatcher"
@@ -20,38 +22,39 @@ except BaseException:
 
 symbols_header = ['Symbol', 'Bid', 'Ask', 'Spread']
 symbols_list = [
-    ('AUD/CAD', '0.00000',  '0.00000',  '0.0'),
-    ('AUD/CHF', '0.00000',  '0.00000',  '0.0'),
-    ('AUD/JPY', '0.000',    '0.000',    '0.0'),
-    ('AUD/NZD', '0.00000',  '0.00000',  '0.0'),
-    ('AUD/USD', '0.00000',  '0.00000',  '0.0'),
-    ('CAD/CHF', '0.00000',  '0.00000',  '0.0'),
-    ('CAD/JPY', '0.000',    '0.000',    '0.0'),
-    ('CHF/JPY', '0.000',    '0.000',    '0.0'),
-    ('EUR/AUD', '0.00000',  '0.00000',  '0.0'),
-    ('EUR/CAD', '0.00000',  '0.00000',  '0.0'),
-    ('EUR/CHF', '0.00000',  '0.00000',  '0.0'),
-    ('EUR/GBP', '0.00000',  '0.00000',  '0.0'),
-    ('EUR/JPY', '0.000',    '0.000',    '0.0'),
-    ('EUR/NZD', '0.00000',  '0.00000',  '0.0'),
-    ('EUR/USD', '0.00000',  '0.00000',  '0.0'),
-    ('GBP/AUD', '0.00000',  '0.00000',  '0.0'),
-    ('GBP/CAD', '0.00000',  '0.00000',  '0.0'),
-    ('GBP/CHF', '0.00000',  '0.00000',  '0.0'),
-    ('GBP/JPY', '0.000',    '0.000',    '0.0'),
-    ('GBP/NZD', '0.00000',  '0.00000',  '0.0'),
-    ('GBP/USD', '0.00000',  '0.00000',  '0.0'),
-    ('NZD/CAD', '0.00000',  '0.00000',  '0.0'),
-    ('NZD/CHF', '0.00000',  '0.00000',  '0.0'),
-    ('NZD/JPY', '0.000',    '0.000',    '0.0'),
-    ('NZD/USD', '0.00000',  '0.00000',  '0.0'),
-    ('USD/CAD', '0.00000',  '0.00000',  '0.0'),
-    ('USD/CHF', '0.00000',  '0.00000',  '0.0'),
-    ('USD/JPY', '0.000',    '0.000',    '0.0'),
+    ('AUD/CAD', '0.00000', '0.00000', '0.0'),
+    ('AUD/CHF', '0.00000', '0.00000', '0.0'),
+    ('AUD/JPY', '0.000', '0.000', '0.0'),
+    ('AUD/NZD', '0.00000', '0.00000', '0.0'),
+    ('AUD/USD', '0.00000', '0.00000', '0.0'),
+    ('CAD/CHF', '0.00000', '0.00000', '0.0'),
+    ('CAD/JPY', '0.000', '0.000', '0.0'),
+    ('CHF/JPY', '0.000', '0.000', '0.0'),
+    ('EUR/AUD', '0.00000', '0.00000', '0.0'),
+    ('EUR/CAD', '0.00000', '0.00000', '0.0'),
+    ('EUR/CHF', '0.00000', '0.00000', '0.0'),
+    ('EUR/GBP', '0.00000', '0.00000', '0.0'),
+    ('EUR/JPY', '0.000', '0.000', '0.0'),
+    ('EUR/NZD', '0.00000', '0.00000', '0.0'),
+    ('EUR/USD', '0.00000', '0.00000', '0.0'),
+    ('GBP/AUD', '0.00000', '0.00000', '0.0'),
+    ('GBP/CAD', '0.00000', '0.00000', '0.0'),
+    ('GBP/CHF', '0.00000', '0.00000', '0.0'),
+    ('GBP/JPY', '0.000', '0.000', '0.0'),
+    ('GBP/NZD', '0.00000', '0.00000', '0.0'),
+    ('GBP/USD', '0.00000', '0.00000', '0.0'),
+    ('NZD/CAD', '0.00000', '0.00000', '0.0'),
+    ('NZD/CHF', '0.00000', '0.00000', '0.0'),
+    ('NZD/JPY', '0.000', '0.000', '0.0'),
+    ('NZD/USD', '0.00000', '0.00000', '0.0'),
+    ('USD/CAD', '0.00000', '0.00000', '0.0'),
+    ('USD/CHF', '0.00000', '0.00000', '0.0'),
+    ('USD/JPY', '0.000', '0.000', '0.0'),
 ]
 
+
 class Test(Toplevel):
-    def __init__(self, parent, title = None):
+    def __init__(self, parent, title=None):
         Toplevel.__init__(self, parent)
         self.transient(parent)
 
@@ -69,8 +72,8 @@ class Test(Toplevel):
             self.initial_focus = self
 
         self.protocol("WM_DELETE_WINDOW", self.cancel)
-        self.geometry("+%d+%d" % (parent.winfo_rootx()+50,
-                                  parent.winfo_rooty()+50))
+        self.geometry("+%d+%d" % (parent.winfo_rootx() + 50,
+                                  parent.winfo_rooty() + 50))
         self.initial_focus.focus_set()
         self.wait_window(self)
 
@@ -99,7 +102,7 @@ class Test(Toplevel):
     def ok(self, event=None):
 
         if not self.validate():
-            self.initial_focus.focus_set() # put focus back
+            self.initial_focus.focus_set()  # put focus back
             return
         self.withdraw()
         self.update_idletasks()
@@ -115,13 +118,14 @@ class Test(Toplevel):
     # command hooks
 
     def validate(self):
-        return 1 # override
+        return 1  # override
 
     def apply(self):
-        pass # override
+        pass  # override
+
 
 class Offer(object):
-    def __init__(self, instrument = None, bid = 0.0, ask = 0.0, volume = 0, digits = 5):
+    def __init__(self, instrument=None, bid=0.0, ask=0.0, volume=0, digits=5):
         self._instrument = instrument
         self._bid = bid
         self._ask = ask
@@ -129,8 +133,11 @@ class Offer(object):
         self._digits = digits
 
     def __str__(self):
-        return "{ins}, bid:{bid:.{dec}f}, ask:{ask:.{dec}f}, volume:{vol}, digits:{dec}".format(ins=self._instrument, bid=self._bid, ask=self._ask,
-                                                                                               vol=self._volume, dec=self._digits)
+        return "{ins}, bid:{bid:.{dec}f}, ask:{ask:.{dec}f}, volume:{vol}, digits:{dec}".format(ins=self._instrument,
+                                                                                                bid=self._bid,
+                                                                                                ask=self._ask,
+                                                                                                vol=self._volume,
+                                                                                                dec=self._digits)
 
     @property
     def instrument(self):
@@ -164,10 +171,10 @@ class Offer(object):
     def digits(self, value):
         self._digits = value
 
-class MultiColumnListBox(Frame):
 
+class MultiColumnListBox(Frame):
     def __init__(self, parent):
-        Frame.__init__(self, parent)           
+        Frame.__init__(self, parent)
         self.parent = parent
         self.tree = None
         self._setup_widgets()
@@ -197,24 +204,25 @@ class MultiColumnListBox(Frame):
             # adjust column's width if necessary to fit each value
             for ix, val in enumerate(item):
                 col_w = tkFont.Font().measure(val)
-                if self.tree.column(symbols_header[ix],width=None) < col_w:
+                if self.tree.column(symbols_header[ix], width=None) < col_w:
                     self.tree.column(symbols_header[ix], width=col_w)
 
-    def updateValues(self, offer):        
-        #self.tree.item(symbol, values = [symbol, bid, ask])
-        if self.tree.exists(offer.instrument):            
-            #self.tree.focus(offer.instrument)
-            #self.tree.selection_set(offer.instrument)
-            self.tree.item(offer.instrument, values = [
-                offer.instrument, 
-                "{bid:.{dec}f}".format(bid=offer.bid, dec=offer.digits), 
+    def updateValues(self, offer):
+        # self.tree.item(symbol, values = [symbol, bid, ask])
+        if self.tree.exists(offer.instrument):
+            # self.tree.focus(offer.instrument)
+            # self.tree.selection_set(offer.instrument)
+            self.tree.item(offer.instrument, values=[
+                offer.instrument,
+                "{bid:.{dec}f}".format(bid=offer.bid, dec=offer.digits),
                 "{ask:.{dec}f}".format(ask=offer.ask, dec=offer.digits),
-                "{spread:.{dec}f}".format(spread=(offer.ask - offer.bid) * pow(10, offer.digits-1), dec=1),
+                "{spread:.{dec}f}".format(spread=(offer.ask - offer.bid) * pow(10, offer.digits - 1), dec=1),
             ])
-            #time.sleep(0.05)
-            #self.tree.selection_remove(offer.instrument)
-        #else:
-        #    print (offer.instrument + " does.not exist")
+            # time.sleep(0.05)
+            # self.tree.selection_remove(offer.instrument)
+            # else:
+            #    print (offer.instrument + " does.not exist")
+
 
 def sortby(tree, col, descending):
     """
@@ -222,9 +230,9 @@ def sortby(tree, col, descending):
     grab values to sort
     """
     data = [(tree.set(child, col), child) \
-        for child in tree.get_children('')]
+            for child in tree.get_children('')]
     # if the data to be sorted is numeric change to float
-    #data = change_numeric(data)
+    # data = change_numeric(data)
     # now sort the data in place
     data.sort(reverse=descending)
     for ix, item in enumerate(data):
@@ -232,24 +240,24 @@ def sortby(tree, col, descending):
     # switch the heading so it will sort in the opposite direction
     tree.heading(col, command=lambda col=col: sortby(tree, col, int(not descending)))
 
+
 class MarketWatcher(ttk.Frame):
-  
     def __init__(self, parent):
-        ttk.Frame.__init__(self, parent)           
+        ttk.Frame.__init__(self, parent)
         self.lock = threading.Lock()
         self.symbolList = None
         self.session = None
         self.tableManager = None
         self.tableListener = None
-        self.status = None  
-        self.account = None      
+        self.status = None
+        self.account = None
         self.offers = None
         self.parent = parent
         self.queue = Queue.Queue()
         self.initUI()
-        
+
     def initUI(self):
-      
+
         self.parent.title(window_caption)
         self.style = ttk.Style()
         self.style.theme_use("default")
@@ -257,41 +265,41 @@ class MarketWatcher(ttk.Frame):
         self.frame = Frame(self, relief=RAISED, borderwidth=1)
         self.symbolList = MultiColumnListBox(self.frame)
         self.symbolList.pack()
-        self.frame.pack(side=TOP,fill=BOTH, expand=1)
+        self.frame.pack(side=TOP, fill=BOTH, expand=1)
         self.logger = Text(self.frame, height=10)
         self.logger.grid()
-        self.scroller = Scrollbar(self.frame,command=self.logger.yview)
+        self.scroller = Scrollbar(self.frame, command=self.logger.yview)
         self.logger.config(yscrollcommand=self.scroller.set)
         self.scroller.pack(side="right", fill="y", expand=False)
         self.logger.pack(fill=BOTH, expand=1)
         self.pack(fill=BOTH, expand=1)
-        
-        closeButton = ttk.Button(self, text="Exit", command = lambda: self.close_window(), underline=0)        
+
+        closeButton = ttk.Button(self, text="Exit", command=lambda: self.close_window(), underline=1)
         closeButton.pack(side=RIGHT, padx=5, pady=5)
-        self.parent.bind('<Alt_L><e>', lambda e:closeButton.invoke())
-        logoutButton = ttk.Button(self, text="Logout", command = lambda: self.logout(), underline=3)
+        self.parent.bind('<Alt_L><e>', lambda e: closeButton.invoke())
+        logoutButton = ttk.Button(self, text="Logout", command=lambda: self.logout(), underline=3)
         logoutButton.pack(side=RIGHT)
-        self.parent.bind('<Alt_L><o>', lambda e:logoutButton.invoke())
-        loginButton = ttk.Button(self, text="Login", command = lambda: self.login(),underline=3)
+        self.parent.bind('<Alt_L><o>', lambda e: logoutButton.invoke())
+        loginButton = ttk.Button(self, text="Login", command=lambda: self.login(), underline=3)
         loginButton.pack(side=RIGHT)
-        self.parent.bind('<Alt_L><i>', lambda e:loginButton.invoke())
-        openButton = ttk.Button(self, text="Open", command = lambda: self.openPosition())
+        self.parent.bind('<Alt_L><i>', lambda e: loginButton.invoke())
+        openButton = ttk.Button(self, text="Open", command=lambda: self.openPosition())
         openButton.pack(side=LEFT)
-        closeButton = ttk.Button(self, text="Close", command = lambda: self.closePosition())
+        closeButton = ttk.Button(self, text="Close", command=lambda: self.closePosition())
         closeButton.pack(side=LEFT)
-         
+
         menubar = Menu(self)
         filemenu = Menu(menubar, tearoff=0)
         filemenu.add_command(label="Login", command=self.login, underline=0)
-        filemenu.add_command(label="Logout", command=self.logout, accelerator='Ctrl-O')
+        filemenu.add_command(label="Logout", command=self.logout, accelerator='Ctrl-O', underline=1)
         filemenu.add_separator()
         filemenu.add_command(label="Orders", command=self.getOrders)
         filemenu.add_command(label="Trades", command=self.getTrades)
         filemenu.add_separator()
-        filemenu.add_command(label="Exit", command=self.close_window, accelerator='Ctrl-X', underline=1)
+        filemenu.add_command(label="Exit", command=self.close_window, accelerator='Ctrl-X', underline=0)
         menubar.add_cascade(label="File", menu=filemenu)
         self.master.config(menu=menubar)
-        #self.master.bind_all("<Control-x>", self.close_window)
+        self.master.bind_all("<Control-x>", self.close_window)
         self.parent.bind("<Control-l>", self.login)
 
     def write(self, str):
@@ -301,9 +309,9 @@ class MarketWatcher(ttk.Frame):
         if self.status and self.status.isConnected():
             tkMessageBox.showwarning(window_caption, "ForexConnect client Connected! Disconnect first")
         else:
-            self.parent.destroy() 
-    
-    def login(self):            
+            self.parent.destroy()
+
+    def login(self):
         if self.status and self.status.isConnected():
             tkMessageBox.showwarning(window_caption, "ForexConnect client is already Connected! Disconnect first")
         else:
@@ -333,9 +341,8 @@ class MarketWatcher(ttk.Frame):
         accountsResponseReader = readerFactory.createAccountsTableReader(response)
         for i in range(accountsResponseReader.size()):
             account = accountsResponseReader.getRow(i)
-            if not account.getMaintenanceFlag():        
+            if not account.getMaintenanceFlag():
                 self.log("Current account balance:" + str(account.getBalance()))
-
 
     def getOrders(self):
         orders = self.tableManager.getTable(fx.O2GTable.Orders)
@@ -359,7 +366,9 @@ class MarketWatcher(ttk.Frame):
                 offer = self.offers.findRow(str(trade.getOfferID()))
                 if offer:
                     offer.__class__ = fx.IO2GOfferRow
-            self.log("%s %s %d %f %f %f" % (trade.getBuySell(), offer.getInstrument(), trade.getAmount() ,trade.getOpenRate(), trade.getLimit(), trade.getStop()))
+            self.log("%s %s %d %f %f %f" % (
+            trade.getBuySell(), offer.getInstrument(), trade.getAmount(), trade.getOpenRate(), trade.getLimit(),
+            trade.getStop()))
 
     def openPosition(self):
         openDialog = OpenPosition(self.parent)
@@ -374,7 +383,7 @@ class MarketWatcher(ttk.Frame):
     def closePosition(self):
         tkMessageBox.showinfo(window_caption, "TBD: Close Position")
 
-    def logout(self):        
+    def logout(self):
         if self.tableManager is not None and self.tableListener is not None:
             self.tableListener.unsubscribeEvents(self.tableManager)
         if self.tableListener is not None:
@@ -388,7 +397,7 @@ class MarketWatcher(ttk.Frame):
             self.session.unsubscribeSessionStatus(self.status)
             print "ForexConnect client Disconnected"
 
-    def createTableListener(self):        
+    def createTableListener(self):
         self.tableListener = TableListener()
         self.tableManager = self.session.getTableManager()
         if self.tableManager:
@@ -398,8 +407,8 @@ class MarketWatcher(ttk.Frame):
             while managerStatus == fx.O2GTableManagerStatus.TablesLoading:
                 time.sleep(0.050)
                 i += 1
-                if not i % 500 : print self.tableManager.getStatus()
-                managerStatus = self.tableManager.getStatus()    
+                if not i % 500: print self.tableManager.getStatus()
+                managerStatus = self.tableManager.getStatus()
 
             if managerStatus == fx.O2GTableManagerStatus.TablesLoadFailed:
                 self.log("Cannot refresh all tables of table manager")
@@ -409,24 +418,27 @@ class MarketWatcher(ttk.Frame):
             self.initOffers(self.offers)
             self.tableListener.onOffersChanged += self.onOffersChanged
             self.periodicCall()
-            
+
     def initOffers(self, offersTable):
         offersTable.__class__ = fx.IO2GOffersTable
         iterator = fx.IO2GTableIterator()
         offerRow = offersTable.getNextRow(iterator)
         while offerRow:
-            self.symbolList.updateValues(Offer(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk(), offerRow.getVolume(), offerRow.getDigits()))
+            self.symbolList.updateValues(
+                Offer(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk(), offerRow.getVolume(),
+                      offerRow.getDigits()))
             offerRow.release()
             offerRow = offersTable.getNextRow(iterator)
-            
-    def onOffersChanged(self, offerRow):        
-        self.queue.put(Offer(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk(), offerRow.getVolume(), offerRow.getDigits()))
+
+    def onOffersChanged(self, offerRow):
+        self.queue.put(Offer(offerRow.getInstrument(), offerRow.getBid(), offerRow.getAsk(), offerRow.getVolume(),
+                             offerRow.getDigits()))
 
     def processIncoming(self):
         while self.queue.qsize():
             try:
                 offer = self.queue.get(0)
-                #print offer
+                # print offer
                 self.symbolList.updateValues(offer)
             except Queue.Empty:
                 pass
@@ -445,7 +457,6 @@ class MarketWatcher(ttk.Frame):
 
 
 def main():
-  
     root = Tk()
     root.geometry("600x450+200+200")
     app = MarketWatcher(root)
@@ -454,7 +465,8 @@ def main():
     root.bind('<Escape>', lambda e: root.iconify)
     root.bind("<Control-x>", 'exit')
     root.bind("<Control-q>", 'exit')
-    root.mainloop()      
+    root.mainloop()
+
 
 if __name__ == '__main__':
-    main()  
+    main()
