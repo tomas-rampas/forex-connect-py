@@ -35,8 +35,7 @@ def getAccount(session):
             print account.getBalance()
 
 def onDataChanged(data):
-    #print data.getInstrument()
-    print data.getOfferId()
+    print data.getInstrument()    
 
 def checkSubscriptions(session, tblManager):    
     offers = tblManager.getTable(fx.O2GTable.Offers)
