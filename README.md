@@ -16,4 +16,4 @@ Python version 2.7 has been chosen as base platform to develop for. The reason i
 
 Precompiled python module
 
-Because it can be difficult to set up dev. environment correctly hence for the time being I've added precompiled Windows 64bit pyd in module subfolder (see /module/x64 subfolder). Place it under you local Python's DLL subfolder. You can use Python projects (i.e. fx.console and fx.market.watcher) as guidance how to use it.
+Because it can be difficult to set up dev. environment correctly hence for the time being I've added precompiled Windows 64bit pyd in module subfolder (see /module/x64 subfolder). Place it under your local Python's DLL subfolder. You can use Python projects (i.e. fx.console and fx.market.watcher) as guidance how to use it.
