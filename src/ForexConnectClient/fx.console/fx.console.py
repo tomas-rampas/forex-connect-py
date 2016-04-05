@@ -18,7 +18,7 @@ def stop():
 def input_loop():
     line = ''
     while (line not in ('stop', '0')):
-        line = raw_input('Prompt ("stop" or "0" to quit): ')
+        line = raw_input('\nPrompt ("stop" or "0" to quit):\n\n')
         print 'Dispatch %s' % line
     stop()
 
@@ -34,8 +34,10 @@ def getAccount(session):
         if not account.getMaintenanceFlag():
             print account.getBalance()
 
-def onDataChanged(data):
-    print data.getInstrument()    
+# prints current bid/ask changes aka offers
+def onDataChanged(offer):
+    print "{offerId} {instrument} {bid:.{dec}f}/{ask:.{dec}f}".format(offerId=offer.getOfferID(),\
+        instrument=offer.getInstrument(), bid=offer.getBid(), ask=offer.getAsk(), dec=offer.getDigits())    
 
 def checkSubscriptions(session, tblManager):    
     offers = tblManager.getTable(fx.O2GTable.Offers)
