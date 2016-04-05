@@ -35,8 +35,8 @@ def getAccount(session):
             print account.getBalance()
 
 def onDataChanged(data):
-    print data.getInstrument()
-
+    #print data.getInstrument()
+    print data.getOfferId()
 
 def checkSubscriptions(session, tblManager):    
     offers = tblManager.getTable(fx.O2GTable.Offers)
@@ -72,6 +72,23 @@ def unsubscribeOffer(session, offerId):
     request = factory.createOrderRequest(valueMap)
     session.sendRequest(request)
 
+def openTrade(session, offerId, accountId, orderRate, amount = 10000):
+    valueMap = session.getRequestFactory().createValueMap()
+    valueMap.setString(fx.O2GRequestParamsEnum.Command, "CreateOrder"); #Constants.Commands.CreateOrder
+    valueMap.setString(fx.O2GRequestParamsEnum.OrderType, "TrueMarketOpen"); #Constants.Orders.TrueMarketOpen
+    valueMap.setString(fx.O2GRequestParamsEnum.AccountID, accountId);                     # The identifier of the account the order should be placed for.
+    valueMap.setString(fx.O2GRequestParamsEnum.OfferID, offerId);                         # The identifier of the instrument the order should be placed for.
+    valueMap.setString(fx.O2GRequestParamsEnum.BuySell, buySell);                         # The order direction (Constants.Buy for buy, Constants.Sell for sell)
+    valueMap.setDouble(fx.O2GRequestParamsEnum.Rate, orderRate);                          # The rate at which the order must be filled (below current rate for Buy, above current rate for Sell)
+    valueMap.setInt(fx.O2GRequestParamsEnum.Amount, amount);                              # The quantity of the instrument to be bought or sold.
+    valueMap.setString(fx.O2GRequestParamsEnum.CustomID, "custom_trade_id");                        # The custom identifier of the order.
+    #valueMap.setDouble(fx.O2GRequestParamsEnum.RateStop, stopRate);
+    #valueMap.setDouble(fx.O2GRequestParamsEnum.RateLimit, limitRate);
+    factory = session.getRequestFactory()
+    request = factory.createOrderRequest(valueMap)
+    session.sendRequest(request)
+
+
 session = fx.CO2GTransport.createSession()
 session.useTableManager(fx.O2GTableManagerMode.Yes, None)
 status = SessionStatusListener(session)
@@ -89,6 +106,8 @@ if  status.waitEvents() and status.isConnected():
         account = getAccount(session)
 else:
     stop()
+
+
 
 
 tableListener = TableListener()
