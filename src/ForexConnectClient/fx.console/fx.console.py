@@ -34,10 +34,22 @@ def getAccount(session):
         if not account.getMaintenanceFlag():
             print account.getBalance()
 
+def convert_offer_time(val):
+    import datetime as dt
+    dateoffset = 693594
+    date = dt.datetime.fromordinal(dateoffset + int(val))
+    hours = (val - int(val))*24
+    mins = (hours - int(hours))*60
+    secs = (mins - int(mins))*60
+    msecs = (secs - int(secs))*100
+    return dt.datetime(date.year, date.month, date.day, int(hours), int(mins), int(secs), int(msecs))
+
 # prints current bid/ask changes aka offers
 def onDataChanged(offer):
-    print "{offerId} {instrument} {bid:.{dec}f}/{ask:.{dec}f}".format(offerId=offer.getOfferID(),\
-        instrument=offer.getInstrument(), bid=offer.getBid(), ask=offer.getAsk(), dec=offer.getDigits())    
+    offer_date = convert_offer_time(offer.getTime())
+    print "{offerDate} {instrument} {bid:.{dec}f}/{ask:.{dec}f}".format(
+        offerDate=offer_date.strftime('%Y-%m-%d %H:%M:%S.%f'),\
+        instrument=offer.getInstrument(), bid=offer.getBid(), ask=offer.getAsk(), dec=offer.getDigits())
 
 def checkSubscriptions(session, tblManager):    
     offers = tblManager.getTable(fx.O2GTable.Offers)
